@@ -1,23 +1,93 @@
+<div align="center">
+
+<img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?size=180" width="180" alt="suifei" title="suifei">
+
+<sub>☝️ <code>suifei</code>，由 <code>hash-avatar.suifei.workers.dev/v1/suifei.svg</code> 实时生成</sub>
+
 # hash-avatar
+
+把名称或 email 经 SHA-256 映射成确定性的 SVG 头像。<br>零依赖 · 同步执行 · 浏览器和 Node 通用 · 每个头像约 0.1ms、约 6KB
 
 [![npm](https://img.shields.io/npm/v/@suifei/hash-avatar?color=2f6feb&label=npm)](https://www.npmjs.com/package/@suifei/hash-avatar)
 [![CI](https://github.com/suifei/hash-avatar/actions/workflows/ci.yml/badge.svg)](https://github.com/suifei/hash-avatar/actions/workflows/ci.yml)
+[![size](https://img.shields.io/badge/deps-0-brightgreen)](package.json)
 [![license](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
+
+<a href="https://suifei.github.io/hash-avatar/">在线演示</a> · <a href="#1-图片-url无需代码">作为图片嵌入</a> · <a href="#3-npm">npm</a> · <a href="#版本契约">版本契约</a>
 
 [English](README.md) | 简体中文
 
-把名称或 email 经 SHA-256 映射成确定性的 SVG 头像。零依赖、同步执行，浏览器和 Node 都能用。每个头像约 0.1ms、约 6KB。
+</div>
 
-<p>
-<img src="https://hash-avatar.suifei.workers.dev/v1/alice.svg?gender=female&size=96" width="96" alt="">
-<img src="https://hash-avatar.suifei.workers.dev/v1/bob.svg?gender=male&age=middle&race=black&size=96" width="96" alt="">
-<img src="https://hash-avatar.suifei.workers.dev/v1/carol.svg?gender=female&age=old&race=asian&size=96" width="96" alt="">
-<img src="https://hash-avatar.suifei.workers.dev/v1/dave.svg?gender=male&age=teen&race=brown&size=96" width="96" alt="">
-<img src="https://hash-avatar.suifei.workers.dev/v1/eve.svg?age=baby&size=96" width="96" alt="">
-<img src="https://hash-avatar.suifei.workers.dev/v1/octocat.svg?gender=male&race=white&size=96" width="96" alt="">
+## 同一身份，全部维度
+
+性别、年龄、人种是**渲染参数，不参与哈希**，所以同一个人换了设置依然认得出来：外圈相同，配色相同，特征也相同。下面是 `suifei` 在 3 种性别 × 5 个年龄段下的全部 15 种组合：
+
+<table align="center">
+<tr><th></th><th>婴儿</th><th>少年</th><th>青年</th><th>中年</th><th>老年</th></tr>
+<tr><th>男</th><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=male&age=baby&size=96" width="96" alt="suifei · male · baby" title="suifei · male · baby"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=male&age=teen&size=96" width="96" alt="suifei · male · teen" title="suifei · male · teen"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=male&age=youth&size=96" width="96" alt="suifei · male · youth" title="suifei · male · youth"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=male&age=middle&size=96" width="96" alt="suifei · male · middle" title="suifei · male · middle"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=male&age=old&size=96" width="96" alt="suifei · male · old" title="suifei · male · old"></td></tr>
+<tr><th>女</th><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=female&age=baby&size=96" width="96" alt="suifei · female · baby" title="suifei · female · baby"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=female&age=teen&size=96" width="96" alt="suifei · female · teen" title="suifei · female · teen"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=female&age=youth&size=96" width="96" alt="suifei · female · youth" title="suifei · female · youth"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=female&age=middle&size=96" width="96" alt="suifei · female · middle" title="suifei · female · middle"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=female&age=old&size=96" width="96" alt="suifei · female · old" title="suifei · female · old"></td></tr>
+<tr><th>中性</th><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=neutral&age=baby&size=96" width="96" alt="suifei · neutral · baby" title="suifei · neutral · baby"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=neutral&age=teen&size=96" width="96" alt="suifei · neutral · teen" title="suifei · neutral · teen"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=neutral&age=youth&size=96" width="96" alt="suifei · neutral · youth" title="suifei · neutral · youth"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=neutral&age=middle&size=96" width="96" alt="suifei · neutral · middle" title="suifei · neutral · middle"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=neutral&age=old&size=96" width="96" alt="suifei · neutral · old" title="suifei · neutral · old"></td></tr>
+</table>
+
+再看 `race` 的各个取值（`auto` 会从全部调色板中取值）。人种只影响肤色、发色、瞳色的取值范围和发型质地的权重，不改变五官几何。
+
+<table align="center">
+<tr><th><code>asian</code></th><th><code>white</code></th><th><code>black</code></th><th><code>brown</code></th><th><code>auto</code></th></tr>
+<tr><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?race=asian&size=96" width="96" alt="suifei · asian" title="suifei · asian"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?race=white&size=96" width="96" alt="suifei · white" title="suifei · white"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?race=black&size=96" width="96" alt="suifei · black" title="suifei · black"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?race=brown&size=96" width="96" alt="suifei · brown" title="suifei · brown"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?race=auto&size=96" width="96" alt="suifei · auto" title="suifei · auto"></td></tr>
+</table>
+
+## 外圈指纹
+
+外圈逐位画出哈希的前 **128 位**，从 12 点钟方向起顺时针。输入不同，外圈就不同，碰撞概率低于 UUIDv4。小于约 96px 时刻度会糊在一起，所以小尺寸下可以用 `fp=0` 关掉外圈。
+
+<table align="center"><tr>
+<td align="center" valign="bottom"><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?size=192" width="192" alt="suifei" title="suifei"><br><sub>开启外圈，192px</sub></td>
+<td align="center" valign="bottom"><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?fp=0&size=192" width="192" alt="suifei" title="suifei"><br><sub>关闭外圈（<code>fp=0</code>）</sub></td>
+<td align="center" valign="bottom"><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?size=96" width="96" alt="suifei" title="suifei"><br><sub>96px</sub></td>
+<td align="center" valign="bottom"><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?size=48" width="48" alt="suifei" title="suifei"><br><sub>48px</sub></td>
+<td align="center" valign="bottom"><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?fp=0&size=32" width="32" alt="suifei" title="suifei"><br><sub>32px</sub></td>
+</tr></table>
+
+## 画廊
+
+32 个不同的名字，轮换覆盖所有性别、年龄和人种。每张图都只是一个指向线上服务的普通 `<img>`。
+
+<p align="center">
+<img src="https://hash-avatar.suifei.workers.dev/v1/alice.svg?gender=male&age=baby&race=asian&size=96" width="96" alt="alice · male · baby · asian" title="alice · male · baby · asian">
+<img src="https://hash-avatar.suifei.workers.dev/v1/bob.svg?gender=female&age=youth&race=white&size=96" width="96" alt="bob · female · youth · white" title="bob · female · youth · white">
+<img src="https://hash-avatar.suifei.workers.dev/v1/carol.svg?gender=neutral&age=old&race=black&size=96" width="96" alt="carol · neutral · old · black" title="carol · neutral · old · black">
+<img src="https://hash-avatar.suifei.workers.dev/v1/dave.svg?gender=male&age=teen&race=brown&size=96" width="96" alt="dave · male · teen · brown" title="dave · male · teen · brown">
+<img src="https://hash-avatar.suifei.workers.dev/v1/eve.svg?gender=female&age=old&race=auto&size=96" width="96" alt="eve · female · old · auto" title="eve · female · old · auto">
+<img src="https://hash-avatar.suifei.workers.dev/v1/frank.svg?gender=neutral&age=teen&race=asian&size=96" width="96" alt="frank · neutral · teen · asian" title="frank · neutral · teen · asian">
+<img src="https://hash-avatar.suifei.workers.dev/v1/grace.svg?gender=male&age=middle&race=white&size=96" width="96" alt="grace · male · middle · white" title="grace · male · middle · white">
+<img src="https://hash-avatar.suifei.workers.dev/v1/heidi.svg?gender=female&age=baby&race=black&size=96" width="96" alt="heidi · female · baby · black" title="heidi · female · baby · black">
+<img src="https://hash-avatar.suifei.workers.dev/v1/ivan.svg?gender=neutral&age=middle&race=auto&size=96" width="96" alt="ivan · neutral · middle · auto" title="ivan · neutral · middle · auto">
+<img src="https://hash-avatar.suifei.workers.dev/v1/judy.svg?gender=male&age=baby&race=asian&size=96" width="96" alt="judy · male · baby · asian" title="judy · male · baby · asian">
+<img src="https://hash-avatar.suifei.workers.dev/v1/mallory.svg?gender=female&age=youth&race=white&size=96" width="96" alt="mallory · female · youth · white" title="mallory · female · youth · white">
+<img src="https://hash-avatar.suifei.workers.dev/v1/niaj.svg?gender=neutral&age=old&race=black&size=96" width="96" alt="niaj · neutral · old · black" title="niaj · neutral · old · black">
+<img src="https://hash-avatar.suifei.workers.dev/v1/olivia.svg?gender=male&age=youth&race=brown&size=96" width="96" alt="olivia · male · youth · brown" title="olivia · male · youth · brown">
+<img src="https://hash-avatar.suifei.workers.dev/v1/peggy.svg?gender=female&age=old&race=auto&size=96" width="96" alt="peggy · female · old · auto" title="peggy · female · old · auto">
+<img src="https://hash-avatar.suifei.workers.dev/v1/rupert.svg?gender=neutral&age=teen&race=asian&size=96" width="96" alt="rupert · neutral · teen · asian" title="rupert · neutral · teen · asian">
+<img src="https://hash-avatar.suifei.workers.dev/v1/sybil.svg?gender=male&age=middle&race=white&size=96" width="96" alt="sybil · male · middle · white" title="sybil · male · middle · white">
+<img src="https://hash-avatar.suifei.workers.dev/v1/trent.svg?gender=female&age=teen&race=brown&size=96" width="96" alt="trent · female · teen · brown" title="trent · female · teen · brown">
+<img src="https://hash-avatar.suifei.workers.dev/v1/victor.svg?gender=neutral&age=middle&race=auto&size=96" width="96" alt="victor · neutral · middle · auto" title="victor · neutral · middle · auto">
+<img src="https://hash-avatar.suifei.workers.dev/v1/walter.svg?gender=male&age=baby&race=asian&size=96" width="96" alt="walter · male · baby · asian" title="walter · male · baby · asian">
+<img src="https://hash-avatar.suifei.workers.dev/v1/xiao.ming.svg?gender=female&age=youth&race=white&size=96" width="96" alt="xiao.ming · female · youth · white" title="xiao.ming · female · youth · white">
+<img src="https://hash-avatar.suifei.workers.dev/v1/%E6%9D%8E%E4%BC%9F.svg?gender=neutral&age=baby&race=black&size=96" width="96" alt="李伟 · neutral · baby · black" title="李伟 · neutral · baby · black">
+<img src="https://hash-avatar.suifei.workers.dev/v1/%E7%8E%8B%E8%8A%B3.svg?gender=male&age=youth&race=brown&size=96" width="96" alt="王芳 · male · youth · brown" title="王芳 · male · youth · brown">
+<img src="https://hash-avatar.suifei.workers.dev/v1/%E5%BC%B5%E5%81%89.svg?gender=female&age=old&race=auto&size=96" width="96" alt="張偉 · female · old · auto" title="張偉 · female · old · auto">
+<img src="https://hash-avatar.suifei.workers.dev/v1/yuki.svg?gender=neutral&age=teen&race=asian&size=96" width="96" alt="yuki · neutral · teen · asian" title="yuki · neutral · teen · asian">
+<img src="https://hash-avatar.suifei.workers.dev/v1/amara.svg?gender=male&age=old&race=black&size=96" width="96" alt="amara · male · old · black" title="amara · male · old · black">
+<img src="https://hash-avatar.suifei.workers.dev/v1/kwame.svg?gender=female&age=teen&race=brown&size=96" width="96" alt="kwame · female · teen · brown" title="kwame · female · teen · brown">
+<img src="https://hash-avatar.suifei.workers.dev/v1/priya.svg?gender=neutral&age=middle&race=auto&size=96" width="96" alt="priya · neutral · middle · auto" title="priya · neutral · middle · auto">
+<img src="https://hash-avatar.suifei.workers.dev/v1/arjun.svg?gender=male&age=baby&race=asian&size=96" width="96" alt="arjun · male · baby · asian" title="arjun · male · baby · asian">
+<img src="https://hash-avatar.suifei.workers.dev/v1/sofia.svg?gender=female&age=middle&race=white&size=96" width="96" alt="sofia · female · middle · white" title="sofia · female · middle · white">
+<img src="https://hash-avatar.suifei.workers.dev/v1/mateo.svg?gender=neutral&age=baby&race=black&size=96" width="96" alt="mateo · neutral · baby · black" title="mateo · neutral · baby · black">
+<img src="https://hash-avatar.suifei.workers.dev/v1/noah.svg?gender=male&age=youth&race=brown&size=96" width="96" alt="noah · male · youth · brown" title="noah · male · youth · brown">
+<img src="https://hash-avatar.suifei.workers.dev/v1/zoe.svg?gender=female&age=old&race=auto&size=96" width="96" alt="zoe · female · old · auto" title="zoe · female · old · auto">
 </p>
-
-**在线演示：** https://suifei.github.io/hash-avatar/
+## 用法
 
 有三种用法：
 
@@ -27,7 +97,7 @@
 | [CDN 脚本](#2-浏览器cdn) | 在网页里渲染 | 一个 `<script>` 标签 |
 | [npm 包](#3-npm) | Node、打包工具、服务端渲染 | `npm i @suifei/hash-avatar` |
 
-## 1. 图片 URL（无需代码）
+### 1. 图片 URL（无需代码）
 
 用法和 shields.io 徽章一样，凡是能填图片 URL 的地方都能用：
 
@@ -51,7 +121,7 @@
 
 这个服务是一个很小的 Cloudflare Worker（[`worker/index.js`](worker/index.js)）。如果要自建，运行 `npx wrangler deploy`。
 
-## 2. 浏览器（CDN）
+### 2. 浏览器（CDN）
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@suifei/hash-avatar@1/src/hash-avatar.js"></script>
@@ -64,7 +134,7 @@
 
 也可以用 unpkg：`https://unpkg.com/@suifei/hash-avatar@1/src/hash-avatar.js`。脚本会定义全局的 `window.HashAvatar`。
 
-## 3. npm
+### 3. npm
 
 ```sh
 npm i @suifei/hash-avatar

@@ -1,23 +1,93 @@
+<div align="center">
+
+<img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?size=180" width="180" alt="suifei" title="suifei">
+
+<sub>☝️ <code>suifei</code>, generated live from <code>hash-avatar.suifei.workers.dev/v1/suifei.svg</code></sub>
+
 # hash-avatar
+
+Deterministic SVG avatars from a name or email, via SHA-256.<br>Zero dependencies · synchronous · browser & Node · ~0.1 ms / ~6 KB per avatar.
 
 [![npm](https://img.shields.io/npm/v/@suifei/hash-avatar?color=2f6feb&label=npm)](https://www.npmjs.com/package/@suifei/hash-avatar)
 [![CI](https://github.com/suifei/hash-avatar/actions/workflows/ci.yml/badge.svg)](https://github.com/suifei/hash-avatar/actions/workflows/ci.yml)
+[![size](https://img.shields.io/badge/deps-0-brightgreen)](package.json)
 [![license](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
+
+<a href="https://suifei.github.io/hash-avatar/">Live demo</a> · <a href="#1-image-url-no-code">Embed as an image</a> · <a href="#3-npm">npm</a> · <a href="#versioning-contract">Contract</a>
 
 English | [简体中文](README.zh-CN.md)
 
-Deterministic SVG avatars from a name or email, via SHA-256. Zero dependencies, synchronous, runs in browsers and Node. About 0.1 ms and 6 KB per avatar.
+</div>
 
-<p>
-<img src="https://hash-avatar.suifei.workers.dev/v1/alice.svg?gender=female&size=96" width="96" alt="">
-<img src="https://hash-avatar.suifei.workers.dev/v1/bob.svg?gender=male&age=middle&race=black&size=96" width="96" alt="">
-<img src="https://hash-avatar.suifei.workers.dev/v1/carol.svg?gender=female&age=old&race=asian&size=96" width="96" alt="">
-<img src="https://hash-avatar.suifei.workers.dev/v1/dave.svg?gender=male&age=teen&race=brown&size=96" width="96" alt="">
-<img src="https://hash-avatar.suifei.workers.dev/v1/eve.svg?age=baby&size=96" width="96" alt="">
-<img src="https://hash-avatar.suifei.workers.dev/v1/octocat.svg?gender=male&race=white&size=96" width="96" alt="">
+## One identity, every dimension
+
+Gender, age and race are **rendering parameters, not hash input**, so the same person stays recognisable: same ring, same colours, same traits. Here is `suifei` in all 15 gender × age combinations:
+
+<table align="center">
+<tr><th></th><th>baby</th><th>teen</th><th>youth</th><th>middle</th><th>old</th></tr>
+<tr><th>male</th><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=male&age=baby&size=96" width="96" alt="suifei · male · baby" title="suifei · male · baby"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=male&age=teen&size=96" width="96" alt="suifei · male · teen" title="suifei · male · teen"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=male&age=youth&size=96" width="96" alt="suifei · male · youth" title="suifei · male · youth"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=male&age=middle&size=96" width="96" alt="suifei · male · middle" title="suifei · male · middle"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=male&age=old&size=96" width="96" alt="suifei · male · old" title="suifei · male · old"></td></tr>
+<tr><th>female</th><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=female&age=baby&size=96" width="96" alt="suifei · female · baby" title="suifei · female · baby"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=female&age=teen&size=96" width="96" alt="suifei · female · teen" title="suifei · female · teen"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=female&age=youth&size=96" width="96" alt="suifei · female · youth" title="suifei · female · youth"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=female&age=middle&size=96" width="96" alt="suifei · female · middle" title="suifei · female · middle"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=female&age=old&size=96" width="96" alt="suifei · female · old" title="suifei · female · old"></td></tr>
+<tr><th>neutral</th><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=neutral&age=baby&size=96" width="96" alt="suifei · neutral · baby" title="suifei · neutral · baby"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=neutral&age=teen&size=96" width="96" alt="suifei · neutral · teen" title="suifei · neutral · teen"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=neutral&age=youth&size=96" width="96" alt="suifei · neutral · youth" title="suifei · neutral · youth"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=neutral&age=middle&size=96" width="96" alt="suifei · neutral · middle" title="suifei · neutral · middle"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=neutral&age=old&size=96" width="96" alt="suifei · neutral · old" title="suifei · neutral · old"></td></tr>
+</table>
+
+And across the `race` setting (`auto` draws from all palettes). Race only shifts colour ranges and hair-texture weights. It never changes facial geometry.
+
+<table align="center">
+<tr><th><code>asian</code></th><th><code>white</code></th><th><code>black</code></th><th><code>brown</code></th><th><code>auto</code></th></tr>
+<tr><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?race=asian&size=96" width="96" alt="suifei · asian" title="suifei · asian"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?race=white&size=96" width="96" alt="suifei · white" title="suifei · white"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?race=black&size=96" width="96" alt="suifei · black" title="suifei · black"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?race=brown&size=96" width="96" alt="suifei · brown" title="suifei · brown"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?race=auto&size=96" width="96" alt="suifei · auto" title="suifei · auto"></td></tr>
+</table>
+
+## The fingerprint ring
+
+The outer ring draws the first **128 bits** of the hash, one tick per bit, clockwise from 12 o'clock. Different input means a different ring, with collision odds below a UUIDv4. Below about 96 px the ticks blur together, so `fp=0` turns the ring off for small sizes.
+
+<table align="center"><tr>
+<td align="center" valign="bottom"><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?size=192" width="192" alt="suifei" title="suifei"><br><sub>ring on, 192 px</sub></td>
+<td align="center" valign="bottom"><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?fp=0&size=192" width="192" alt="suifei" title="suifei"><br><sub>ring off (<code>fp=0</code>)</sub></td>
+<td align="center" valign="bottom"><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?size=96" width="96" alt="suifei" title="suifei"><br><sub>96 px</sub></td>
+<td align="center" valign="bottom"><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?size=48" width="48" alt="suifei" title="suifei"><br><sub>48 px</sub></td>
+<td align="center" valign="bottom"><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?fp=0&size=32" width="32" alt="suifei" title="suifei"><br><sub>32 px</sub></td>
+</tr></table>
+
+## Gallery
+
+32 different names, rotating through every gender, age and race. Each image is a plain `<img>` pointing at the live service.
+
+<p align="center">
+<img src="https://hash-avatar.suifei.workers.dev/v1/alice.svg?gender=male&age=baby&race=asian&size=96" width="96" alt="alice · male · baby · asian" title="alice · male · baby · asian">
+<img src="https://hash-avatar.suifei.workers.dev/v1/bob.svg?gender=female&age=youth&race=white&size=96" width="96" alt="bob · female · youth · white" title="bob · female · youth · white">
+<img src="https://hash-avatar.suifei.workers.dev/v1/carol.svg?gender=neutral&age=old&race=black&size=96" width="96" alt="carol · neutral · old · black" title="carol · neutral · old · black">
+<img src="https://hash-avatar.suifei.workers.dev/v1/dave.svg?gender=male&age=teen&race=brown&size=96" width="96" alt="dave · male · teen · brown" title="dave · male · teen · brown">
+<img src="https://hash-avatar.suifei.workers.dev/v1/eve.svg?gender=female&age=old&race=auto&size=96" width="96" alt="eve · female · old · auto" title="eve · female · old · auto">
+<img src="https://hash-avatar.suifei.workers.dev/v1/frank.svg?gender=neutral&age=teen&race=asian&size=96" width="96" alt="frank · neutral · teen · asian" title="frank · neutral · teen · asian">
+<img src="https://hash-avatar.suifei.workers.dev/v1/grace.svg?gender=male&age=middle&race=white&size=96" width="96" alt="grace · male · middle · white" title="grace · male · middle · white">
+<img src="https://hash-avatar.suifei.workers.dev/v1/heidi.svg?gender=female&age=baby&race=black&size=96" width="96" alt="heidi · female · baby · black" title="heidi · female · baby · black">
+<img src="https://hash-avatar.suifei.workers.dev/v1/ivan.svg?gender=neutral&age=middle&race=auto&size=96" width="96" alt="ivan · neutral · middle · auto" title="ivan · neutral · middle · auto">
+<img src="https://hash-avatar.suifei.workers.dev/v1/judy.svg?gender=male&age=baby&race=asian&size=96" width="96" alt="judy · male · baby · asian" title="judy · male · baby · asian">
+<img src="https://hash-avatar.suifei.workers.dev/v1/mallory.svg?gender=female&age=youth&race=white&size=96" width="96" alt="mallory · female · youth · white" title="mallory · female · youth · white">
+<img src="https://hash-avatar.suifei.workers.dev/v1/niaj.svg?gender=neutral&age=old&race=black&size=96" width="96" alt="niaj · neutral · old · black" title="niaj · neutral · old · black">
+<img src="https://hash-avatar.suifei.workers.dev/v1/olivia.svg?gender=male&age=youth&race=brown&size=96" width="96" alt="olivia · male · youth · brown" title="olivia · male · youth · brown">
+<img src="https://hash-avatar.suifei.workers.dev/v1/peggy.svg?gender=female&age=old&race=auto&size=96" width="96" alt="peggy · female · old · auto" title="peggy · female · old · auto">
+<img src="https://hash-avatar.suifei.workers.dev/v1/rupert.svg?gender=neutral&age=teen&race=asian&size=96" width="96" alt="rupert · neutral · teen · asian" title="rupert · neutral · teen · asian">
+<img src="https://hash-avatar.suifei.workers.dev/v1/sybil.svg?gender=male&age=middle&race=white&size=96" width="96" alt="sybil · male · middle · white" title="sybil · male · middle · white">
+<img src="https://hash-avatar.suifei.workers.dev/v1/trent.svg?gender=female&age=teen&race=brown&size=96" width="96" alt="trent · female · teen · brown" title="trent · female · teen · brown">
+<img src="https://hash-avatar.suifei.workers.dev/v1/victor.svg?gender=neutral&age=middle&race=auto&size=96" width="96" alt="victor · neutral · middle · auto" title="victor · neutral · middle · auto">
+<img src="https://hash-avatar.suifei.workers.dev/v1/walter.svg?gender=male&age=baby&race=asian&size=96" width="96" alt="walter · male · baby · asian" title="walter · male · baby · asian">
+<img src="https://hash-avatar.suifei.workers.dev/v1/xiao.ming.svg?gender=female&age=youth&race=white&size=96" width="96" alt="xiao.ming · female · youth · white" title="xiao.ming · female · youth · white">
+<img src="https://hash-avatar.suifei.workers.dev/v1/%E6%9D%8E%E4%BC%9F.svg?gender=neutral&age=baby&race=black&size=96" width="96" alt="李伟 · neutral · baby · black" title="李伟 · neutral · baby · black">
+<img src="https://hash-avatar.suifei.workers.dev/v1/%E7%8E%8B%E8%8A%B3.svg?gender=male&age=youth&race=brown&size=96" width="96" alt="王芳 · male · youth · brown" title="王芳 · male · youth · brown">
+<img src="https://hash-avatar.suifei.workers.dev/v1/%E5%BC%B5%E5%81%89.svg?gender=female&age=old&race=auto&size=96" width="96" alt="張偉 · female · old · auto" title="張偉 · female · old · auto">
+<img src="https://hash-avatar.suifei.workers.dev/v1/yuki.svg?gender=neutral&age=teen&race=asian&size=96" width="96" alt="yuki · neutral · teen · asian" title="yuki · neutral · teen · asian">
+<img src="https://hash-avatar.suifei.workers.dev/v1/amara.svg?gender=male&age=old&race=black&size=96" width="96" alt="amara · male · old · black" title="amara · male · old · black">
+<img src="https://hash-avatar.suifei.workers.dev/v1/kwame.svg?gender=female&age=teen&race=brown&size=96" width="96" alt="kwame · female · teen · brown" title="kwame · female · teen · brown">
+<img src="https://hash-avatar.suifei.workers.dev/v1/priya.svg?gender=neutral&age=middle&race=auto&size=96" width="96" alt="priya · neutral · middle · auto" title="priya · neutral · middle · auto">
+<img src="https://hash-avatar.suifei.workers.dev/v1/arjun.svg?gender=male&age=baby&race=asian&size=96" width="96" alt="arjun · male · baby · asian" title="arjun · male · baby · asian">
+<img src="https://hash-avatar.suifei.workers.dev/v1/sofia.svg?gender=female&age=middle&race=white&size=96" width="96" alt="sofia · female · middle · white" title="sofia · female · middle · white">
+<img src="https://hash-avatar.suifei.workers.dev/v1/mateo.svg?gender=neutral&age=baby&race=black&size=96" width="96" alt="mateo · neutral · baby · black" title="mateo · neutral · baby · black">
+<img src="https://hash-avatar.suifei.workers.dev/v1/noah.svg?gender=male&age=youth&race=brown&size=96" width="96" alt="noah · male · youth · brown" title="noah · male · youth · brown">
+<img src="https://hash-avatar.suifei.workers.dev/v1/zoe.svg?gender=female&age=old&race=auto&size=96" width="96" alt="zoe · female · old · auto" title="zoe · female · old · auto">
 </p>
-
-**Live demo:** https://suifei.github.io/hash-avatar/
+## Usage
 
 There are three ways to use it:
 
@@ -27,7 +97,7 @@ There are three ways to use it:
 | [CDN script](#2-browser-via-cdn) | rendering in a web page | one `<script>` tag |
 | [npm package](#3-npm) | Node, bundlers, server-side rendering | `npm i @suifei/hash-avatar` |
 
-## 1. Image URL (no code)
+### 1. Image URL (no code)
 
 Works anywhere an image URL works, the same way shields.io badges do:
 
@@ -47,11 +117,11 @@ Works anywhere an image URL works, the same way shields.io badges do:
 
 Query parameters: `gender`, `age`, `race`, `size` (16–1024) and `fp=0` (hide the fingerprint ring). They take the same values as the [options](#options) below. URL-encode the name (`encodeURIComponent`). Names are limited to 256 characters.
 
-> Avoid putting real email addresses in public image URLs: they end up in server logs and `Referer` headers. See [Privacy](#privacy).
+> Avoid putting real email addresses in public image URLs: they end up in server logs and `Referer` headers. See [Privacy](#known-limitations).
 
 The service is a small Cloudflare Worker ([`worker/index.js`](worker/index.js)). To self-host it, run `npx wrangler deploy`.
 
-## 2. Browser via CDN
+### 2. Browser via CDN
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@suifei/hash-avatar@1/src/hash-avatar.js"></script>
@@ -64,7 +134,7 @@ The service is a small Cloudflare Worker ([`worker/index.js`](worker/index.js)).
 
 unpkg works too: `https://unpkg.com/@suifei/hash-avatar@1/src/hash-avatar.js`. The script defines `window.HashAvatar`.
 
-## 3. npm
+### 3. npm
 
 ```sh
 npm i @suifei/hash-avatar
