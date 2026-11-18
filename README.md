@@ -9,12 +9,12 @@ English | [简体中文](README.zh-CN.md)
 Deterministic SVG avatars from a name or email, via SHA-256. Zero dependencies, synchronous, runs in browsers and Node. About 0.1 ms and 6 KB per avatar.
 
 <p>
-<img src="https://__HOST__/v1/alice.svg?gender=female&size=96" width="96" alt="">
-<img src="https://__HOST__/v1/bob.svg?gender=male&age=middle&race=black&size=96" width="96" alt="">
-<img src="https://__HOST__/v1/carol.svg?gender=female&age=old&race=asian&size=96" width="96" alt="">
-<img src="https://__HOST__/v1/dave.svg?gender=male&age=teen&race=brown&size=96" width="96" alt="">
-<img src="https://__HOST__/v1/eve.svg?age=baby&size=96" width="96" alt="">
-<img src="https://__HOST__/v1/octocat.svg?gender=male&race=white&size=96" width="96" alt="">
+<img src="https://hash-avatar.suifei.workers.dev/v1/alice.svg?gender=female&size=96" width="96" alt="">
+<img src="https://hash-avatar.suifei.workers.dev/v1/bob.svg?gender=male&age=middle&race=black&size=96" width="96" alt="">
+<img src="https://hash-avatar.suifei.workers.dev/v1/carol.svg?gender=female&age=old&race=asian&size=96" width="96" alt="">
+<img src="https://hash-avatar.suifei.workers.dev/v1/dave.svg?gender=male&age=teen&race=brown&size=96" width="96" alt="">
+<img src="https://hash-avatar.suifei.workers.dev/v1/eve.svg?age=baby&size=96" width="96" alt="">
+<img src="https://hash-avatar.suifei.workers.dev/v1/octocat.svg?gender=male&race=white&size=96" width="96" alt="">
 </p>
 
 **Live demo:** https://suifei.github.io/hash-avatar/
@@ -32,11 +32,11 @@ There are three ways to use it:
 Works anywhere an image URL works, the same way shields.io badges do:
 
 ```html
-<img src="https://__HOST__/v1/octocat.svg?gender=male&size=128" width="128" alt="octocat">
+<img src="https://hash-avatar.suifei.workers.dev/v1/octocat.svg?gender=male&size=128" width="128" alt="octocat">
 ```
 
 ```markdown
-![avatar](https://__HOST__/v1/octocat.svg?size=128)
+![avatar](https://hash-avatar.suifei.workers.dev/v1/octocat.svg?size=128)
 ```
 
 | URL | Behaviour |

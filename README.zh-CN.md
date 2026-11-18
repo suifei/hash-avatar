@@ -9,12 +9,12 @@
 把名称或 email 经 SHA-256 映射成确定性的 SVG 头像。零依赖、同步执行，浏览器和 Node 都能用。每个头像约 0.1ms、约 6KB。
 
 <p>
-<img src="https://__HOST__/v1/alice.svg?gender=female&size=96" width="96" alt="">
-<img src="https://__HOST__/v1/bob.svg?gender=male&age=middle&race=black&size=96" width="96" alt="">
-<img src="https://__HOST__/v1/carol.svg?gender=female&age=old&race=asian&size=96" width="96" alt="">
-<img src="https://__HOST__/v1/dave.svg?gender=male&age=teen&race=brown&size=96" width="96" alt="">
-<img src="https://__HOST__/v1/eve.svg?age=baby&size=96" width="96" alt="">
-<img src="https://__HOST__/v1/octocat.svg?gender=male&race=white&size=96" width="96" alt="">
+<img src="https://hash-avatar.suifei.workers.dev/v1/alice.svg?gender=female&size=96" width="96" alt="">
+<img src="https://hash-avatar.suifei.workers.dev/v1/bob.svg?gender=male&age=middle&race=black&size=96" width="96" alt="">
+<img src="https://hash-avatar.suifei.workers.dev/v1/carol.svg?gender=female&age=old&race=asian&size=96" width="96" alt="">
+<img src="https://hash-avatar.suifei.workers.dev/v1/dave.svg?gender=male&age=teen&race=brown&size=96" width="96" alt="">
+<img src="https://hash-avatar.suifei.workers.dev/v1/eve.svg?age=baby&size=96" width="96" alt="">
+<img src="https://hash-avatar.suifei.workers.dev/v1/octocat.svg?gender=male&race=white&size=96" width="96" alt="">
 </p>
 
 **在线演示：** https://suifei.github.io/hash-avatar/
@@ -32,11 +32,11 @@
 用法和 shields.io 徽章一样，凡是能填图片 URL 的地方都能用：
 
 ```html
-<img src="https://__HOST__/v1/octocat.svg?gender=male&size=128" width="128" alt="octocat">
+<img src="https://hash-avatar.suifei.workers.dev/v1/octocat.svg?gender=male&size=128" width="128" alt="octocat">
 ```
 
 ```markdown
-![avatar](https://__HOST__/v1/octocat.svg?size=128)
+![avatar](https://hash-avatar.suifei.workers.dev/v1/octocat.svg?size=128)
 ```
 
 | URL | 行为 |
