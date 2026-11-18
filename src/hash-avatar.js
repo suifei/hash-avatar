@@ -91,12 +91,33 @@
     black: ['#7C4F33', '#603C26', '#47291A'],
   };
   SKIN_BY.auto = [].concat(SKIN_BY.asian, SKIN_BY.white, SKIN_BY.brown, SKIN_BY.black);
+  // Human skin is continuous: a position on the Monk Skin Tone scale (10 anchors, light to deep) inside the
+  // group's band, plus one of four undertones. The group only sets the band; bands overlap on purpose.
+  const MST = ['#F6EDE4', '#F3E7DB', '#F7EAD0', '#EADABA', '#D7BD96', '#A07E56', '#825C43', '#604134', '#3A312A', '#292420'];
+  const SKIN_BAND = {
+    asian: [0.6, 4.4], white: [0, 3.4], black: [5.4, 9.4], brown: [4, 6.8], southasian: [3.6, 7.6], seasian: [2.6, 5.8],
+    mideast: [1.6, 5.4], latino: [1.2, 6.8], indigenous: [3.2, 6.8], pacific: [4.2, 7.6], auto: [0, 9.4],
+  };
+  const UNDERTONE = ['#E8A27A', '#E6B48A', '#C9B070', '#E8A0A0']; // warm, golden, olive, rosy
+  function skinTone(race, v) {
+    const [lo, hi] = SKIN_BAND[race], t = lo + (v >> 2) / 63 * (hi - lo), i = Math.min(8, Math.floor(t));
+    const base = mix(MST[i], MST[i + 1], t - i);
+    return mix(base, UNDERTONE[v & 3], 0.1 - t * 0.006);
+  }
   const HAIR_BY = {
     asian: ['#1E1D1C', '#2B2A28', '#3A2A22', '#26303F', '#4A2F23', '#6E4430'],
     white: ['#2B2A28', '#4A2F23', '#6E4430', '#9C5A33', '#C98A3F', '#DDBB78', '#B5452A', '#E8D5A8'],
     black: ['#1E1D1C', '#2B2A28', '#3A2A22', '#4A2F23'],
     brown: ['#1E1D1C', '#2B2A28', '#3A2A22', '#4A2F23', '#6E4430'],
   };
+  Object.assign(HAIR_BY, {
+    southasian: ['#1E1D1C', '#2B2A28', '#3A2A22', '#4A2F23'],
+    seasian: ['#1E1D1C', '#2B2A28', '#3A2A22', '#4A2F23', '#6E4430'],
+    mideast: ['#1E1D1C', '#2B2A28', '#3A2A22', '#4A2F23', '#6E4430', '#9C5A33'],
+    latino: ['#1E1D1C', '#2B2A28', '#3A2A22', '#4A2F23', '#6E4430', '#9C5A33', '#C98A3F'],
+    indigenous: ['#1E1D1C', '#2B2A28', '#26303F', '#3A2A22'],
+    pacific: ['#1E1D1C', '#2B2A28', '#3A2A22', '#4A2F23', '#9C5A33'],
+  });
   HAIR_BY.auto = ['#2B2A28', '#4A2F23', '#6E4430', '#9C5A33', '#C98A3F', '#DDBB78', '#B5452A', '#26303F'];
   const EYE_BY = {
     asian: ['#3B2A20', '#2A1D16', '#5A3B22'],
@@ -104,6 +125,14 @@
     black: ['#2A1D16', '#3B2A20', '#5A3B22'],
     brown: ['#2A1D16', '#3B2A20', '#5A3B22', '#7A5230'],
   };
+  Object.assign(EYE_BY, {
+    southasian: ['#2A1D16', '#3B2A20', '#5A3B22', '#6E6A3E'],
+    seasian: ['#2A1D16', '#3B2A20', '#5A3B22'],
+    mideast: ['#2A1D16', '#3B2A20', '#5A3B22', '#7A5230', '#3E7A55', '#6E6A5E'],
+    latino: ['#2A1D16', '#3B2A20', '#5A3B22', '#7A5230', '#3E7A55'],
+    indigenous: ['#2A1D16', '#3B2A20', '#5A3B22'],
+    pacific: ['#2A1D16', '#3B2A20', '#5A3B22'],
+  });
   EYE_BY.auto = ['#3B2A20', '#5A3B22', '#2F5D8A', '#3E7A55', '#6E6A5E', '#7A5230'];
   // humanoids reuse the human renderer with their own palettes and extra parts
   Object.assign(SKIN_BY, {
@@ -115,6 +144,15 @@
     demon: ['#9B4F8F', '#B5475A', '#7D4A9B', '#C25B4A'],
     angel: ['#FBE9DC', '#F6DCC8', '#EDD0B4', '#E0B88E'],
     cyborg: SKIN_BY.auto,
+    goblin: ['#8DB04A', '#7A9F3A', '#A0B85A', '#6E9A5A'],
+    troll: ['#7A9AA0', '#8AA08A', '#6E8A8E', '#9AA890'],
+    mermaid: ['#F3DCC8', '#CFE8E4', '#BFDCE8', '#E8D0C0', '#C99066'],
+    fairy: ['#FBE9E4', '#F6E0EC', '#EAF2E0', '#F6DCC8'],
+    tengu: ['#D9453F', '#C9353A', '#E0574A'],
+    jinn: ['#5A8AD8', '#4A78C8', '#6A9AE0', '#7A6AD0'],
+    mummy: ['#E8DCC0', '#DDD0B0', '#EEE4CC'],
+    android: ['#DDE2E8', '#C8D0D8', '#E8ECEF', '#D0D8E0'],
+    hologram: ['#9FE8FF', '#A8D8FF', '#B8F0F0'],
   });
   Object.assign(HAIR_BY, {
     elf: ['#E8D5A8', '#F2EEDF', '#DDBB78', '#C7D9C0', '#9C5A33', '#2B2A28'],
@@ -125,6 +163,15 @@
     demon: ['#1E1D1C', '#2B1F3A', '#5A1A22', '#F2EEDF'],
     angel: ['#F3E2A8', '#E8D5A8', '#F2EEDF', '#DDBB78', '#C98A3F'],
     cyborg: HAIR_BY.auto,
+    goblin: ['#1E1D1C', '#3A2A22', '#5A4A2A', '#B5452A'],
+    troll: ['#5A6A3A', '#3A4A3A', '#8A5A2A', '#C9453F'],
+    mermaid: ['#2BA8A0', '#E8707A', '#7A4FBF', '#5AB4F0', '#F2C94C', '#3FA86A'],
+    fairy: ['#FF9AC8', '#C8A0FF', '#8AE8C0', '#F3E2A8', '#9AD0FF'],
+    tengu: ['#1E1D1C', '#F2EEDF', '#2B2A28'],
+    jinn: ['#1E1D1C', '#2B1F3A', '#26303F'],
+    mummy: ['#C8BCA0'],
+    android: ['#B8C4D0', '#2B2A28', '#5A9FD4', '#F2EEDF'],
+    hologram: ['#3FB8E8', '#5AD8F0', '#2F9FD8'],
   });
   Object.assign(EYE_BY, {
     elf: ['#3E7A55', '#4F7FA8', '#7A9A3A', '#8A6AB8'],
@@ -135,6 +182,15 @@
     demon: ['#E8C547', '#D93A3A', '#9B30FF'],
     angel: ['#4F7FA8', '#7AB8E0', '#B8913A'],
     cyborg: EYE_BY.auto,
+    goblin: ['#E8C547', '#D9612A', '#9BCB3A'],
+    troll: ['#E8C547', '#8A3A28', '#3B2A20'],
+    mermaid: ['#2BA8A0', '#5AB4F0', '#3E7A55'],
+    fairy: ['#7A4FBF', '#3FA86A', '#4F9FD8', '#D9629A'],
+    tengu: ['#E8C547', '#1E1A18'],
+    jinn: ['#E8C547', '#F2A33A', '#FFFFFF'],
+    mummy: ['#5AF0C8', '#E8C547', '#3B2A20'],
+    android: ['#4AE0FF', '#5AF0C8', '#9BCB3A'],
+    hologram: ['#FFFFFF', '#D8F8FF'],
   });
   // creatures: main colour list (F(1)) and eye colours (F(5))
   const FUR = {
@@ -202,6 +258,12 @@
     asian: [['crop', 'sidepart', 'bob', 'long', 'bangslong', 'swept', 'buzz', 'ponytail', 'pixie', 'shaggy', 'fuzz'], 1],
     white: [['swept', 'wavy', 'sidepart', 'long', 'curtain', 'shaggy', 'bob', 'tuft'], 1],
     brown: [['wavy', 'curly', 'long', 'sidepart', 'swept', 'ponytail', 'perm', 'tuft2'], 1],
+    southasian: [['wavy', 'long', 'sidepart', 'crop', 'curly', 'ponytail', 'twinbraids', 'bun'], 1],
+    seasian: [['crop', 'sidepart', 'bob', 'long', 'swept', 'ponytail', 'shaggy', 'wavy'], 1],
+    mideast: [['wavy', 'curly', 'sidepart', 'long', 'swept', 'crop', 'bun', 'shaggy'], 1],
+    latino: [['wavy', 'curly', 'long', 'sidepart', 'swept', 'ponytail', 'crop', 'curtain'], 1],
+    indigenous: [['long', 'twinbraids', 'ponytail', 'shoulder', 'crop', 'bangslong', 'bun'], 1],
+    pacific: [['curly', 'wavy', 'long', 'bun', 'manbun', 'afro', 'shoulder', 'crop'], 1],
     auto: [[], 0],
   };
   const TALL = { spiky: 1, mohawk: 1, quiff: 1, bun: 1, manbun: 1, puffs: 1, afro: 1, sprout: 1 };
@@ -469,8 +531,9 @@
 
   // ---------- animation helpers ----------
   // A small PRNG seeded from the hash: motion parameters differ per identity, but stay deterministic.
-  function rng(b) {
-    let a = (b[24] << 24 | b[25] << 16 | b[26] << 8 | b[27]) ^ (b[8] << 24 | b[9] << 16 | b[10] << 8 | b[11]);
+  function rng(b, alt) {
+    const o = alt ? 4 : 0;
+    let a = (b[24 + o] << 24 | b[25 + o] << 16 | b[26 + o] << 8 | b[27 + o]) ^ (b[8 + o] << 24 | b[9 + o] << 16 | b[10 + o] << 8 | b[11 + o]) ^ (alt ? 0x5BD1E995 : 0);
     return () => {
       a = a + 0x6D2B79F5 | 0;
       let t = Math.imul(a ^ a >>> 15, 1 | a);
@@ -495,14 +558,30 @@
     `<feColorMatrix type="saturate" values="0"/><feComponentTransfer>${ft('0 0.05 0.6 1', '0 0.05 0.6 1', '0 0.05 0.6 1', 'table')}</feComponentTransfer>`,
     '<feColorMatrix type="matrix" values="0.39 0.77 0.19 0 0.02 0.35 0.69 0.17 0 0.01 0.27 0.53 0.13 0 0 0 0 0 1 0"/>',
   ];
+  // luminance as grey (result lg), then edge lines from both sides of every luminance step (result ln), thresholded crisp
+  const LUM = '<feColorMatrix in="SourceGraphic" type="matrix" values="0.3 0.59 0.11 0 0 0.3 0.59 0.11 0 0 0.3 0.59 0.11 0 0 0 0 0 1 0" result="lg"/>';
+  // edge kernels run in device pixels, so small renders use only the dark-side edge (keeps eyes from bloating)
+  const LINE = (ink, k, thr, two) => '<feConvolveMatrix in="lg" order="3" kernelMatrix="1 1 1 1 -8 1 1 1 1" preserveAlpha="true" result="em"/>' +
+    (two ? '<feConvolveMatrix in="lg" order="3" kernelMatrix="-1 -1 -1 -1 8 -1 -1 -1 -1" preserveAlpha="true" result="e1"/><feComposite in="e1" in2="em" operator="arithmetic" k2="1" k3="1" result="em"/>' : '') +
+    `<feColorMatrix in="em" type="matrix" values="0 0 0 0 ${ink.split(' ').join(' 0 0 0 0 ')} ${k} 0 0 0 0" result="ea"/>` +
+    `<feComponentTransfer in="ea" result="ln"><feFuncA type="discrete" tableValues="${thr}"/></feComponentTransfer>`;
+  // a grid of soft dots, pitch p, dot size w (result dt)
+  const DOTS = (p, w) => `<feFlood x="${n2((p - w) / 2)}" y="${n2((p - w) / 2)}" width="${w}" height="${w}"/><feComposite width="${p}" height="${p}"/><feTile/><feGaussianBlur stdDeviation="0.5" result="dt"/>`;
+  const POP = [
+    ['#1A1446', '#E4007C', '#FF8A00', '#FFE600'], ['#0A2463', '#3E92CC', '#F25F5C', '#FFE066'],
+    ['#2B193D', '#8E44AD', '#2ECC71', '#F1F7B5'], ['#1B1B1B', '#D7263D', '#1B998B', '#F7F06D'],
+    ['#14213D', '#FC5185', '#3FC1C9', '#F5F5F5'], ['#3D0C11', '#FF6B35', '#7BDFF2', '#FFF275'],
+  ];
   function artFilter(art, id, b, anim, rnd, size) {
+    const two = size >= 180, dl = r => two ? `<feMorphology in="ln" operator="dilate" radius="${r}" result="ln2"/>` : '<feMerge result="ln2"><feMergeNode in="ln"/></feMerge>';
     const seed = b[20] % 97, f = (s) => `<filter id="${id}F" filterUnits="userSpaceOnUse" x="0" y="0" width="256" height="256" color-interpolation-filters="sRGB">${s}</filter>`;
     switch (art) {
       case 'pixel': {
-        // erode first so thin dark details (eyes, brows, outlines) survive the point sampling
+        // dark outlines first (sprite look), then erode so thin dark details survive the point sampling;
         // the sample square must stay at least ~1.5 screen px wide, or small renders come out empty
-        const p = 5, fw = Math.min(p * 0.8, Math.max(2, 384 / size)), er = 1.2;
-        return f(`<feMorphology in="SourceGraphic" operator="erode" radius="${n2(er)}" result="src"/><feFlood x="${n2((p - fw) / 2)}" y="${n2((p - fw) / 2)}" width="${n2(fw)}" height="${n2(fw)}"/><feComposite width="${p}" height="${p}"/><feTile result="a"/><feComposite in="src" in2="a" operator="in"/><feMorphology operator="dilate" radius="${n2(p / 2)}"/>`);
+        const p = 6, fw = Math.min(p * 0.8, Math.max(2, 384 / size)), er = 1.2;
+        return f(LUM + LINE('0.1 0.09 0.14', 7, '0 0 1 1 1 1 1 1', two) + '<feColorMatrix in="SourceGraphic" type="saturate" values="1.2" result="sat"/><feMerge result="o"><feMergeNode in="sat"/><feMergeNode in="ln"/></feMerge>' +
+          `<feMorphology in="o" operator="erode" radius="${n2(er)}" result="src"/><feFlood x="${n2((p - fw) / 2)}" y="${n2((p - fw) / 2)}" width="${n2(fw)}" height="${n2(fw)}"/><feComposite width="${p}" height="${p}"/><feTile result="a"/><feComposite in="src" in2="a" operator="in"/><feMorphology operator="dilate" radius="${n2(p / 2)}"/>`);
       }
       case 'ink':
         return f('<feColorMatrix in="SourceGraphic" type="saturate" values="0" result="g"/>' +
@@ -510,30 +589,47 @@
           `<feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" seed="${seed}" result="t"/>` +
           '<feDisplacementMap in="c" in2="t" scale="7" xChannelSelector="R" yChannelSelector="G" result="w"/><feGaussianBlur in="w" stdDeviation="0.5" result="bl"/>' +
           GRAIN(seed) + '<feComposite in="n2" in2="bl" operator="in" result="n3"/><feMerge><feMergeNode in="bl"/><feMergeNode in="n3"/></feMerge>');
-      case 'comic':
-        return f(`<feComponentTransfer in="SourceGraphic" result="p">${ft('0.1 0.4 0.7 1', '0.1 0.4 0.7 1', '0.1 0.4 0.7 1', 'discrete')}</feComponentTransfer>` +
-          '<feColorMatrix in="p" type="saturate" values="1.5" result="s"/>' + EDGE +
-          '<feColorMatrix in="e" type="matrix" values="0 0 0 0 0.08 0 0 0 0 0.07 0 0 0 0 0.1 3 3 3 0 0" result="l"/><feMorphology in="l" operator="dilate" radius="0.8" result="l2"/>' +
-          '<feMerge><feMergeNode in="s"/><feMergeNode in="l2"/></feMerge>');
-      case 'sketch':
-        return f('<feColorMatrix in="SourceGraphic" type="saturate" values="0" result="g"/>' +
-          '<feConvolveMatrix in="g" order="3" kernelMatrix="-1 -1 -1 -1 8 -1 -1 -1 -1" preserveAlpha="true" result="e"/>' +
-          '<feColorMatrix in="e" type="matrix" values="0 0 0 0 0.22 0 0 0 0 0.22 0 0 0 0 0.25 5 5 5 0 0" result="l"/>' +
-          `<feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="2" seed="${seed}" result="t"/>` +
-          '<feDisplacementMap in="l" in2="t" scale="3.5" xChannelSelector="R" yChannelSelector="G" result="w"/>' +
-          `<feComponentTransfer in="g" result="sh">${lin(0.4, 0.6)}</feComponentTransfer>` +
-          '<feMerge><feMergeNode in="sh"/><feMergeNode in="w"/></feMerge>');
-      case 'neon':
-        return f(EDGE + '<feColorMatrix in="e" type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 4 4 4 0 0" result="m"/>' +
-          `<feColorMatrix in="SourceGraphic" type="saturate" values="3" result="s"/><feComponentTransfer in="s" result="s2">${lin(0.6, 0.45)}</feComponentTransfer>` +
-          '<feComposite in="s2" in2="m" operator="in" result="ln"/><feMorphology in="ln" operator="dilate" radius="0.6" result="ln2"/><feGaussianBlur in="ln2" stdDeviation="2.5" result="gl"/>' +
-          '<feFlood flood-color="#0B0B16" result="dk"/><feComposite in="dk" in2="SourceAlpha" operator="in" result="bg"/>' +
-          '<feMerge><feMergeNode in="bg"/><feMergeNode in="gl"/><feMergeNode in="gl"/><feMergeNode in="ln2"/></feMerge>');
-      case 'pop':
-        return f(`<feColorMatrix in="SourceGraphic" type="saturate" values="2.4"/><feColorMatrix type="hueRotate" values="${b[22] * 360 >> 8}"/>` +
-          `<feComponentTransfer result="p">${ft('0 0.55 1', '0 0.55 1', '0 0.55 1', 'discrete')}</feComponentTransfer>` + EDGE +
-          '<feColorMatrix in="e" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 3 3 0 0" result="l"/><feMorphology in="l" operator="dilate" radius="1" result="l2"/>' +
-          '<feMerge><feMergeNode in="p"/><feMergeNode in="l2"/></feMerge>');
+      case 'comic': {
+        // bold ink lines, slightly punchier colour, halftone dots in the shadows
+        return f(LUM + LINE('0.07 0.06 0.1', 9, '0 0 1 1 1 1 1 1', two) + dl(0.6) +
+          `<feColorMatrix in="SourceGraphic" type="saturate" values="1.3"/><feComponentTransfer result="base">${lin(1.08, -0.02)}</feComponentTransfer>` +
+          DOTS(5, 2.4) + '<feColorMatrix in="lg" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1.6 0 0 0 1.1" result="sm"/>' +
+          '<feComposite in="dt" in2="sm" operator="in"/><feComposite in2="SourceAlpha" operator="in"/><feColorMatrix type="matrix" values="0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.16 0 0 0 0.32 0" result="ht"/>' +
+          '<feMerge><feMergeNode in="base"/><feMergeNode in="ht"/><feMergeNode in="ln2"/></feMerge>');
+      }
+      case 'sketch': {
+        // graphite on warm paper: soft tonal wash, streaky hatching in the darks, wobbly pencil lines
+        return f(LUM + `<feComponentTransfer in="lg" result="sh">${ft('0.5 0.74 0.9 0.97 0.985', '0.48 0.72 0.88 0.955 0.97', '0.47 0.7 0.85 0.93 0.94', 'table')}</feComponentTransfer>` +
+          `<feTurbulence type="fractalNoise" baseFrequency="0.035 0.75" numOctaves="2" seed="${seed}" result="t"/>` +
+          '<feColorMatrix in="t" type="matrix" values="0 0 0 0 0.22 0 0 0 0 0.22 0 0 0 0 0.27 5 0 0 0 -2.6" result="hs"/>' +
+          '<feColorMatrix in="lg" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1.9 0 0 0 1.35" result="dm"/>' +
+          '<feComposite in="hs" in2="dm" operator="in"/><feComposite in2="SourceAlpha" operator="in" result="ha"/>' +
+          LINE('0.17 0.17 0.21', 8, '0 0 0.5 0.85 1 1 1 1', two) +
+          `<feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="2" seed="${seed + 1}" result="t2"/>` +
+          '<feDisplacementMap in="ln" in2="t2" scale="2.8" xChannelSelector="R" yChannelSelector="G" result="w"/>' +
+          '<feMerge><feMergeNode in="sh"/><feMergeNode in="ha"/><feMergeNode in="w"/></feMerge>');
+      }
+      case 'neon': {
+        // dim tinted fill keeps the features readable, edges become glowing tubes with a hot core
+        return f('<feFlood flood-color="#090914"/><feComposite in2="SourceAlpha" operator="in" result="bg"/>' +
+          `<feColorMatrix in="SourceGraphic" type="saturate" values="1.6"/><feComponentTransfer result="dim">${lin(0.14, 0.015)}</feComponentTransfer>` +
+          LUM + LINE('1 1 1', 8, '0 0 1 1 1 1 1 1', two) +
+          `<feColorMatrix in="SourceGraphic" type="saturate" values="2.6"/><feComponentTransfer result="s2">${lin(0.55, 0.42)}</feComponentTransfer>` +
+          '<feComposite in="s2" in2="ln" operator="in" result="tb"/><feMorphology in="tb" operator="dilate" radius="0.5" result="tb2"/>' +
+          '<feGaussianBlur in="tb2" stdDeviation="3" result="gl"/><feGaussianBlur in="tb2" stdDeviation="1.1" result="gl2"/>' +
+          `<feComponentTransfer in="tb" result="core">${lin(0.45, 0.55)}</feComponentTransfer>` +
+          '<feMerge><feMergeNode in="bg"/><feMergeNode in="dim"/><feMergeNode in="gl"/><feMergeNode in="gl2"/><feMergeNode in="tb2"/><feMergeNode in="core"/></feMerge>');
+      }
+      case 'pop': {
+        // screen-print gradient map: four inks picked by the hash, black key line, dots in the mid-tone
+        const pal = POP[b[22] % POP.length];
+        const ch = i => pal.map(c => n2(parseInt(c.slice(1 + i * 2, 3 + i * 2), 16) / 255)).join(' ');
+        return f(LUM + `<feComponentTransfer in="lg" result="gm">${ft(ch(0), ch(1), ch(2), 'discrete')}</feComponentTransfer>` +
+          DOTS(6, 2.6) + '<feColorMatrix in="lg" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -3 0 0 0 2.1" result="sm"/>' +
+          '<feComposite in="dt" in2="sm" operator="in"/><feComposite in2="SourceAlpha" operator="in"/><feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.35 0" result="ht"/>' +
+          LINE('0.04 0.04 0.06', 9, '0 0 1 1 1 1 1 1', two) + dl(0.35) +
+          '<feMerge><feMergeNode in="gm"/><feMergeNode in="ht"/><feMergeNode in="ln2"/></feMerge>');
+      }
       case 'mood':
         return f(MOODS[b[23] % MOODS.length]);
       case 'watercolor':
@@ -555,14 +651,333 @@
     return '';
   }
 
+  const pickM = (arr, v) => arr[v % arr.length];
+  // ---------- parametric creatures ----------
+  // Each species is a recipe of parts. The hash then varies ear size, markings, colourway and accessories,
+  // so two cats (or two qilin) differ in more than their colour.
+  //   h: head shape  e: ears  mz: muzzle  mk: markings to pick from  x: always-on extras  ox: optional extras (one picked by hash)
+  //   fur: main colours  c2: marking colours  ek: eye kind  bc: beak/bill colour  nb: no body (drawn as its own shape)
+  const BEASTS = {
+    mouse: { h: 'round', e: 'mouse', mz: 'small', mk: ['none', 'face', 'cheeks'], x: ['whiskers'], fur: ['#B8B0A8', '#8E8E8A', '#F2EEE6', '#C9A27E', '#6E6A64'] },
+    ox: { h: 'wide', e: 'side', mz: 'long', mk: ['none', 'patch', 'blaze', 'spots'], x: ['hornsOx'], ox: ['nosering', 'none', 'bell'], fur: ['#3A3230', '#8C5A33', '#F2EEE6', '#6E4430', '#C9A27E'], c2: ['#F2EEE6', '#2B2A28'] },
+    tiger: { h: 'wide', e: 'round', mz: 'dog', mk: ['stripes'], x: ['whiskers'], ox: ['wang', 'none'], fur: ['#E8862A', '#F09A3A', '#F4F0E8', '#D9762A'], c2: ['#2B2A28', '#3A2A22'] },
+    snake: { h: 'oval', e: 'none', mz: 'snake', mk: ['scales', 'diamonds'], fur: ['#5AA04A', '#3F8F7A', '#D9A43A', '#7A4FBF', '#C9453F', '#4A5A6A'], ek: 'slit' },
+    horse: { h: 'long', e: 'side', mz: 'long', mk: ['none', 'blaze', 'blaze'], x: ['forelock'], fur: ['#8C5A33', '#3A2A22', '#F2EEE6', '#C98A3F', '#6E6A64', '#A0705A'] },
+    goat: { h: 'long', e: 'side', mz: 'long', mk: ['none', 'face'], x: ['hornsGoat'], ox: ['goatee', 'none'], fur: ['#F2EEE6', '#C9B8A6', '#8E8E8A', '#6E5A4A'] },
+    rooster: { h: 'round', e: 'none', mz: 'beak', mk: ['none', 'face'], x: ['comb'], fur: ['#F7F2E8', '#D98A2A', '#3A3836', '#8C5A33'], bc: '#F2B33A' },
+    pig: { h: 'wide', e: 'cat', mz: 'pig', mk: ['none', 'spots', 'patch'], fur: ['#F7B8B8', '#F2A0A8', '#E8C0B0', '#5A4A4A'], c2: ['#C98A8A', '#3A3230'] },
+    lion: { h: 'round', e: 'round', mz: 'dog', mk: ['face'], x: ['mane', 'whiskers'], fur: ['#E0A852', '#D9A43A', '#C98A3F', '#F2D58A'], c2: ['#8C4A23', '#6E4430', '#B5452A', '#3A2A22'] },
+    wolf: { fc: 1, h: 'round', e: 'pointy', mz: 'dog', mk: ['face', 'face', 'none'], fur: ['#8E8E8A', '#6E6A64', '#B8B0A8', '#3A3836', '#E8E4DC', '#8C6A4A'], c2: ['#F2EEE6'], ek: 'slit' },
+    koala: { h: 'wide', e: 'fluffy', mz: 'koala', mk: ['none', 'face'], fur: ['#9AA0A6', '#8E8E8A', '#B0B4B8'] },
+    deer: { h: 'long', e: 'side', mz: 'long', mk: ['spots', 'face', 'none'], x: ['antlers'], fur: ['#C98A3F', '#A0705A', '#8C5A33', '#D9A46A'], c2: ['#F7F0E4'] },
+    elephant: { h: 'round', e: 'elephant', mz: 'trunk', mk: ['none', 'none', 'cheeks'], ox: ['tusks', 'none', 'tusks'], fur: ['#9AA0A6', '#8E98A6', '#B0A8A0', '#C8B8D8'] },
+    raccoon: { h: 'wide', e: 'pointy', mz: 'dog', mk: ['mask'], x: ['whiskers'], fur: ['#8E8E8A', '#9A9088', '#6E6A64'], c2: ['#2B2A28'] },
+    redpanda: { h: 'wide', e: 'pointy', mz: 'dog', mk: ['tears'], fur: ['#C9532A', '#B5452A', '#D9622A'], c2: ['#5A2A1A'] },
+    hamster: { h: 'pear', e: 'small', mz: 'small', mk: ['face', 'cheeks'], x: ['whiskers'], fur: ['#E8B070', '#D9A46A', '#F2EEE6', '#C98A3F', '#B8B0A8'] },
+    sheep: { h: 'oval', e: 'side', mz: 'small', mk: ['none'], x: ['wool'], ox: ['hornsRam', 'none', 'bell'], fur: ['#F2EEE6', '#3A3230', '#E8DCC8', '#C8B8A8'], c2: ['#F7F4EE', '#E8E4DC', '#5A4A44'] },
+    duck: { h: 'round', e: 'none', mz: 'bill', mk: ['none', 'none', 'face'], x: ['tuft'], fur: ['#F7E070', '#F7F2E8', '#5A8A4A', '#8C6A4A'], bc: '#F2A33A' },
+    parrot: { h: 'oval', e: 'none', mz: 'hook', mk: ['face', 'cheeks'], x: ['crestFeathers'], fur: ['#3FA86A', '#D93A3A', '#2F7FBF', '#E8B83A', '#7A4FBF', '#2BA8A0'], c2: ['#F7F2E8', '#E8C547', '#5AB4F0'], bc: '#2B2A28' },
+    chick: { h: 'round', e: 'none', mz: 'beak', mk: ['none'], x: ['tuft'], ox: ['eggshell', 'none'], fur: ['#F7D850', '#F7E070', '#F2C84A'], bc: '#F2A33A' },
+    giraffe: { h: 'long', e: 'side', mz: 'long', mk: ['patches'], x: ['ossicones'], fur: ['#E8B860', '#F2C878', '#D9A43A'], c2: ['#9A5A2A', '#8C4A23'] },
+    zebra: { h: 'long', e: 'side', mz: 'long', mk: ['zebra'], x: ['forelock'], fur: ['#F7F7F2'], c2: ['#2B2A28'] },
+    leopard: { h: 'round', e: 'round', mz: 'small', mk: ['rosettes'], x: ['whiskers'], fur: ['#E8B860', '#F2C878', '#E0E0D8', '#D9A46A'], c2: ['#3A2A22', '#2B2A28'], ek: 'slit' },
+    capybara: { h: 'square', e: 'small', mz: 'capy', mk: ['none'], ox: ['yuzu', 'none', 'none'], fur: ['#A0705A', '#8C6A4A', '#B08A6A'] },
+    hedgehog: { h: 'pear', e: 'small', mz: 'small', mk: ['face'], x: ['spikes'], fur: ['#E8D5C0', '#F2E2CC', '#D9C0A0'], c2: ['#6E5A4A', '#8C6A4A', '#4A3A30'] },
+    octopus: { h: 'oval', e: 'none', mz: 'none', mk: ['spots', 'none'], x: ['tentacles'], fur: ['#E86A7A', '#9B6ADB', '#F09A4A', '#5AB4F0', '#D94A6A'], nb: 1 },
+    bee: { h: 'round', e: 'none', mz: 'none', mk: ['beeband'], x: ['antennae', 'beewings'], fur: ['#F7C83A', '#F2B33A'], c2: ['#2B2A28'] },
+    qilin: { h: 'long', e: 'side', mz: 'long', mk: ['scales'], x: ['mane', 'antlerOne'], fur: ['#3FA86A', '#D9A43A', '#2F7FBF', '#C9453F'], c2: ['#F2D58A', '#E8B83A', '#F7F0E4'], ek: 'slit' },
+    phoenix: { fc: 1, h: 'oval', e: 'none', mz: 'beak', mk: ['face'], x: ['plumes'], fur: ['#E8542A', '#D93A3A', '#F2A33A'], c2: ['#F2D58A', '#FFE08A'], bc: '#F2C94C', ek: 'slit' },
+    unicorn: { h: 'long', e: 'side', mz: 'long', mk: ['none', 'blaze'], x: ['unicorn', 'rainbowMane'], fur: ['#F7F4FA', '#F2EEF7', '#FCEFF4'] },
+    nian: { fc: 1, h: 'wide', e: 'round', mz: 'dog', mk: ['face'], x: ['flameMane', 'hornOne'], fur: ['#D93A3A', '#C9453F', '#E8542A'], c2: ['#F2C94C', '#FFE08A'] },
+    tanuki: { h: 'wide', e: 'round', mz: 'dog', mk: ['mask'], x: ['leaf'], fur: ['#A0705A', '#8C6A4A', '#B08A6A'], c2: ['#3A2A22'] },
+    yeti: { fc: 1, h: 'oval', e: 'none', mz: 'none', mk: ['face'], x: ['fringe'], fur: ['#F2F4F8', '#E8EEF4', '#DDE4EC'], c2: ['#8AB4D8', '#9AA8C8', '#A8C0D0'] },
+    werewolf: { fc: 1, h: 'round', e: 'pointy', mz: 'dog', mk: ['face'], x: ['shag', 'scar', 'fangs'], fur: ['#6E6A64', '#4A4440', '#8C6A4A', '#3A3836'], c2: ['#B8B0A8'], ek: 'slit' },
+    golem: { h: 'square', e: 'none', mz: 'none', mk: ['cracks'], x: ['runes'], fur: ['#8E8E8A', '#9A9088', '#7A8088', '#A09A8A'], c2: ['#5AF0C8', '#7FD4FF', '#FFB84A'], ek: 'glow' },
+    insectoid: { h: 'oval', e: 'none', mz: 'mandibles', mk: ['none', 'scales'], x: ['antennae'], fur: ['#5AA04A', '#3F8F7A', '#7A4FBF', '#2F5FBF', '#8C5A33'], ek: 'compound' },
+    mushroom: { h: 'round', e: 'none', mz: 'none', mk: ['none'], x: ['cap'], fur: ['#F7EEDC', '#F2E2CC'], c2: ['#D93A3A', '#E8742A', '#8C5A33', '#7A4FBF', '#3FA8A0'] },
+    pumpkin: { h: 'wide', e: 'none', mz: 'none', mk: ['ribs'], x: ['stem'], fur: ['#E8742A', '#F08A3A', '#D9612A'], ek: 'carved' },
+    snowman: { h: 'round', e: 'none', mz: 'carrot', mk: ['none'], ox: ['tophat', 'earmuffs', 'none'], fur: ['#FBFCFF', '#F2F6FA'], ek: 'button' },
+    cactus: { h: 'oval', e: 'none', mz: 'none', mk: ['spines'], x: ['bloom'], fur: ['#5AA04A', '#4F9F6A', '#6DBE5A'] },
+    star: { h: 'star', e: 'none', mz: 'none', mk: ['none'], fur: ['#F7D850', '#FFE08A', '#F2C84A', '#FFB8D8', '#B8E0FF'] },
+  };
+  const BEAST_ACC = ['none', 'none', 'none', 'bow', 'flower', 'bell', 'bandana', 'none'];
+
+  function drawBeast(sp, v) {
+    const { cx, cy, rx, ry, top, L, R, m, mD, mDD, mL, ec, id, X, F, rnd, eyeStyle, mouthStyle, baby, old, k, inner, eyes, mouth, whiskers, xg, cls } = v;
+    const c2 = sp.c2 ? pickM(sp.c2, X(9)) : mDD, pink = '#F2A0A8';
+    const es = 0.85 + (X(7) % 7) * 0.05;                         // ear scale 0.85..1.15
+    const mk = pickM(sp.mk, X(8));
+    const opt = sp.ox ? pickM(sp.ox, X(11)) : 'none';
+    const has = n => (sp.x && sp.x.indexOf(n) >= 0) || opt === n;
+    const back = [], h = [], front = [];
+    let eyeY = cy + ry * (baby ? 0.12 : 0.02), ex = rx * 0.42, mouthY = cy + ry * 0.5, extra = null, noBody = !!sp.nb;
+    const ell = (x, y, a, bb) => d`M${x - a} ${y} A${a} ${bb} 0 1 0 ${x + a} ${y} A${a} ${bb} 0 1 0 ${x - a} ${y} Z`;
+
+    // head outline (also the clip for markings)
+    let hp, hattr = '';
+    switch (sp.h) {
+      case 'wide': hp = ell(cx, cy + 3, rx * 1.18, ry * 0.86); ex = rx * 0.48; break;
+      case 'oval': hp = ell(cx, cy - 2, rx * 0.94, ry * 1.02); break;
+      case 'long': hp = ell(cx, cy - 6, rx * 0.86, ry * 0.88); eyeY = cy - ry * 0.12; ex = rx * 0.46; break;
+      case 'pear': hp = d`M${cx} ${top + 4} C${cx + rx * 0.75} ${top + 4} ${cx + rx * 1.28} ${cy + ry * 0.45} ${cx + rx * 1.12} ${cy + ry * 0.72} Q${cx} ${cy + ry * 1.08} ${cx - rx * 1.12} ${cy + ry * 0.72} C${cx - rx * 1.28} ${cy + ry * 0.45} ${cx - rx * 0.75} ${top + 4} ${cx} ${top + 4} Z`; eyeY += 4; break;
+      case 'square': hp = d`M${L + 12} ${top + 4} H${R - 12} Q${R + 4} ${top + 4} ${R + 4} ${top + 18} V${cy + ry * 0.72} Q${R + 4} ${cy + ry * 0.9} ${R - 12} ${cy + ry * 0.9} H${L + 12} Q${L - 4} ${cy + ry * 0.9} ${L - 4} ${cy + ry * 0.72} V${top + 18} Q${L - 4} ${top + 4} ${L + 12} ${top + 4} Z`; ex = rx * 0.46; break;
+      case 'star': {
+        let s = '';
+        for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? rx * 0.62 : rx * 1.3; s += (i ? 'L' : 'M') + r1(cx + rr * Math.cos(a)) + ' ' + r1(cy + 6 + rr * Math.sin(a)); }
+        hp = s + 'Z'; hattr = ` stroke="${m}" stroke-width="12" stroke-linejoin="round"`; eyeY = cy + 6; ex = rx * 0.3; mouthY = cy + ry * 0.38; break;
+      }
+      default: hp = ell(cx, cy, rx * 1.02, ry * 0.95);
+    }
+
+    // ---- parts behind the head ----
+    if (has('mane') || has('rainbowMane')) {
+      const rb = has('rainbowMane'), cols = ['#FF8AAE', '#FFC86A', '#FFF08A', '#8AE8B0', '#8AC8FF', '#C8A0FF'];
+      let s = '';
+      for (let i = 0; i < 14; i++) {
+        const a = Math.PI * (0.9 + i * 1.2 / 13), x = cx + rx * 1.2 * Math.cos(a), y = cy + ry * 1.05 * Math.sin(a);
+        s += C(x, y, 16 + (i % 2) * 3, rb ? cols[i % 6] : c2);
+      }
+      back.push(s);
+    }
+    if (has('flameMane')) {
+      let s = '';
+      for (let i = 0; i <= 12; i++) {
+        const a = Math.PI * (0.95 + i * 1.1 / 12), a2 = a + 0.045, p = (t, r) => [cx + r * rx * 1.15 * Math.cos(t), cy + r * ry * Math.sin(t)];
+        const [x1, y1] = p(a - 0.04, 1), [x2, y2] = p(a2, 1.55), [x3, y3] = p(a + 0.13, 1);
+        s += d`M${x1} ${y1} Q${x2 - 6} ${(y1 + y2) / 2} ${x2} ${y2} Q${x2 + 2} ${(y2 + y3) / 2} ${x3} ${y3} Z`;
+      }
+      back.push(P(s, c2));
+    }
+    if (has('spikes')) {
+      let s = '';
+      for (let i = 0; i <= 14; i++) {
+        const a = Math.PI * (0.92 + i * 1.16 / 14), x = cx + rx * 1.05 * Math.cos(a), y = cy + ry * 0.95 * Math.sin(a);
+        const tx = cx + rx * 1.55 * Math.cos(a + 0.05), ty = cy + ry * 1.4 * Math.sin(a + 0.05);
+        s += d`M${x - 7 * Math.sin(a)} ${y + 7 * Math.cos(a)} L${tx} ${ty} L${x + 7 * Math.sin(a)} ${y - 7 * Math.cos(a)} Z`;
+      }
+      back.push(P(s, c2));
+    }
+    if (has('wool')) {
+      let s = '';
+      for (let i = 0; i < 12; i++) { const a = Math.PI * (0.85 + i * 1.3 / 11); s += C(cx + rx * 1.08 * Math.cos(a), cy - 4 + ry * 0.98 * Math.sin(a), 15, c2); }
+      back.push(s);
+    }
+    if (has('plumes')) {
+      let s = '';
+      for (const [a, len] of [[-26, 50], [0, 60], [26, 50]]) {
+        const bx = cx, by = top + 6;
+        s += `<g transform="rotate(${a} ${bx} ${by})">` + E(bx, by - len / 2, 7, len / 2, c2) + C(bx, by - len + 8, 5, '#2F7FBF') + C(bx, by - len + 8, 2.4, '#3FA86A') + '</g>';
+      }
+      back.push(xg(s)); extra = ['wag', '50% 100%'];
+    }
+    if (has('beewings')) {
+      back.push(xg(E(cx - rx * 0.9, top + 6, 18, 12, '#FFFFFF', ` opacity="0.75" stroke="#B8D8F0" transform="rotate(-30 ${r1(cx - rx * 0.9)} ${r1(top + 6)})"`) + E(cx + rx * 0.9, top + 6, 18, 12, '#FFFFFF', ` opacity="0.75" stroke="#B8D8F0" transform="rotate(30 ${r1(cx + rx * 0.9)} ${r1(top + 6)})"`)));
+      extra = ['flap', '50% 100%'];
+    }
+    if (has('tentacles')) {
+      let s = '';
+      for (let i = 0; i < 6; i++) {
+        const x0 = cx - rx * 0.8 + i * rx * 0.32, dir = i < 3 ? -1 : 1, y0 = cy + ry * 0.55;
+        s += S(d`M${x0} ${y0} C${x0 + dir * 4} ${y0 + 40} ${x0 + dir * 26} ${y0 + 50} ${x0 + dir * 30} ${y0 + 80}`, m, 13);
+      }
+      back.push(xg(s)); extra = ['wag', '50% 0%'];
+    }
+    if (has('hornsGoat') || has('hornsRam')) {
+      const hc = '#D8C8A8';
+      for (const sgn of [-1, 1]) back.push(has('hornsRam')
+        ? S(d`M${cx + sgn * rx * 0.5} ${top + 8} C${cx + sgn * (rx + 20)} ${top - 10} ${cx + sgn * (rx + 26)} ${cy + 10} ${cx + sgn * (rx + 6)} ${cy + 6} C${cx + sgn * (rx - 4)} ${cy} ${cx + sgn * (rx + 4)} ${cy - 14} ${cx + sgn * (rx + 12)} ${cy - 8}`, hc, 9)
+        : P(d`M${cx + sgn * rx * 0.25} ${top + 8} Q${cx + sgn * rx * 0.4} ${top - 28} ${cx + sgn * rx * 1.1} ${top - 16} Q${cx + sgn * rx * 0.62} ${top - 14} ${cx + sgn * rx * 0.55} ${top + 10} Z`, hc));
+    }
+    if (has('antlers') || has('antlerOne')) {
+      const hc = has('antlerOne') ? '#F2D58A' : '#8C5A33';
+      for (const sgn of [-1, 1]) back.push(S(d`M${cx + sgn * rx * 0.35} ${top + 8} Q${cx + sgn * rx * 0.5} ${top - 14} ${cx + sgn * rx * 0.95} ${top - 34}M${cx + sgn * rx * 0.55} ${top - 10} L${cx + sgn * rx * 0.32} ${top - 28}M${cx + sgn * rx * 0.8} ${top - 24} l${sgn * 14} -3`, hc, 4.5));
+    }
+    if (has('ossicones')) for (const sgn of [-1, 1]) back.push(S(d`M${cx + sgn * 10} ${top + 8} L${cx + sgn * 14} ${top - 14}`, c2, 6) + C(cx + sgn * 14, top - 16, 6, c2));
+
+    // ---- ears ----
+    const earIn = mix(m, pink, 0.55);
+    switch (sp.e) {
+      case 'cat': case 'pointy': {
+        const t = sp.e === 'pointy' ? 0.5 : 0.32;
+        for (const sgn of [-1, 1]) back.push(xg(P(d`M${cx + sgn * rx * 0.98} ${cy - ry * 0.2} L${cx + sgn * rx * 0.9} ${top - ry * t * es} L${cx + sgn * rx * 0.18} ${top + ry * 0.1} Z`, m) + P(d`M${cx + sgn * rx * 0.86} ${cy - ry * 0.3} L${cx + sgn * rx * 0.82} ${top - ry * (t - 0.2) * es} L${cx + sgn * rx * 0.4} ${top + ry * 0.16} Z`, earIn)));
+        extra = extra || ['twitch', '50% 100%']; break;
+      }
+      case 'round': case 'small': case 'mouse': case 'fluffy': {
+        const r = (sp.e === 'mouse' ? 22 : sp.e === 'small' ? 9 : sp.e === 'fluffy' ? 19 : 13) * es, dx = sp.e === 'mouse' || sp.e === 'fluffy' ? 0.92 : 0.76;
+        for (const sgn of [-1, 1]) {
+          const x = cx + sgn * rx * dx, y = top + ry * (sp.e === 'fluffy' ? 0.2 : 0.12);
+          back.push(C(x, y, r, m) + C(x, y, r * 0.6, sp.e === 'fluffy' ? '#F2EEE6' : earIn));
+        }
+        break;
+      }
+      case 'side':
+        for (const sgn of [-1, 1]) { const x = cx + sgn * (rx * 0.9 + 6), y = cy - ry * 0.42; back.push(xg(`<g transform="rotate(${sgn * 58} ${r1(x)} ${r1(y)})">` + E(x, y, 7 * es, 16 * es, m) + E(x, y + 1, 3.6 * es, 11 * es, earIn) + '</g>')); }
+        extra = extra || ['twitch', '50% 100%']; break;
+      case 'elephant':
+        for (const sgn of [-1, 1]) back.push(xg(E(cx + sgn * (rx + 14), cy + 4, 24 * es, 31 * es, m) + E(cx + sgn * (rx + 16), cy + 4, 17 * es, 23 * es, mix(m, pink, 0.35))));
+        extra = extra || ['wag', '50% 50%']; break;
+    }
+
+    // ---- head + markings (clipped to the head) ----
+    h.push(P(hp, m, hattr));
+    const marks = [];
+    const rr = n => (rnd() * n);
+    switch (mk) {
+      case 'stripes':
+        marks.push(S(d`M${cx} ${top + 2} l0 15M${cx - 10} ${top + 5} l2 12M${cx + 10} ${top + 5} l-2 12`, c2, 4.2));
+        for (const sgn of [-1, 1]) marks.push(S(d`M${cx + sgn * (rx + 8)} ${cy - 8} l${-sgn * 16} 4M${cx + sgn * (rx + 8)} ${cy + 4} l${-sgn * 14} 2M${cx + sgn * (rx + 8)} ${cy + 16} l${-sgn * 12} -1`, c2, 4));
+        break;
+      case 'zebra':
+        for (let i = 0; i < 7; i++) { const y = top + 4 + i * 13; marks.push(S(d`M${L - 14} ${y + 6} Q${cx - 12} ${y - 6} ${cx} ${y + 4} Q${cx + 12} ${y - 6} ${R + 14} ${y + 6}`, c2, 5.5)); }
+        break;
+      case 'spots': case 'rosettes': case 'patches': {
+        const n = 5 + (X(12) % 4);
+        for (let i = 0; i < n; i++) {
+          const a = rr(Math.PI * 2), q = 0.3 + rr(0.6), x = cx + Math.cos(a) * rx * q, y = cy - ry * 0.15 + Math.sin(a) * ry * q * 0.9, s = 4 + rr(4);
+          marks.push(mk === 'rosettes' ? C(x, y, s, 'none', ` stroke="${c2}" stroke-width="2.4" stroke-dasharray="5 2.5"`) : mk === 'patches' ? E(x, y, s * 1.6, s * 1.3, c2, ` transform="rotate(${Math.round(rr(90))} ${r1(x)} ${r1(y)})"`) : C(x, y, s * 0.8, c2, ' opacity="0.85"'));
+        }
+        break;
+      }
+      case 'mask': marks.push(P(d`M${L - 8} ${eyeY - 4} Q${cx} ${eyeY - 16} ${R + 8} ${eyeY - 4} L${R + 4} ${eyeY + 9} Q${cx + 8} ${eyeY + 6} ${cx} ${eyeY + 12} Q${cx - 8} ${eyeY + 6} ${L - 4} ${eyeY + 9} Z`, c2)); break;
+      case 'tears': marks.push(E(cx - rx * 0.5, cy + ry * 0.28, 14, 11, '#F7F0E4') + E(cx + rx * 0.5, cy + ry * 0.28, 14, 11, '#F7F0E4') + S(d`M${cx - ex} ${eyeY + 6} l-3 14M${cx + ex} ${eyeY + 6} l3 14`, c2, 4) + E(cx, top + ry * 0.2, 9, 6, '#F7F0E4')); break;
+      case 'patch': marks.push(E(cx + ex, eyeY - 1, 14, 13, c2)); break;
+      case 'blaze': marks.push(P(d`M${cx - 5} ${top} Q${cx - 8} ${cy} ${cx - 6} ${cy + ry * 0.4} L${cx + 6} ${cy + ry * 0.4} Q${cx + 8} ${cy} ${cx + 5} ${top} Z`, sp.c2 ? c2 : mL)); break;
+      case 'face': marks.push(E(cx, cy + ry * 0.32, rx * 0.82, ry * 0.6, sp.fc ? c2 : mL)); break;
+      case 'cheeks': marks.push(E(cx - rx * 0.6, cy + ry * 0.3, 13, 10, mL) + E(cx + rx * 0.6, cy + ry * 0.3, 13, 10, mL)); break;
+      case 'scales': case 'diamonds': {
+        let s = '';
+        for (let y = top + 8; y < cy + ry; y += 9) for (let x = L - 6 + ((y / 9 | 0) % 2) * 5; x < R + 6; x += 10)
+          s += mk === 'diamonds' ? d`M${x} ${y - 3}l3 3l-3 3l-3 -3Z` : d`M${x - 4} ${y}q4 -5 8 0`;
+        marks.push(mk === 'diamonds' ? P(s, mDD, ' opacity="0.45"') : S(s, mDD, 1.3, ' opacity="0.5"'));
+        break;
+      }
+      case 'beeband': marks.push(`<rect x="${r1(L - 10)}" y="${r1(top + ry * 0.12)}" width="${r1(2 * rx + 20)}" height="${r1(ry * 0.26)}" fill="${c2}"/>`); break;
+      case 'cracks': marks.push(S(d`M${cx - rx * 0.6} ${top + 10} l10 12 l-4 10 l8 8M${cx + rx * 0.5} ${top + 14} l-8 10 l6 12M${cx + rx * 0.2} ${cy + ry * 0.5} l10 6`, mDD, 1.8) + `<rect x="${r1(L + 6)}" y="${r1(cy + ry * 0.2)}" width="14" height="8" rx="2" fill="${mD}"/>`); break;
+      case 'ribs': marks.push(S(d`M${cx} ${top + 4} Q${cx - 6} ${cy} ${cx} ${cy + ry * 0.8}M${cx - rx * 0.55} ${top + 12} Q${cx - rx * 0.75} ${cy} ${cx - rx * 0.5} ${cy + ry * 0.72}M${cx + rx * 0.55} ${top + 12} Q${cx + rx * 0.75} ${cy} ${cx + rx * 0.5} ${cy + ry * 0.72}`, mD, 2.4)); break;
+      case 'spines': { let s = ''; for (let i = 0; i < 16; i++) { const x = cx - rx * 0.75 + (i % 4) * rx * 0.5 + (i >> 2 & 1) * 8, y = top + 12 + (i >> 2) * ry * 0.38; s += d`M${x} ${y}l-3 -3M${x} ${y}l3 -3`; } marks.push(S(s, '#F7F2DC', 1.4)); break; }
+    }
+    if (marks.length) h.push(`<clipPath id="${id}h"><path d="${hp}"/></clipPath><g clip-path="url(#${id}h)">${marks.join('')}</g>`);
+
+    // ---- muzzle ----
+    const muzzleC = mix(m, '#FFFFFF', 0.45);
+    let nose = '';
+    switch (sp.mz) {
+      case 'small':
+        h.push(E(cx - 7, cy + ry * 0.36, 9, 7, mL) + E(cx + 7, cy + ry * 0.36, 9, 7, mL));
+        nose = P(d`M${cx - 4} ${cy + ry * 0.22} L${cx + 4} ${cy + ry * 0.22} L${cx} ${cy + ry * 0.29} Z`, pink) +
+          (mouthStyle === 'grin' || mouthStyle === 'o' ? E(cx, cy + ry * 0.42, 4, 4.5, inner) : S(d`M${cx} ${cy + ry * 0.29} q-3 6 -8 3M${cx} ${cy + ry * 0.29} q3 6 8 3`, mDD, 1.8));
+        break;
+      case 'dog':
+        h.push(E(cx, cy + ry * 0.38, rx * 0.5, ry * 0.32, muzzleC));
+        nose = E(cx, cy + ry * 0.24, 7, 5, INK) + C(cx - 2, cy + ry * 0.22, 1.6, '#FFFFFF', ' opacity="0.6"') +
+          (mouthStyle === 'grin' ? P(d`M${cx - 5} ${cy + ry * 0.44} L${cx + 5} ${cy + ry * 0.44} L${cx + 5} ${cy + ry * 0.56} Q${cx} ${cy + ry * 0.66} ${cx - 5} ${cy + ry * 0.56} Z`, '#E8607A') : '') +
+          S(d`M${cx} ${cy + ry * 0.3} L${cx} ${cy + ry * 0.42}M${cx - 9} ${cy + ry * 0.44} Q${cx - 4} ${cy + ry * 0.5} ${cx} ${cy + ry * 0.42} Q${cx + 4} ${cy + ry * 0.5} ${cx + 9} ${cy + ry * 0.44}`, INK, 2);
+        break;
+      case 'long':
+        h.push(E(cx, cy + ry * 0.52, rx * 0.62, ry * 0.42, muzzleC));
+        nose = E(cx - 9, cy + ry * 0.55, 3.4, 2.4, mDD) + E(cx + 9, cy + ry * 0.55, 3.4, 2.4, mDD) + S(d`M${cx - 10} ${cy + ry * 0.76} Q${cx} ${cy + ry * (mouthStyle === 'flat' ? 0.78 : 0.84)} ${cx + 10} ${cy + ry * 0.76}`, mDD, 2);
+        break;
+      case 'pig':
+        nose = E(cx, cy + ry * 0.3, 14, 10, mix(m, '#E87A8A', 0.35), ` stroke="${mD}" stroke-width="1.5"`) + E(cx - 5, cy + ry * 0.3, 2.4, 3.4, mDD) + E(cx + 5, cy + ry * 0.3, 2.4, 3.4, mDD) + mouth(cx, cy + ry * 0.58, 0.6, mDD, inner);
+        break;
+      case 'koala':
+        nose = E(cx, cy + ry * 0.22, 9, 13, '#3A3836') + mouth(cx, cy + ry * 0.55, 0.6, mDD, inner);
+        break;
+      case 'capy':
+        h.push(`<rect x="${r1(cx - rx * 0.7)}" y="${r1(cy + ry * 0.15)}" width="${r1(rx * 1.4)}" height="${r1(ry * 0.6)}" rx="14" fill="${mD}"/>`);
+        nose = E(cx - 7, cy + ry * 0.3, 3, 2, mDD) + E(cx + 7, cy + ry * 0.3, 3, 2, mDD) + S(d`M${cx - 6} ${cy + ry * 0.5} L${cx + 6} ${cy + ry * 0.5}`, mDD, 2);
+        eyeY -= 2; break;
+      case 'beak': case 'hook': {
+        const bc = sp.bc || '#F2A33A';
+        nose = sp.mz === 'hook'
+          ? P(d`M${cx - 10} ${eyeY + 8} Q${cx} ${eyeY} ${cx + 10} ${eyeY + 8} Q${cx + 9} ${eyeY + 24} ${cx + 1} ${eyeY + 28} Q${cx + 2} ${eyeY + 18} ${cx - 10} ${eyeY + 8} Z`, bc)
+          : P(d`M${cx - 8} ${eyeY + 10} Q${cx} ${eyeY + 6} ${cx + 8} ${eyeY + 10} L${cx} ${eyeY + 22} Z`, bc) + (mouthStyle === 'grin' || mouthStyle === 'o' ? P(d`M${cx - 6} ${eyeY + 13} L${cx + 6} ${eyeY + 13} L${cx} ${eyeY + 19} Z`, inner) : '');
+        break;
+      }
+      case 'bill':
+        nose = E(cx, cy + ry * 0.34, 18, 8, sp.bc) + S(d`M${cx - 14} ${cy + ry * 0.36} Q${cx} ${cy + ry * 0.42} ${cx + 14} ${cy + ry * 0.36}`, shade(sp.bc, 0.7), 1.5) + C(cx - 5, cy + ry * 0.3, 1.2, shade(sp.bc, 0.6)) + C(cx + 5, cy + ry * 0.3, 1.2, shade(sp.bc, 0.6));
+        break;
+      case 'trunk':
+        nose = S(d`M${cx} ${eyeY + 6} C${cx - 2} ${cy + ry * 0.5} ${cx + 6} ${cy + ry * 0.9} ${cx + 18} ${cy + ry * 0.82}`, m, 15) + S(d`M${cx - 6} ${cy + ry * 0.3} l11 0M${cx - 5} ${cy + ry * 0.48} l11 -1M${cx} ${cy + ry * 0.64} l10 -3`, mD, 1.4) +
+          (has('tusks') ? P(d`M${cx - 13} ${cy + ry * 0.48} q-2 12 -10 16 q6 -10 4 -16 Z M${cx + 13} ${cy + ry * 0.48} q2 12 10 16 q-6 -10 -4 -16 Z`, '#FBF6E8') : '') + mouth(cx - 12, cy + ry * 0.58, 0.5, mDD, inner);
+        break;
+      case 'snake':
+        nose = C(cx - 4, cy + ry * 0.3, 1.5, mDD) + C(cx + 4, cy + ry * 0.3, 1.5, mDD) + S(d`M${cx - 14} ${cy + ry * 0.5} Q${cx} ${cy + ry * 0.6} ${cx + 14} ${cy + ry * 0.5}`, mDD, 2) + xg(S(d`M${cx} ${cy + ry * 0.56} l0 12 l-4 5M${cx} ${cy + ry * 0.56 + 12} l4 5`, '#D93A4A', 1.8));
+        extra = extra || ['twitch', '50% 0%']; break;
+      case 'carrot':
+        nose = P(d`M${cx - 4} ${cy + ry * 0.2} L${cx + 26} ${cy + ry * 0.3} L${cx - 4} ${cy + ry * 0.36} Z`, '#F07A2A') + [-2, -1, 0, 1, 2].map(i => C(cx + i * 7, cy + ry * 0.56 + Math.abs(i) * -2.5, 2.2, '#2B2A28')).join('');
+        break;
+      case 'mandibles':
+        nose = S(d`M${cx - 8} ${cy + ry * 0.5} q-6 10 2 14M${cx + 8} ${cy + ry * 0.5} q6 10 -2 14`, mDD, 3.4);
+        break;
+      default:
+        nose = mouth(cx, mouthY, 0.85, mDD, inner);
+    }
+
+    // ---- eyes ----
+    const ek = sp.ek || '';
+    if (ek === 'compound') {
+      h.push(`<g${cls('E')}>` + [-1, 1].map(sgn => { const x = cx + sgn * ex * 1.05; return E(x, eyeY, 14, 12, '#1E2A30') + C(x - 4, eyeY - 3, 3, '#FFFFFF', ' opacity="0.35"') + C(x + 3, eyeY + 2, 1.8, '#FFFFFF', ' opacity="0.25"'); }).join('') + '</g>');
+    } else if (ek === 'carved') {
+      h.push(`<g${cls('E')}>` + [-1, 1].map(sgn => { const x = cx + sgn * ex; return P(d`M${x - 9} ${eyeY + 6} L${x} ${eyeY - 8} L${x + 9} ${eyeY + 6} Z`, '#FFD84A'); }).join('') + '</g>');
+      nose = P(d`M${cx - 18} ${mouthY - 4} L${cx - 9} ${mouthY + 2} L${cx - 3} ${mouthY - 3} L${cx + 3} ${mouthY + 2} L${cx + 9} ${mouthY - 3} L${cx + 18} ${mouthY - 4} Q${cx} ${mouthY + 18} ${cx - 18} ${mouthY - 4} Z`, '#FFD84A');
+    } else if (ek === 'button') {
+      h.push(`<g${cls('E')}>` + C(cx - ex, eyeY, 4.6, '#2B2A28') + C(cx + ex, eyeY, 4.6, '#2B2A28') + C(cx - ex + 1.4, eyeY - 1.4, 1.3, '#FFFFFF') + C(cx + ex + 1.4, eyeY - 1.4, 1.3, '#FFFFFF') + '</g>');
+    } else if (ek === 'glow') {
+      h.push(eyes(eyeY, ex, k, c2, mD, 'glow'));
+    } else {
+      h.push(eyes(eyeY, ex, k * (sp.h === 'star' ? 0.9 : 1.05), ec, mD, ek));
+    }
+    h.push(nose);
+    if (has('whiskers')) h.push(whiskers(cy + ry * 0.32, mDD));
+
+    // ---- front extras ----
+    if (has('hornsOx')) for (const sgn of [-1, 1]) front.push(P(d`M${cx + sgn * rx * 0.62} ${top + ry * 0.3} Q${cx + sgn * (rx + 26)} ${top + ry * 0.22} ${cx + sgn * (rx + 20)} ${top - 16} Q${cx + sgn * (rx + 10)} ${top + ry * 0.08} ${cx + sgn * rx * 0.78} ${top + ry * 0.46} Z`, '#EADCB4'));
+    if (has('unicorn')) front.push(P(d`M${cx - 7} ${top + 8} L${cx} ${top - 34} L${cx + 7} ${top + 8} Z`, '#F2D58A') + S(d`M${cx - 5} ${top} l10 -4M${cx - 4} ${top - 10} l8 -3M${cx - 2.5} ${top - 20} l5 -2`, '#D9A43A', 1.4));
+    if (has('hornOne')) front.push(P(d`M${cx - 6} ${top + 8} Q${cx - 4} ${top - 16} ${cx + 4} ${top - 28} Q${cx + 2} ${top - 10} ${cx + 6} ${top + 8} Z`, '#F2D58A'));
+    if (has('forelock')) front.push(P(d`M${cx - 12} ${top + 2} Q${cx} ${top - 10} ${cx + 12} ${top + 2} Q${cx + 4} ${top + 18} ${cx - 2} ${top + 22} Q${cx - 4} ${top + 10} ${cx - 12} ${top + 2} Z`, sp.c2 ? c2 : mDD));
+    if (has('comb')) front.push(C(cx - 9, top + 2, 7, '#D93A3A') + C(cx, top - 4, 8.5, '#D93A3A') + C(cx + 9, top + 2, 7, '#D93A3A') + E(cx, eyeY + 28, 5, 7, '#D93A3A'));
+    if (has('tuft')) front.push(S(d`M${cx} ${top + 4} Q${cx - 6} ${top - 10} ${cx + 4} ${top - 14}M${cx} ${top + 4} Q${cx + 4} ${top - 8} ${cx + 12} ${top - 8}`, mD, 3));
+    if (has('crestFeathers')) front.push(P(d`M${cx - 4} ${top + 6} Q${cx - 16} ${top - 18} ${cx - 2} ${top - 26} Q${cx - 4} ${top - 10} ${cx + 6} ${top + 4} Z`, c2) + P(d`M${cx + 2} ${top + 6} Q${cx + 10} ${top - 14} ${cx + 22} ${top - 16} Q${cx + 10} ${top - 4} ${cx + 8} ${top + 8} Z`, c2));
+    if (has('antennae')) front.push(xg(S(d`M${cx - 10} ${top + 6} Q${cx - 18} ${top - 14} ${cx - 26} ${top - 22}M${cx + 10} ${top + 6} Q${cx + 18} ${top - 14} ${cx + 26} ${top - 22}`, '#2B2A28', 2.4) + C(cx - 27, top - 23, 4.5, '#2B2A28') + C(cx + 27, top - 23, 4.5, '#2B2A28')));
+    if (has('leaf')) front.push(P(d`M${cx - 4} ${top + 4} Q${cx - 18} ${top - 18} ${cx + 4} ${top - 26} Q${cx + 14} ${top - 8} ${cx - 4} ${top + 4} Z`, '#5AA04A') + S(d`M${cx - 4} ${top + 4} Q${cx} ${top - 10} ${cx + 3} ${top - 22}`, '#3F7F3A', 1.4));
+    if (has('fringe') || has('shag')) { let s = ''; for (let i = 0; i < 7; i++) s += C(cx - rx * 0.8 + i * rx * 0.27, top + ry * 0.16 + (i % 2) * 4, has('shag') ? 8 : 11, has('shag') ? mD : m); front.push(s); }
+    if (has('scar')) front.push(S(d`M${cx + ex - 8} ${eyeY - 14} L${cx + ex + 6} ${eyeY + 10}`, '#B5452A', 2.2) + S(d`M${cx + ex - 5} ${eyeY - 7} l5 -2M${cx + ex - 1} ${eyeY} l5 -2M${cx + ex + 3} ${eyeY + 6} l5 -2`, '#B5452A', 1.4));
+    if (has('fangs')) front.push(P(d`M${cx - 6} ${cy + ry * 0.47} L${cx - 2} ${cy + ry * 0.47} L${cx - 4} ${cy + ry * 0.6} Z M${cx + 6} ${cy + ry * 0.47} L${cx + 2} ${cy + ry * 0.47} L${cx + 4} ${cy + ry * 0.6} Z`, '#FFFFFF'));
+    if (has('runes')) { front.push(xg(S(d`M${cx - 6} ${top + 14} l6 -6 l6 6 l-6 6 Z`, c2, 2) + C(cx - rx * 0.6, cy + ry * 0.45, 2, c2) + C(cx + rx * 0.6, cy + ry * 0.45, 2, c2))); extra = ['blink', '50% 50%']; }
+    if (has('cap')) {
+      let s = P(d`M${L - 22} ${top + ry * 0.6} Q${L - 18} ${top - 34} ${cx} ${top - 36} Q${R + 18} ${top - 34} ${R + 22} ${top + ry * 0.6} Q${cx} ${top + ry * 0.36} ${L - 22} ${top + ry * 0.6} Z`, c2);
+      for (const [dx, dy, r] of [[-0.7, 0, 7], [0, -0.55, 8], [0.75, 0.05, 6], [-0.25, 0.35, 5], [0.4, -0.25, 4]]) s += C(cx + dx * rx, top + dy * 30 + 4, r, '#FBF6EC');
+      front.push(s); eyeY += 0;
+    }
+    if (has('stem')) front.push(P(d`M${cx - 4} ${top + 6} Q${cx - 6} ${top - 10} ${cx + 4} ${top - 14} L${cx + 7} ${top - 10} Q${cx + 2} ${top - 4} ${cx + 4} ${top + 6} Z`, '#5A7A3A') + S(d`M${cx + 4} ${top - 8} q10 -6 14 2`, '#6DBE5A', 2));
+    if (has('bloom')) { let s = ''; for (let i = 0; i < 5; i++) { const a = i / 5 * 2 * Math.PI; s += C(cx + 6 * Math.cos(a), top - 4 + 6 * Math.sin(a), 5, '#FF8AAE'); } front.push(s + C(cx, top - 4, 3.5, '#F2C94C')); }
+    if (opt === 'wang') front.push(S(d`M${cx - 8} ${top + 10} l16 0M${cx - 6} ${top + 16} l12 0M${cx - 8} ${top + 22} l16 0M${cx} ${top + 10} l0 12`, c2, 2.6)); // 王 on the forehead
+    if (opt === 'nosering') front.push(C(cx, cy + ry * 0.68, 6, 'none', ' stroke="#D4A537" stroke-width="2.2"'));
+    if (opt === 'goatee') front.push(P(d`M${cx - 6} ${cy + ry * 0.86} Q${cx} ${cy + ry * 1.3} ${cx + 6} ${cy + ry * 0.86} Z`, mL));
+    if (opt === 'yuzu') front.push(C(cx + 2, top - 2, 11, '#F2C84A') + C(cx - 2, top - 6, 3, '#FFF0A0', ' opacity="0.7"') + S(d`M${cx + 2} ${top - 13} l3 -4`, '#5A7A3A', 2));
+    if (opt === 'eggshell') front.push(P(d`M${L - 6} ${cy + ry * 0.7} L${L + 4} ${cy + ry * 0.52} L${L + 14} ${cy + ry * 0.68} L${cx} ${cy + ry * 0.5} L${R - 14} ${cy + ry * 0.68} L${R - 4} ${cy + ry * 0.52} L${R + 6} ${cy + ry * 0.7} L${R + 8} ${cy + ry * 1.3} L${L - 8} ${cy + ry * 1.3} Z`, '#FBF6EC', ' stroke="#E0D8C8" stroke-width="1.5"'));
+    if (opt === 'tophat') front.push(`<rect x="${r1(cx - 20)}" y="${r1(top - 34)}" width="40" height="34" rx="3" fill="#2B2A28"/><rect x="${r1(cx - 30)}" y="${r1(top - 3)}" width="60" height="7" rx="3" fill="#2B2A28"/><rect x="${r1(cx - 20)}" y="${r1(top - 12)}" width="40" height="6" fill="#C9453F"/>`);
+    if (opt === 'earmuffs') front.push(S(d`M${L - 4} ${cy - 4} A${rx + 4} ${ry + 8} 0 0 1 ${R + 4} ${cy - 4}`, '#C9453F', 4) + C(L - 2, cy, 11, '#F2EEE6') + C(R + 2, cy, 11, '#F2EEE6'));
+
+    return { back: back.join(''), head: h.join('') + front.join(''), eyeY, ex, noBody, extra };
+  }
+
   // ---------- render ----------
-  const HUMANS = ['asian', 'white', 'black', 'brown', 'auto'];
-  const HUMANOIDS = ['elf', 'orc', 'vampire', 'zombie', 'oni', 'demon', 'angel', 'cyborg'];
-  const CREATURES = ['cat', 'dog', 'fox', 'kitsune', 'panda', 'rabbit', 'bear', 'owl', 'penguin', 'frog', 'monkey', 'dragon', 'robot', 'ai', 'alien', 'ghost', 'skeleton', 'slime'];
+  const HUMANS = ['asian', 'white', 'black', 'brown', 'southasian', 'seasian', 'mideast', 'latino', 'indigenous', 'pacific', 'auto'];
+  const HUMANOIDS = ['elf', 'orc', 'vampire', 'zombie', 'oni', 'demon', 'angel', 'cyborg', 'goblin', 'troll', 'mermaid', 'fairy', 'tengu', 'jinn', 'mummy', 'android', 'hologram'];
+  const CREATURES = ['cat', 'dog', 'fox', 'kitsune', 'panda', 'rabbit', 'bear', 'owl', 'penguin', 'frog', 'monkey', 'dragon', 'robot', 'ai', 'alien', 'ghost', 'skeleton', 'slime'].concat(Object.keys(BEASTS));
   const RACES = HUMANS.concat(HUMANOIDS, CREATURES, ['any']);
   const ANY = RACES.filter(r => r !== 'auto' && r !== 'any');
   const GLASSES_OK = { cat: 1, dog: 1, fox: 1, kitsune: 1, rabbit: 1, bear: 1, monkey: 1, penguin: 1, skeleton: 1 };
-  const NO_HAT = { oni: 1, demon: 1, angel: 1 };
+  const NO_HAT = { oni: 1, demon: 1, angel: 1, mummy: 1, hologram: 1 };
+  // groups for pickers and docs
+  const GROUPS = {
+    human: HUMANS,
+    fantasy: ['elf', 'orc', 'goblin', 'troll', 'vampire', 'zombie', 'mummy', 'oni', 'tengu', 'demon', 'angel', 'fairy', 'mermaid', 'jinn', 'dragon', 'kitsune', 'qilin', 'phoenix', 'unicorn', 'nian', 'tanuki', 'yeti', 'werewolf', 'golem', 'ghost', 'skeleton', 'slime'],
+    animal: ['cat', 'dog', 'fox', 'wolf', 'tiger', 'lion', 'leopard', 'panda', 'redpanda', 'bear', 'koala', 'raccoon', 'rabbit', 'mouse', 'hamster', 'hedgehog', 'capybara', 'monkey', 'ox', 'horse', 'zebra', 'giraffe', 'deer', 'goat', 'sheep', 'pig', 'elephant', 'snake', 'frog', 'octopus', 'owl', 'penguin', 'rooster', 'chick', 'duck', 'parrot', 'bee'],
+    scifi: ['cyborg', 'android', 'hologram', 'robot', 'ai', 'alien', 'insectoid', 'mushroom', 'pumpkin', 'snowman', 'cactus', 'star'],
+  };
 
   function avatar(input, opts) {
     const gender = GENDERS.indexOf(opts.gender) >= 0 ? opts.gender : 'neutral';
@@ -589,8 +1004,8 @@
 
     // features
     const bgHue = F(0) / 256 * 360;
-    const fur = creature ? pick(FUR[race], F(1)) : null;
-    const skin = creature ? fur : pick(SKIN_BY[race], F(1));
+    const fur = creature ? pick(FUR[race] || BEASTS[race].fur, F(1)) : null;
+    const skin = creature ? fur : SKIN_BAND[race] ? skinTone(race, F(1)) : pick(SKIN_BY[race], F(1));
     let hair = old ? pick(HAIR_OLD, F(2)) : pick(HAIR_BY[creature ? 'auto' : race], F(2));
     const misc = F(14), deco = F(15);
     if (middle && (misc >> 6) === 3) hair = mix(hair, '#B4B4AF', 0.45);
@@ -638,7 +1053,7 @@
     const lip = mix(shade(skin, 0.55), '#9A3A28', 0.55), inner = mix(shade(skin, 0.4), '#5A1A12', 0.6);
     const clothC = hsl(clothHue, 55, baby ? 72 : 52), clothD = hsl(clothHue, 50, baby ? 58 : 38), clothL = hsl(clothHue, 60, 82);
     const bg = hsl(bgHue, 55, 74), bgL = hsl(bgHue, 60, 85), bgD = hsl(bgHue, 45, 62);
-    const id = 'ha' + H.hex.slice(0, 12) + gender[0] + age[0] + RACES.indexOf(race).toString(36) + (fp ? 'f' : 'n') + ARTS.indexOf(art) + (anim ? 'a' : 's');
+    const id = 'ha' + H.hex.slice(0, 12) + gender[0] + age[0] + RACES.indexOf(race).toString(36).padStart(2, '0') + (fp ? 'f' : 'n') + ARTS.indexOf(art) + (anim ? 'a' : 's');
     const R0 = fp ? 106 : 128;
     const rnd = rng(b);
     const cls = n => anim ? ` class="${id}${n}"` : '';
@@ -702,7 +1117,9 @@
       for (let k = 0; k < 9; k++) z += `<rect class="${id}z${k}" x="${r1((k % 3) * 256 / 3)}" y="${r1((k / 3 | 0) * 256 / 3)}" width="85.4" height="85.4" fill="#000" fill-opacity="0"/>`;
       o.push(z);
     }
-    o.push(`<g${cls('W')}${art !== 'flat' && art !== 'pixel' ? fil : ''}>`);
+    // line-based styles filter only the portrait, so the fingerprint ring stays crisp and readable
+    const portraitF = { pixel: 1, comic: 1, sketch: 1, pop: 1 }[art];
+    o.push(`<g${cls('W')}${art !== 'flat' && !portraitF ? fil : ''}>`);
 
     // fingerprint ring: 128 bits of the hash, one slot each, clockwise from 12 o'clock.
     // With animation on, the ticks are split into 16 arcs so a light wave can travel over the bits.
@@ -719,7 +1136,7 @@
       o.push(`<path d="${off}" stroke="${tc}" stroke-opacity="0.35" stroke-width="2.2" stroke-linecap="round"/>`);
     }
 
-    o.push(`<g clip-path="url(#${id})">${art === 'pixel' ? `<g${fil}>` : ''}`);
+    o.push(`<g clip-path="url(#${id})">${portraitF ? `<g${fil}>` : ''}`);
     o.push(C(128, 128, R0, bg));
     const da = deco / 256 * 2 * Math.PI;
     o.push(`<g${cls('B')}>` + C(128 + 72 * Math.cos(da), 128 + 72 * Math.sin(da), 26, bgL, ' opacity="0.7"') + C(128 - 78 * Math.cos(da), 128 - 78 * Math.sin(da), 36, bgD, ' opacity="0.45"') + '</g>');
@@ -738,7 +1155,7 @@
 
     // ----- species layers -----
     const head = [];   // inside the animated head group
-    let back = '', noBody = false, headMotion = null, extra = null;
+    let back = '', noBody = false, headMotion = null, extra = null, creatureAcc = 'none';
     const xg = s => `<g${cls('X')}>${s}</g>`;
     let eyeY = cy + ry * (baby ? 0.14 : 0.04), ex = rx * 0.4;
 
@@ -748,6 +1165,12 @@
         w += P(d`M${cx + sgn * 18} ${sh} C${cx + sgn * 70} ${sh - 40} ${cx + sgn * 96} ${cy - 50} ${cx + sgn * 104} ${cy - 66} C${cx + sgn * 100} ${cy - 20} ${cx + sgn * 92} ${sh - 10} ${cx + sgn * 30} ${sh + 16} Z`, '#FFFFFF', ' stroke="#D8DCE8" stroke-width="1.5"');
         w += S(d`M${cx + sgn * 50} ${sh - 14} Q${cx + sgn * 72} ${cy - 10} ${cx + sgn * 92} ${cy - 40}M${cx + sgn * 40} ${sh} Q${cx + sgn * 70} ${cy + 20} ${cx + sgn * 88} ${cy - 6}`, '#D8DCE8', 1.4);
       }
+      back = xg(w); extra = ['flap', '50% 100%'];
+    }
+    if (race === 'fairy') {
+      const wc = hsl(X(12) / 256 * 360, 70, 80), wc2 = hsl(X(12) / 256 * 360 + 40, 70, 70);
+      let w = '';
+      for (const sgn of [-1, 1]) w += E(cx + sgn * 46, sh - 34, 30, 20, wc, ` opacity="0.85" stroke="${wc2}" stroke-width="1.5" transform="rotate(${sgn * -35} ${cx + sgn * 46} ${sh - 34})"`) + E(cx + sgn * 40, sh + 4, 18, 13, wc2, ` opacity="0.8" transform="rotate(${sgn * 30} ${cx + sgn * 40} ${sh + 4})"`);
       back = xg(w); extra = ['flap', '50% 100%'];
     }
     if (race === 'kitsune') {
@@ -760,7 +1183,7 @@
     }
 
     if (creature) {
-      const m = fur, mD = shade(m, 0.84), mDD = shade(m, 0.6), mL = mix(m, '#FFFFFF', 0.6), pink = '#F2A0A8', ec = eyeColor;
+      const m = old ? mix(fur, '#C8C8C2', 0.22) : fur, mD = shade(m, 0.84), mDD = shade(m, 0.6), mL = mix(m, '#FFFFFF', 0.6), pink = '#F2A0A8', ec = eyeColor;
       const mouthY = cy + ry * 0.5;
       const k = baby ? 1.15 : 1;
       switch (race) {
@@ -956,6 +1379,16 @@
           head.push(S(teeth, mDD, 1.6));
           break;
         }
+        default: {
+          const sp = BEASTS[race];
+          const bt = drawBeast(sp, { cx, cy, rx, ry, top, L, R, m, mD, mDD, mL, ec, id, X, F, rnd: rng(b, 1), eyeStyle, mouthStyle, baby, old, k, inner, eyes, mouth, whiskers, xg, cls });
+          if (bt.back) head.push(bt.back);
+          head.push(bt.head);
+          eyeY = bt.eyeY; ex = bt.ex; if (bt.noBody) noBody = true;
+          extra = extra || bt.extra;
+          if (race === 'star') headMotion = 'float';
+          break;
+        }
         case 'slime': {
           noBody = true; headMotion = 'squash';
           head.push(E(cx, 246, rx * 1.75, 12, mD));
@@ -966,13 +1399,17 @@
           break;
         }
       }
+      creatureAcc = noBody || race === 'ai' || race === 'robot' ? 'none' : pick(BEAST_ACC, X(10));
+      const ah = X(12) / 256 * 360;
+      if (creatureAcc === 'bow') head.push(P(d`M${cx - rx * 0.6} ${top + 6} l-10 -7 l0 14 Z M${cx - rx * 0.6} ${top + 6} l10 -7 l0 14 Z`, hsl(ah, 70, 62)) + C(cx - rx * 0.6, top + 6, 3, hsl(ah, 60, 48)));
+      if (creatureAcc === 'flower') { let s = ''; for (let i = 0; i < 5; i++) { const a = i / 5 * 2 * Math.PI; s += C(cx + rx * 0.72 + 5 * Math.cos(a), top + 10 + 5 * Math.sin(a), 3.8, hsl(ah, 75, 80)); } head.push(s + C(cx + rx * 0.72, top + 10, 2.8, '#F2C14E')); }
       if (blush && race !== 'robot' && race !== 'ai' && race !== 'skeleton') head.push(E(cx - rx * 0.62, eyeY + ry * 0.3, 7, 4, '#F07A8A', ' opacity="0.4"') + E(cx + rx * 0.62, eyeY + ry * 0.3, 7, 4, '#F07A8A', ' opacity="0.4"'));
     }
 
     if (back) o.push(back);
 
     let hairParts = { back: '', mid: '', front: '' };
-    if (!creature) {
+    if (!creature && race !== 'mummy') {
       hairParts = HAIR_FN[style](g, hair, clothC, hairD);
       if (hairParts.back) o.push(`<g${cls('H')}>${hairParts.back}</g>`);
     }
@@ -1022,6 +1459,8 @@
         o.push(S(d`M${cx - 16} ${sh - 7} L${cx} ${sh + 40} L${cx + 16} ${sh - 7}`, clothD, 3));
         o.push(C(cx + 6, sh + 22, 2, clothD) + C(cx + 3, sh + 32, 2, clothD));
       }
+      if (creatureAcc === 'bell') o.push(S(d`M${cx - 15} ${sh - 6} Q${cx} ${sh + 4} ${cx + 15} ${sh - 6}`, '#C9453F', 4) + C(cx, sh + 4, 5, '#E8B83A') + S(d`M${cx - 3} ${sh + 5} l6 0`, '#8C6A2A', 1.2));
+      if (creatureAcc === 'bandana') o.push(P(d`M${cx - 20} ${sh - 7} L${cx + 20} ${sh - 7} L${cx} ${sh + 20} Z`, hsl(X(12) / 256 * 360, 60, 50)) + C(cx - 6, sh, 1.6, '#FFFFFF') + C(cx + 5, sh + 5, 1.6, '#FFFFFF') + C(cx, sh - 3, 1.6, '#FFFFFF'));
       if (race === 'vampire') o.push(P(d`M${cx - bw * 0.8} ${sh + 14} L${L - 16} ${cy - 2} L${cx - 16} ${sh - 4} Z M${cx + bw * 0.8} ${sh + 14} L${R + 16} ${cy - 2} L${cx + 16} ${sh - 4} Z`, '#2A0A12') + P(d`M${cx - bw * 0.7} ${sh + 10} L${L - 10} ${cy + 4} L${cx - 18} ${sh - 2} Z M${cx + bw * 0.7} ${sh + 10} L${R + 10} ${cy + 4} L${cx + 18} ${sh - 2} Z`, '#8A0F1A'));
     }
 
@@ -1032,8 +1471,11 @@
       if (hairParts.mid) o.push(hairParts.mid);
 
       // ears + head
-      if (race === 'elf' || race === 'orc' || race === 'demon') {
-        const len = race === 'elf' ? 24 : race === 'demon' ? 16 : 12, up = race === 'orc' ? 0.4 : 0.9;
+      const POINTY = { elf: [24, 0.9], demon: [16, 0.9], orc: [12, 0.4], goblin: [30, 0.35], troll: [10, 0.6], fairy: [15, 1.0] };
+      if (race === 'mermaid') {
+        for (const sgn of [-1, 1]) o.push(P(d`M${cx + sgn * (rx - 3)} ${cy - 8} L${cx + sgn * (rx + 20)} ${cy - 18} Q${cx + sgn * (rx + 14)} ${cy + 2} ${cx + sgn * (rx + 18)} ${cy + 16} L${cx + sgn * (rx - 2)} ${cy + 12} Z`, mix(skin, '#2BA8A0', 0.45)) + S(d`M${cx + sgn * rx} ${cy - 4} l${sgn * 16} -8M${cx + sgn * rx} ${cy + 2} l${sgn * 14} 0M${cx + sgn * rx} ${cy + 8} l${sgn * 15} 6`, mix(skin, '#1A6A64', 0.5), 1.1));
+      } else if (POINTY[race]) {
+        const [len, up] = POINTY[race];
         for (const sgn of [-1, 1]) o.push(P(d`M${cx + sgn * (rx - 3)} ${cy - 6} Q${cx + sgn * (rx + len * 0.5)} ${cy - 8} ${cx + sgn * (rx + len)} ${cy - len * up} Q${cx + sgn * (rx + len * 0.45)} ${cy + 8} ${cx + sgn * (rx - 2)} ${cy + 15} Z`, skinD) + S(d`M${cx + sgn * (rx + 2)} ${cy - 2} Q${cx + sgn * (rx + len * 0.5)} ${cy - 3} ${cx + sgn * (rx + len * 0.8)} ${cy - len * up * 0.8}`, skinDD, 1.2, ' opacity="0.5"'));
       } else {
         o.push(E(L + 1, cy + 4, 7, baby ? 9 : 10, skinD) + E(R - 1, cy + 4, 7, baby ? 9 : 10, skinD));
@@ -1082,7 +1524,11 @@
 
       o.push(mouth(cx, mouthY, 1, lip, inner));
       if (race === 'vampire') o.push(P(d`M${cx - 6} ${mouthY - 1} L${cx - 2.5} ${mouthY - 1} L${cx - 4.3} ${mouthY + 5} Z M${cx + 6} ${mouthY - 1} L${cx + 2.5} ${mouthY - 1} L${cx + 4.3} ${mouthY + 5} Z`, '#FFFFFF'));
-      if (race === 'orc' || race === 'oni') { const t = race === 'orc' ? 9 : 6; o.push(P(d`M${cx - 12} ${mouthY + 4} L${cx - 8} ${mouthY + 4} L${cx - 11} ${mouthY + 4 - t} Z M${cx + 12} ${mouthY + 4} L${cx + 8} ${mouthY + 4} L${cx + 11} ${mouthY + 4 - t} Z`, '#F4EEDC')); }
+      if (race === 'goblin' || race === 'troll') o.push(E(cx, noseY + 1, race === 'troll' ? 8 : 5.5, race === 'troll' ? 6.5 : 7, skinD) + C(cx - 2, noseY - 1, 1.5, '#FFFFFF', ' opacity="0.35"'));
+      if (race === 'tengu') o.push(P(d`M${cx - 5} ${noseY - 8} Q${cx + 4} ${noseY - 4} ${cx + 30} ${noseY + 6} Q${cx + 4} ${noseY + 8} ${cx - 5} ${noseY + 4} Z`, skinD));
+      if (race === 'mermaid') { let sc = ''; for (const sgn of [-1, 1]) for (let i = 0; i < 3; i++) sc += d`M${cx + sgn * (rx * 0.62 + i * 4)} ${eyeY + 2 + i * 4}q2 -3 4 0`; o.push(S(sc, '#2BA8A0', 1.2, ' opacity="0.7"')); }
+      if (race === 'android') o.push(S(d`M${cx - rx * 0.92} ${cy + ry * 0.1} L${cx - rx * 0.55} ${cy + ry * 0.2} L${cx - rx * 0.3} ${cy + ry * 0.75}M${cx + rx * 0.92} ${cy + ry * 0.1} L${cx + rx * 0.55} ${cy + ry * 0.2} L${cx + rx * 0.3} ${cy + ry * 0.75}M${cx} ${top + ry * 0.2} L${cx} ${top + ry * 0.45}`, shade(skin, 0.72), 1.2) + `<g${cls('X')}>` + C(L + 6, cy - 6, 2.4, eyeColor) + C(L + 6, cy - 6, 5, eyeColor, ' opacity="0.3"') + '</g>');
+      if (race === 'troll' || race === 'orc' || race === 'oni') { const t = race === 'orc' ? 9 : race === 'troll' ? 7 : 6; o.push(P(d`M${cx - 12} ${mouthY + 4} L${cx - 8} ${mouthY + 4} L${cx - 11} ${mouthY + 4 - t} Z M${cx + 12} ${mouthY + 4} L${cx + 8} ${mouthY + 4} L${cx + 11} ${mouthY + 4 - t} Z`, '#F4EEDC')); }
 
       // eyes + brows
       o.push(eyes(eyeY, ex, 1, eyeColor, skinD));
@@ -1104,6 +1550,11 @@
         extra = ['blink', '50% 50%'];
       }
       o.push(hairParts.front);
+      if (race === 'mummy') o.push(S(d`M${L - 1} ${top + ry * 0.4} Q${cx} ${top + ry * 0.2} ${R + 1} ${top + ry * 0.5}M${L} ${top + ry * 0.15 + 8} Q${cx} ${top - 2} ${R} ${top + ry * 0.25}M${L + 2} ${cy + ry * 0.25} Q${cx} ${cy + ry * 0.1} ${R - 2} ${cy + ry * 0.3}M${L + 6} ${cy + ry * 0.7} Q${cx} ${cy + ry * 0.55} ${R - 6} ${cy + ry * 0.75}M${cx - rx * 0.2} ${top + 2} L${cx + rx * 0.5} ${cy - ry * 0.2}`, '#C8BCA0', 3.5) + P(d`M${cx + ex - 12} ${eyeY - 9} L${cx + ex + 12} ${eyeY - 12} L${cx + ex + 12} ${eyeY - 4} L${cx + ex - 12} ${eyeY - 2} Z`, '#E8DCC0'));
+      if (race === 'jinn') o.push(C(cx, top + ry * 0.32, 4, '#E8B83A') + C(cx, top + ry * 0.32, 2, '#D93A3A') + C(L + 1, cy + 15, 3.6, '#E8B83A') + C(R - 1, cy + 15, 3.6, '#E8B83A'));
+      if (race === 'mermaid') o.push(P(d`M${cx + rx * 0.45} ${top + 4} l-9 -2 q4 -10 9 -12 q5 2 9 12 Z`, '#F7B8C8') + S(d`M${cx + rx * 0.45} ${top + 3} l0 -11M${cx + rx * 0.45} ${top + 3} l-5 -9M${cx + rx * 0.45} ${top + 3} l5 -9`, '#E88AA0', 1));
+      if (race === 'fairy') o.push(C(cx - rx * 0.6, eyeY + ry * 0.28, 1.6, '#FFFFFF') + C(cx - rx * 0.5, eyeY + ry * 0.36, 1.1, '#FFFFFF') + C(cx + rx * 0.6, eyeY + ry * 0.28, 1.6, '#FFFFFF'));
+      if (race === 'hologram') { let ln = ''; for (let y = top - 4; y < cy + ry + 30; y += 5) ln += d`M${L - 30} ${y}H${R + 30}`; o.push(S(ln, '#FFFFFF', 1.2, ' opacity="0.28"')); extra = ['blink', '50% 50%']; }
       if (race === 'oni') o.push(P(d`M${cx - rx * 0.42} ${top + 8} L${cx - rx * 0.32} ${top - 20} L${cx - rx * 0.18} ${top + 6} Z M${cx + rx * 0.42} ${top + 8} L${cx + rx * 0.32} ${top - 20} L${cx + rx * 0.18} ${top + 6} Z`, '#F2E8D0', ` stroke="${shade('#F2E8D0', 0.7)}" stroke-width="1.2"`));
       if (race === 'demon') for (const sgn of [-1, 1]) o.push(P(d`M${cx + sgn * rx * 0.4} ${top + 10} C${cx + sgn * rx * 0.8} ${top - 14} ${cx + sgn * rx * 1.3} ${top - 6} ${cx + sgn * rx * 1.18} ${top + ry * 0.3} Q${cx + sgn * rx * 1.0} ${top + 2} ${cx + sgn * rx * 0.68} ${top + 16} Z`, '#3A2A3A'));
     }
@@ -1143,7 +1594,7 @@
     }
     if (race === 'angel') { o.push(xg(E(cx, top - 12, rx * 0.72, 7, 'none', ' stroke="#F2C94C" stroke-width="4"') + E(cx, top - 12, rx * 0.72, 7, 'none', ' stroke="#FFF3B0" stroke-width="1.4"'))); extra = ['float', '50% 50%']; }
     o.push('</g>'); // head group
-    o.push(art === 'pixel' ? '</g></g>' : '</g>'); // (pixel filter group +) clip group
+    o.push(portraitF ? '</g></g>' : '</g>'); // (portrait filter group +) clip group
 
     // ink style: a red seal whose glyph is drawn from 16 hash bits
     if (art === 'ink') {
@@ -1346,7 +1797,7 @@
     return qrSvg(opts.qr, a, opts, hash(input, opts.salt).bytes);
   }
 
-  const api = { svg, hash, normalize, sha256, qrMatrix, GENDERS, AGES, RACES, ARTS, version: 'v1' };
+  const api = { svg, hash, normalize, sha256, qrMatrix, GENDERS, AGES, RACES, ARTS, GROUPS, version: 'v1' };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.HashAvatar = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

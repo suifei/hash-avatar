@@ -8,3 +8,4 @@ dist/
 /parts.svg
 /*.png
 CLAUDE.md
+/src/hash-avatar.min.js

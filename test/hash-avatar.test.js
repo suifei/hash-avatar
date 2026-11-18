@@ -65,6 +65,16 @@ const CASES = [
   ['legolas', 'male', 'youth', 'elf'],
   ['nova', 'neutral', 'youth', 'ai'],
   ['somebody', 'male', 'youth', 'any'],
+  ['moo', 'female', 'middle', 'ox'],
+  ['shan', 'male', 'youth', 'tiger'],
+  ['ruyi', 'neutral', 'youth', 'qilin'],
+  ['fenghuang', 'female', 'youth', 'phoenix'],
+  ['tsuki', 'male', 'old', 'tanuki'],
+  ['ariel', 'female', 'teen', 'mermaid'],
+  ['karasu', 'male', 'middle', 'tengu'],
+  ['unit-7', 'neutral', 'youth', 'android'],
+  ['spud', 'neutral', 'baby', 'capybara'],
+  ['jack', 'male', 'youth', 'pumpkin'],
 ];
 // option variants: salt, size, fingerprint off
 const VARIANTS = [
@@ -123,7 +133,7 @@ test('race "any" picks a deterministic species from the hash and reaches every s
   const seen = new Set();
   for (let i = 0; i < 3000; i++) {
     const s = HA.svg('p' + i, { race: 'any', animate: false });
-    seen.add(s.match(/id="ha[0-9a-f]{12}..([0-9a-z])[fn]\d[as]"/)[1]);
+    seen.add(s.match(/id="ha[0-9a-f]{12}..([0-9a-z]{2})[fn]\d[as]"/)[1]);
   }
   assert.equal(seen.size, HA.RACES.length - 2); // every race except 'auto' and 'any' itself
 });

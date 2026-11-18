@@ -1,10 +1,10 @@
 {
   "name": "@suifei/hash-avatar",
-  "version": "1.1.0",
-  "description": "Deterministic, animated SVG avatars from a name or email via SHA-256: 31 races and creatures, 10 art styles, optional QR code. Zero dependencies, synchronous, browser and Node.",
+  "version": "1.2.0",
+  "description": "Deterministic, animated SVG avatars from a name or email via SHA-256: 88 races, animals and mythical beings, 10 art styles, optional QR code. Zero dependencies, synchronous, browser and Node.",
   "main": "src/hash-avatar.js",
-  "unpkg": "src/hash-avatar.js",
-  "jsdelivr": "src/hash-avatar.js",
+  "unpkg": "src/hash-avatar.min.js",
+  "jsdelivr": "src/hash-avatar.min.js",
   "files": [
     "src",
     "README.md",
@@ -13,10 +13,12 @@
   ],
   "scripts": {
     "test": "node --test",
+    "build:min": "node scripts/build-min.js",
     "build:demo": "node scripts/build-demo.js",
     "sheet": "node tools/sheet.js",
     "worker:dev": "npx wrangler dev",
-    "worker:deploy": "npx wrangler deploy"
+    "worker:deploy": "npx wrangler deploy",
+    "prepublishOnly": "npm run build:min && npm test"
   },
   "keywords": [
     "avatar",

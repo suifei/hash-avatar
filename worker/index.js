@@ -9,7 +9,7 @@ import HA from '../src/hash-avatar.js';
 
 const MAX_INPUT = 256, MAX_QR = 512;
 // Bump when rendering changes so the edge cache stops serving old images.
-const CACHE_VERSION = '1.1.0';
+const CACHE_VERSION = '1.2.0';
 const SVG_HEADERS = {
   'content-type': 'image/svg+xml; charset=utf-8',
   'access-control-allow-origin': '*',

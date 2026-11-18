@@ -181,7 +181,7 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
       comboH: '同一身份 × 15 种性别/年龄',
       comboP: '使用上方选中的种族和画风。背景、衣服颜色、眼型和外圈指纹在 15 张图中保持一致，所以同一个人换了年龄或性别后仍可辨认。',
       racesH: '同一身份 × 全部种族',
-      racesP: '人类的人种只决定肤色、发色、瞳色的取值范围，五官几何对所有人种都相同。奇幻种族和生物有各自的头部造型，但背景、衣服和眼型仍来自同一个哈希。',
+      racesP: '人类的肤色是连续取值：在 Monk 肤色量表上按哈希取一个位置，再叠加四种底色调之一；人种只决定取值区间（区间之间有重叠），五官几何对所有人种都相同。动物和神话生物由部件配方组装，哈希决定耳朵大小、花纹、配色和配饰，同一物种的两个身份也长得不一样。',
       artsH: '同一身份 × 画风',
       artsP: '画风全部用 SVG 滤镜实现，套在同一张矢量图上。水墨的印章、水彩和素描的纸纹都由哈希生成。',
       randH: '随机身份抽样（种族 = 随机）', reroll: '换一批',
@@ -191,9 +191,14 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
       uniqP3: '动效同样来自哈希：头部动作、幅度、节奏、眨眼时机、光波在外圈上扫过的速度、方向和波峰数、背景光斑和星光的位置，每个身份都不一样。鼠标悬停是卡牌效果：头像朝鼠标反方向 3D 倾斜，高光跟着鼠标走，外圈光波加速（仅当 SVG 直接嵌入页面时；用 <img> 引用时浏览器不响应鼠标）。系统开启「减少动态效果」时自动静止。',
       G: { male: '男', female: '女', neutral: '中性' },
       A: { baby: '婴儿', teen: '少年', youth: '青年', middle: '中年', old: '老年' },
-      GROUPS: ['人类', '奇幻', '生物与机械'],
+      GROUPS: ['人类', '奇幻与神话', '动物', '科幻与奇物'],
       R: {
-        asian: '黄种人', white: '白人', black: '黑人', brown: '棕色人种', auto: '人类（不指定）',
+        asian: '东亚', white: '欧洲裔', black: '非洲裔', brown: '棕色人种', southasian: '南亚', seasian: '东南亚', mideast: '中东北非', latino: '拉美', indigenous: '原住民', pacific: '太平洋岛民', auto: '人类（不指定）',
+        goblin: '哥布林', troll: '巨魔', mermaid: '人鱼', fairy: '妖精', tengu: '天狗', jinn: '灯神', mummy: '木乃伊', android: '仿生人', hologram: '全息投影',
+        mouse: '鼠', ox: '牛', tiger: '虎', snake: '蛇', horse: '马', goat: '山羊', rooster: '鸡', pig: '猪', lion: '狮子', wolf: '狼', koala: '考拉', deer: '鹿', elephant: '大象',
+        raccoon: '浣熊', redpanda: '小熊猫', hamster: '仓鼠', sheep: '绵羊', duck: '鸭子', parrot: '鹦鹉', chick: '小鸡', giraffe: '长颈鹿', zebra: '斑马', leopard: '豹', capybara: '水豚',
+        hedgehog: '刺猬', octopus: '章鱼', bee: '蜜蜂', qilin: '麒麟', phoenix: '凤凰', unicorn: '独角兽', nian: '年兽', tanuki: '狸猫', yeti: '雪怪', werewolf: '狼人', golem: '石魔像',
+        insectoid: '虫族', mushroom: '蘑菇', pumpkin: '南瓜灯', snowman: '雪人', cactus: '仙人掌', star: '星星',
         elf: '精灵', orc: '兽人', vampire: '吸血鬼', zombie: '僵尸', oni: '鬼', demon: '恶魔', angel: '天使', cyborg: '赛博格',
         cat: '猫', dog: '狗', fox: '狐狸', kitsune: '九尾狐', panda: '熊猫', rabbit: '兔子', bear: '熊', owl: '猫头鹰', penguin: '企鹅', frog: '青蛙',
         monkey: '猴', dragon: '龙', robot: '机器人', ai: 'AI', alien: '外星人', ghost: '幽灵', skeleton: '骷髅', slime: '史莱姆', any: '随机',
@@ -214,7 +219,7 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
       comboH: 'One identity × 15 genders and ages',
       comboP: 'Uses the race and art style selected above. The background, clothing colour, eyes and fingerprint ring stay the same across all 15 avatars, so the same person is still recognisable at any age or gender.',
       racesH: 'One identity × every race',
-      racesP: 'For humans, race only sets the range of skin, hair and eye colours; facial geometry is the same for everyone. Fantasy races and creatures get their own head shapes, but the background, clothes and eyes still come from the same hash.',
+      racesP: 'Human skin tone is continuous: the hash picks a position on the Monk Skin Tone scale plus one of four undertones, and race only sets the range (the ranges overlap). Facial geometry is the same for everyone. Animals and mythical beings are assembled from part recipes, and the hash sets ear size, markings, colourway and accessories, so two identities of the same species still look different.',
       artsH: 'One identity × art style',
       artsP: 'Every art style is an SVG filter applied to the same vector drawing. The ink seal and the paper grain in watercolor and sketch are generated from the hash.',
       randH: 'Random identities (race = any)', reroll: 'Shuffle',
@@ -224,9 +229,14 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
       uniqP3: 'The animation comes from the hash as well: head motion, amplitude and tempo, blink timing, the speed, direction and number of crests of the light wave over the ring, and where the background light and sparkles sit all differ per identity. Hovering gives a card effect: the avatar tilts in 3D away from the pointer, a glare follows it and the wave speeds up (only when the SVG is inline in the page; browsers ignore the mouse for <img>). Motion stops when the system asks for reduced motion.',
       G: { male: 'Male', female: 'Female', neutral: 'Neutral' },
       A: { baby: 'Baby', teen: 'Teen', youth: 'Young adult', middle: 'Middle-aged', old: 'Senior' },
-      GROUPS: ['Human', 'Fantasy', 'Creatures & machines'],
+      GROUPS: ['Human', 'Fantasy & myth', 'Animals', 'Sci-fi & oddities'],
       R: {
-        asian: 'East Asian', white: 'White', black: 'Black', brown: 'Brown', auto: 'Human (any)',
+        asian: 'East Asian', white: 'European', black: 'African', brown: 'Brown', southasian: 'South Asian', seasian: 'Southeast Asian', mideast: 'Middle East & N. Africa', latino: 'Latin American', indigenous: 'Indigenous', pacific: 'Pacific Islander', auto: 'Human (any)',
+        goblin: 'Goblin', troll: 'Troll', mermaid: 'Merfolk', fairy: 'Fairy', tengu: 'Tengu', jinn: 'Jinn', mummy: 'Mummy', android: 'Android', hologram: 'Hologram',
+        mouse: 'Mouse', ox: 'Ox', tiger: 'Tiger', snake: 'Snake', horse: 'Horse', goat: 'Goat', rooster: 'Rooster', pig: 'Pig', lion: 'Lion', wolf: 'Wolf', koala: 'Koala', deer: 'Deer', elephant: 'Elephant',
+        raccoon: 'Raccoon', redpanda: 'Red panda', hamster: 'Hamster', sheep: 'Sheep', duck: 'Duck', parrot: 'Parrot', chick: 'Chick', giraffe: 'Giraffe', zebra: 'Zebra', leopard: 'Leopard', capybara: 'Capybara',
+        hedgehog: 'Hedgehog', octopus: 'Octopus', bee: 'Bee', qilin: 'Qilin', phoenix: 'Phoenix', unicorn: 'Unicorn', nian: 'Nian beast', tanuki: 'Tanuki', yeti: 'Yeti', werewolf: 'Werewolf', golem: 'Golem',
+        insectoid: 'Insectoid', mushroom: 'Mushroom', pumpkin: 'Jack-o-lantern', snowman: 'Snowman', cactus: 'Cactus', star: 'Star',
         elf: 'Elf', orc: 'Orc', vampire: 'Vampire', zombie: 'Zombie', oni: 'Oni', demon: 'Demon', angel: 'Angel', cyborg: 'Cyborg',
         cat: 'Cat', dog: 'Dog', fox: 'Fox', kitsune: 'Nine-tailed fox', panda: 'Panda', rabbit: 'Rabbit', bear: 'Bear', owl: 'Owl', penguin: 'Penguin', frog: 'Frog',
         monkey: 'Monkey', dragon: 'Dragon', robot: 'Robot', ai: 'AI', alien: 'Alien', ghost: 'Ghost', skeleton: 'Skeleton', slime: 'Slime', any: 'Any',
@@ -236,7 +246,7 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
   };
   const LANGS = [['zh', '中文'], ['en', 'English']];
   const RV = HA.RACES, GV = HA.GENDERS, AV = HA.AGES, ARTS = HA.ARTS;
-  const GROUPS = [RV.slice(0, 5), RV.slice(5, 13), RV.slice(13)]; // humans | humanoids | creatures (+ any)
+  const G4 = HA.GROUPS, GROUPS = [G4.human, G4.fantasy, G4.animal, G4.scifi.concat('any')];
 
   // language: ?lang= > saved choice > browser language
   function pickLang() {

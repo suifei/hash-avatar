@@ -6,7 +6,7 @@
 
 # hash-avatar
 
-Deterministic SVG avatars from a name or email, via SHA-256.<br>31 races, 10 art styles, hash-driven animation, optional QR code.<br>Zero dependencies · synchronous · browser & Node.
+Deterministic SVG avatars from a name or email, via SHA-256.<br>88 races, 10 art styles, hash-driven animation, optional QR code.<br>Zero dependencies · synchronous · browser & Node.
 
 [![npm](https://img.shields.io/npm/v/@suifei/hash-avatar?color=2f6feb&label=npm)](https://www.npmjs.com/package/@suifei/hash-avatar)
 [![CI](https://github.com/suifei/hash-avatar/actions/workflows/ci.yml/badge.svg)](https://github.com/suifei/hash-avatar/actions/workflows/ci.yml)
@@ -30,44 +30,102 @@ Gender, age and race are **rendering parameters, not hash input**, so the same p
 <tr><th>neutral</th><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=baby&race=asian&size=96" width="96" alt="flynn · neutral · baby · asian" title="flynn · neutral · baby · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=teen&race=asian&size=96" width="96" alt="flynn · neutral · teen · asian" title="flynn · neutral · teen · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=youth&race=asian&size=96" width="96" alt="flynn · neutral · youth · asian" title="flynn · neutral · youth · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=middle&race=asian&size=96" width="96" alt="flynn · neutral · middle · asian" title="flynn · neutral · middle · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=old&race=asian&size=96" width="96" alt="flynn · neutral · old · asian" title="flynn · neutral · old · asian"></td></tr>
 </table>
 
-And `flynn` as a young man across the `race` setting (`auto` draws from all palettes). Race only shifts colour ranges and hair-texture weights. It never changes facial geometry.
+And `flynn` as a young man across the human `race` values. Skin tone is continuous: the hash picks a point on the Monk Skin Tone scale plus an undertone, and race only sets the (overlapping) range. Race also shifts hair colour and hair-texture weights. It never changes facial geometry.
 
 <table align="center">
-<tr><th><code>asian</code></th><th><code>white</code></th><th><code>black</code></th><th><code>brown</code></th><th><code>auto</code></th></tr>
-<tr><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=asian&size=96" width="96" alt="flynn · male · youth · asian" title="flynn · male · youth · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=white&size=96" width="96" alt="flynn · male · youth · white" title="flynn · male · youth · white"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=black&size=96" width="96" alt="flynn · male · youth · black" title="flynn · male · youth · black"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=brown&size=96" width="96" alt="flynn · male · youth · brown" title="flynn · male · youth · brown"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=auto&size=96" width="96" alt="flynn · male · youth · auto" title="flynn · male · youth · auto"></td></tr>
+<tr><th><code>asian</code></th><th><code>white</code></th><th><code>black</code></th><th><code>brown</code></th><th><code>southasian</code></th><th><code>seasian</code></th></tr>
+<tr><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=asian&size=96" width="96" alt="flynn · male · youth · asian" title="flynn · male · youth · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=white&size=96" width="96" alt="flynn · male · youth · white" title="flynn · male · youth · white"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=black&size=96" width="96" alt="flynn · male · youth · black" title="flynn · male · youth · black"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=brown&size=96" width="96" alt="flynn · male · youth · brown" title="flynn · male · youth · brown"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=southasian&size=96" width="96" alt="flynn · male · youth · southasian" title="flynn · male · youth · southasian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=seasian&size=96" width="96" alt="flynn · male · youth · seasian" title="flynn · male · youth · seasian"></td></tr>
+<tr><th><code>mideast</code></th><th><code>latino</code></th><th><code>indigenous</code></th><th><code>pacific</code></th><th><code>auto</code></th></tr>
+<tr><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=mideast&size=96" width="96" alt="flynn · male · youth · mideast" title="flynn · male · youth · mideast"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=latino&size=96" width="96" alt="flynn · male · youth · latino" title="flynn · male · youth · latino"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=indigenous&size=96" width="96" alt="flynn · male · youth · indigenous" title="flynn · male · youth · indigenous"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=pacific&size=96" width="96" alt="flynn · male · youth · pacific" title="flynn · male · youth · pacific"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=auto&size=96" width="96" alt="flynn · male · youth · auto" title="flynn · male · youth · auto"></td></tr>
 </table>
 
 ## Races and creatures
 
-Beyond the human palettes, `race` covers fantasy races and creatures. The background, clothes and eyes still come from `flynn`'s hash. `race=any` lets the hash pick one.
+Beyond humans, `race` covers fantasy and myth from many cultures, animals, and sci-fi oddities. Creatures are assembled from part recipes (head shape, ears, muzzle, markings, extras), and the hash varies ear size, markings, colourway and accessories, so two cats are not the same cat. `race=any` lets the hash pick one.
 
-<p align="center">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=elf&size=72" width="72" alt="flynn · race=elf" title="flynn · race=elf">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=orc&size=72" width="72" alt="flynn · race=orc" title="flynn · race=orc">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=vampire&size=72" width="72" alt="flynn · race=vampire" title="flynn · race=vampire">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=zombie&size=72" width="72" alt="flynn · race=zombie" title="flynn · race=zombie">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=oni&size=72" width="72" alt="flynn · race=oni" title="flynn · race=oni">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=demon&size=72" width="72" alt="flynn · race=demon" title="flynn · race=demon">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=angel&size=72" width="72" alt="flynn · race=angel" title="flynn · race=angel">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=cyborg&size=72" width="72" alt="flynn · race=cyborg" title="flynn · race=cyborg">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=cat&size=72" width="72" alt="flynn · race=cat" title="flynn · race=cat">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=dog&size=72" width="72" alt="flynn · race=dog" title="flynn · race=dog">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=fox&size=72" width="72" alt="flynn · race=fox" title="flynn · race=fox">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=kitsune&size=72" width="72" alt="flynn · race=kitsune" title="flynn · race=kitsune">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=panda&size=72" width="72" alt="flynn · race=panda" title="flynn · race=panda">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=rabbit&size=72" width="72" alt="flynn · race=rabbit" title="flynn · race=rabbit">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=bear&size=72" width="72" alt="flynn · race=bear" title="flynn · race=bear">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=owl&size=72" width="72" alt="flynn · race=owl" title="flynn · race=owl">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=penguin&size=72" width="72" alt="flynn · race=penguin" title="flynn · race=penguin">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=frog&size=72" width="72" alt="flynn · race=frog" title="flynn · race=frog">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=monkey&size=72" width="72" alt="flynn · race=monkey" title="flynn · race=monkey">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=dragon&size=72" width="72" alt="flynn · race=dragon" title="flynn · race=dragon">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=robot&size=72" width="72" alt="flynn · race=robot" title="flynn · race=robot">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=ai&size=72" width="72" alt="flynn · race=ai" title="flynn · race=ai">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=alien&size=72" width="72" alt="flynn · race=alien" title="flynn · race=alien">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=ghost&size=72" width="72" alt="flynn · race=ghost" title="flynn · race=ghost">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=skeleton&size=72" width="72" alt="flynn · race=skeleton" title="flynn · race=skeleton">
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=slime&size=72" width="72" alt="flynn · race=slime" title="flynn · race=slime">
+<p align="center"><b>Fantasy & myth</b><br>
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=elf&size=64" width="64" alt="flynn · race=elf" title="flynn · race=elf">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=orc&size=64" width="64" alt="flynn · race=orc" title="flynn · race=orc">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=goblin&size=64" width="64" alt="flynn · race=goblin" title="flynn · race=goblin">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=troll&size=64" width="64" alt="flynn · race=troll" title="flynn · race=troll">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=vampire&size=64" width="64" alt="flynn · race=vampire" title="flynn · race=vampire">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=zombie&size=64" width="64" alt="flynn · race=zombie" title="flynn · race=zombie">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=mummy&size=64" width="64" alt="flynn · race=mummy" title="flynn · race=mummy">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=oni&size=64" width="64" alt="flynn · race=oni" title="flynn · race=oni">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=tengu&size=64" width="64" alt="flynn · race=tengu" title="flynn · race=tengu">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=demon&size=64" width="64" alt="flynn · race=demon" title="flynn · race=demon">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=angel&size=64" width="64" alt="flynn · race=angel" title="flynn · race=angel">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=fairy&size=64" width="64" alt="flynn · race=fairy" title="flynn · race=fairy">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=mermaid&size=64" width="64" alt="flynn · race=mermaid" title="flynn · race=mermaid">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=jinn&size=64" width="64" alt="flynn · race=jinn" title="flynn · race=jinn">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=dragon&size=64" width="64" alt="flynn · race=dragon" title="flynn · race=dragon">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=kitsune&size=64" width="64" alt="flynn · race=kitsune" title="flynn · race=kitsune">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=qilin&size=64" width="64" alt="flynn · race=qilin" title="flynn · race=qilin">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=phoenix&size=64" width="64" alt="flynn · race=phoenix" title="flynn · race=phoenix">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=unicorn&size=64" width="64" alt="flynn · race=unicorn" title="flynn · race=unicorn">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=nian&size=64" width="64" alt="flynn · race=nian" title="flynn · race=nian">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=tanuki&size=64" width="64" alt="flynn · race=tanuki" title="flynn · race=tanuki">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=yeti&size=64" width="64" alt="flynn · race=yeti" title="flynn · race=yeti">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=werewolf&size=64" width="64" alt="flynn · race=werewolf" title="flynn · race=werewolf">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=golem&size=64" width="64" alt="flynn · race=golem" title="flynn · race=golem">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=ghost&size=64" width="64" alt="flynn · race=ghost" title="flynn · race=ghost">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=skeleton&size=64" width="64" alt="flynn · race=skeleton" title="flynn · race=skeleton">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=slime&size=64" width="64" alt="flynn · race=slime" title="flynn · race=slime">
+</p>
+
+<p align="center"><b>Animals</b><br>
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=cat&size=64" width="64" alt="flynn · race=cat" title="flynn · race=cat">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=dog&size=64" width="64" alt="flynn · race=dog" title="flynn · race=dog">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=fox&size=64" width="64" alt="flynn · race=fox" title="flynn · race=fox">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=wolf&size=64" width="64" alt="flynn · race=wolf" title="flynn · race=wolf">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=tiger&size=64" width="64" alt="flynn · race=tiger" title="flynn · race=tiger">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=lion&size=64" width="64" alt="flynn · race=lion" title="flynn · race=lion">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=leopard&size=64" width="64" alt="flynn · race=leopard" title="flynn · race=leopard">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=panda&size=64" width="64" alt="flynn · race=panda" title="flynn · race=panda">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=redpanda&size=64" width="64" alt="flynn · race=redpanda" title="flynn · race=redpanda">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=bear&size=64" width="64" alt="flynn · race=bear" title="flynn · race=bear">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=koala&size=64" width="64" alt="flynn · race=koala" title="flynn · race=koala">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=raccoon&size=64" width="64" alt="flynn · race=raccoon" title="flynn · race=raccoon">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=rabbit&size=64" width="64" alt="flynn · race=rabbit" title="flynn · race=rabbit">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=mouse&size=64" width="64" alt="flynn · race=mouse" title="flynn · race=mouse">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=hamster&size=64" width="64" alt="flynn · race=hamster" title="flynn · race=hamster">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=hedgehog&size=64" width="64" alt="flynn · race=hedgehog" title="flynn · race=hedgehog">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=capybara&size=64" width="64" alt="flynn · race=capybara" title="flynn · race=capybara">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=monkey&size=64" width="64" alt="flynn · race=monkey" title="flynn · race=monkey">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=ox&size=64" width="64" alt="flynn · race=ox" title="flynn · race=ox">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=horse&size=64" width="64" alt="flynn · race=horse" title="flynn · race=horse">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=zebra&size=64" width="64" alt="flynn · race=zebra" title="flynn · race=zebra">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=giraffe&size=64" width="64" alt="flynn · race=giraffe" title="flynn · race=giraffe">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=deer&size=64" width="64" alt="flynn · race=deer" title="flynn · race=deer">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=goat&size=64" width="64" alt="flynn · race=goat" title="flynn · race=goat">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=sheep&size=64" width="64" alt="flynn · race=sheep" title="flynn · race=sheep">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=pig&size=64" width="64" alt="flynn · race=pig" title="flynn · race=pig">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=elephant&size=64" width="64" alt="flynn · race=elephant" title="flynn · race=elephant">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=snake&size=64" width="64" alt="flynn · race=snake" title="flynn · race=snake">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=frog&size=64" width="64" alt="flynn · race=frog" title="flynn · race=frog">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=octopus&size=64" width="64" alt="flynn · race=octopus" title="flynn · race=octopus">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=owl&size=64" width="64" alt="flynn · race=owl" title="flynn · race=owl">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=penguin&size=64" width="64" alt="flynn · race=penguin" title="flynn · race=penguin">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=rooster&size=64" width="64" alt="flynn · race=rooster" title="flynn · race=rooster">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=chick&size=64" width="64" alt="flynn · race=chick" title="flynn · race=chick">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=duck&size=64" width="64" alt="flynn · race=duck" title="flynn · race=duck">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=parrot&size=64" width="64" alt="flynn · race=parrot" title="flynn · race=parrot">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=bee&size=64" width="64" alt="flynn · race=bee" title="flynn · race=bee">
+</p>
+
+<p align="center"><b>Sci-fi & oddities</b><br>
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=cyborg&size=64" width="64" alt="flynn · race=cyborg" title="flynn · race=cyborg">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=android&size=64" width="64" alt="flynn · race=android" title="flynn · race=android">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=hologram&size=64" width="64" alt="flynn · race=hologram" title="flynn · race=hologram">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=robot&size=64" width="64" alt="flynn · race=robot" title="flynn · race=robot">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=ai&size=64" width="64" alt="flynn · race=ai" title="flynn · race=ai">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=alien&size=64" width="64" alt="flynn · race=alien" title="flynn · race=alien">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=insectoid&size=64" width="64" alt="flynn · race=insectoid" title="flynn · race=insectoid">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=mushroom&size=64" width="64" alt="flynn · race=mushroom" title="flynn · race=mushroom">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=pumpkin&size=64" width="64" alt="flynn · race=pumpkin" title="flynn · race=pumpkin">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=snowman&size=64" width="64" alt="flynn · race=snowman" title="flynn · race=snowman">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=cactus&size=64" width="64" alt="flynn · race=cactus" title="flynn · race=cactus">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=star&size=64" width="64" alt="flynn · race=star" title="flynn · race=star">
 </p>
 
 ## Art styles
@@ -106,52 +164,52 @@ The outer ring draws the first **128 bits** of the hash, one tick per bit, clock
 <p align="center">
 <img src="https://avatar.onrpc.com/v1/alice.svg?gender=male&age=baby&race=elf&size=80" width="80" alt="alice · male · baby · elf" title="alice · male · baby · elf">
 <img src="https://avatar.onrpc.com/v1/bob.svg?gender=female&age=youth&race=white&size=80" width="80" alt="bob · female · youth · white" title="bob · female · youth · white">
-<img src="https://avatar.onrpc.com/v1/carol.svg?gender=neutral&age=old&race=bear&size=80" width="80" alt="carol · neutral · old · bear" title="carol · neutral · old · bear">
+<img src="https://avatar.onrpc.com/v1/carol.svg?gender=neutral&age=old&race=mummy&size=80" width="80" alt="carol · neutral · old · mummy" title="carol · neutral · old · mummy">
 <img src="https://avatar.onrpc.com/v1/dave.svg?gender=male&age=teen&race=brown&size=80" width="80" alt="dave · male · teen · brown" title="dave · male · teen · brown">
-<img src="https://avatar.onrpc.com/v1/eve.svg?gender=female&age=old&race=vampire&size=80" width="80" alt="eve · female · old · vampire" title="eve · female · old · vampire">
-<img src="https://avatar.onrpc.com/v1/frank.svg?gender=neutral&age=teen&race=asian&art=pixel&size=80" width="80" alt="frank · neutral · teen · asian · pixel" title="frank · neutral · teen · asian · pixel">
-<img src="https://avatar.onrpc.com/v1/grace.svg?gender=male&age=middle&race=penguin&size=80" width="80" alt="grace · male · middle · penguin" title="grace · male · middle · penguin">
-<img src="https://avatar.onrpc.com/v1/heidi.svg?gender=female&age=baby&race=black&size=80" width="80" alt="heidi · female · baby · black" title="heidi · female · baby · black">
-<img src="https://avatar.onrpc.com/v1/ivan.svg?gender=neutral&age=middle&race=oni&size=80" width="80" alt="ivan · neutral · middle · oni" title="ivan · neutral · middle · oni">
-<img src="https://avatar.onrpc.com/v1/judy.svg?gender=male&age=baby&race=asian&size=80" width="80" alt="judy · male · baby · asian" title="judy · male · baby · asian">
-<img src="https://avatar.onrpc.com/v1/mallory.svg?gender=female&age=youth&race=monkey&size=80" width="80" alt="mallory · female · youth · monkey" title="mallory · female · youth · monkey">
-<img src="https://avatar.onrpc.com/v1/niaj.svg?gender=neutral&age=old&race=black&art=ink&size=80" width="80" alt="niaj · neutral · old · black · ink" title="niaj · neutral · old · black · ink">
-<img src="https://avatar.onrpc.com/v1/olivia.svg?gender=male&age=youth&race=angel&size=80" width="80" alt="olivia · male · youth · angel" title="olivia · male · youth · angel">
-<img src="https://avatar.onrpc.com/v1/peggy.svg?gender=female&age=old&race=auto&size=80" width="80" alt="peggy · female · old · auto" title="peggy · female · old · auto">
-<img src="https://avatar.onrpc.com/v1/rupert.svg?gender=neutral&age=teen&race=robot&size=80" width="80" alt="rupert · neutral · teen · robot" title="rupert · neutral · teen · robot">
-<img src="https://avatar.onrpc.com/v1/sybil.svg?gender=male&age=middle&race=white&size=80" width="80" alt="sybil · male · middle · white" title="sybil · male · middle · white">
-<img src="https://avatar.onrpc.com/v1/trent.svg?gender=female&age=teen&race=cat&size=80" width="80" alt="trent · female · teen · cat" title="trent · female · teen · cat">
-<img src="https://avatar.onrpc.com/v1/victor.svg?gender=neutral&age=middle&race=auto&art=comic&size=80" width="80" alt="victor · neutral · middle · auto · comic" title="victor · neutral · middle · auto · comic">
-<img src="https://avatar.onrpc.com/v1/walter.svg?gender=male&age=baby&race=alien&size=80" width="80" alt="walter · male · baby · alien" title="walter · male · baby · alien">
-<img src="https://avatar.onrpc.com/v1/xiao.ming.svg?gender=female&age=youth&race=white&size=80" width="80" alt="xiao.ming · female · youth · white" title="xiao.ming · female · youth · white">
-<img src="https://avatar.onrpc.com/v1/%E6%9D%8E%E4%BC%9F.svg?gender=neutral&age=baby&race=fox&size=80" width="80" alt="李伟 · neutral · baby · fox" title="李伟 · neutral · baby · fox">
-<img src="https://avatar.onrpc.com/v1/%E7%8E%8B%E8%8A%B3.svg?gender=male&age=youth&race=brown&size=80" width="80" alt="王芳 · male · youth · brown" title="王芳 · male · youth · brown">
-<img src="https://avatar.onrpc.com/v1/%E5%BC%B5%E5%81%89.svg?gender=female&age=old&race=skeleton&size=80" width="80" alt="張偉 · female · old · skeleton" title="張偉 · female · old · skeleton">
-<img src="https://avatar.onrpc.com/v1/yuki.svg?gender=neutral&age=teen&race=asian&art=sketch&size=80" width="80" alt="yuki · neutral · teen · asian · sketch" title="yuki · neutral · teen · asian · sketch">
-<img src="https://avatar.onrpc.com/v1/amara.svg?gender=male&age=old&race=panda&size=80" width="80" alt="amara · male · old · panda" title="amara · male · old · panda">
-<img src="https://avatar.onrpc.com/v1/kwame.svg?gender=female&age=teen&race=brown&size=80" width="80" alt="kwame · female · teen · brown" title="kwame · female · teen · brown">
-<img src="https://avatar.onrpc.com/v1/priya.svg?gender=neutral&age=middle&race=elf&size=80" width="80" alt="priya · neutral · middle · elf" title="priya · neutral · middle · elf">
-<img src="https://avatar.onrpc.com/v1/arjun.svg?gender=male&age=baby&race=asian&size=80" width="80" alt="arjun · male · baby · asian" title="arjun · male · baby · asian">
-<img src="https://avatar.onrpc.com/v1/sofia.svg?gender=female&age=middle&race=bear&size=80" width="80" alt="sofia · female · middle · bear" title="sofia · female · middle · bear">
-<img src="https://avatar.onrpc.com/v1/mateo.svg?gender=neutral&age=baby&race=black&art=neon&size=80" width="80" alt="mateo · neutral · baby · black · neon" title="mateo · neutral · baby · black · neon">
-<img src="https://avatar.onrpc.com/v1/noah.svg?gender=male&age=youth&race=vampire&size=80" width="80" alt="noah · male · youth · vampire" title="noah · male · youth · vampire">
-<img src="https://avatar.onrpc.com/v1/zoe.svg?gender=female&age=old&race=auto&size=80" width="80" alt="zoe · female · old · auto" title="zoe · female · old · auto">
-<img src="https://avatar.onrpc.com/v1/liam.svg?gender=neutral&age=youth&race=penguin&size=80" width="80" alt="liam · neutral · youth · penguin" title="liam · neutral · youth · penguin">
-<img src="https://avatar.onrpc.com/v1/emma.svg?gender=male&age=old&race=black&size=80" width="80" alt="emma · male · old · black" title="emma · male · old · black">
-<img src="https://avatar.onrpc.com/v1/chen.jie.svg?gender=female&age=teen&race=oni&size=80" width="80" alt="chen.jie · female · teen · oni" title="chen.jie · female · teen · oni">
-<img src="https://avatar.onrpc.com/v1/lin.mei.svg?gender=neutral&age=middle&race=auto&art=pop&size=80" width="80" alt="lin.mei · neutral · middle · auto · pop" title="lin.mei · neutral · middle · auto · pop">
-<img src="https://avatar.onrpc.com/v1/hiro.svg?gender=male&age=teen&race=monkey&size=80" width="80" alt="hiro · male · teen · monkey" title="hiro · male · teen · monkey">
-<img src="https://avatar.onrpc.com/v1/sakura.svg?gender=female&age=middle&race=white&size=80" width="80" alt="sakura · female · middle · white" title="sakura · female · middle · white">
-<img src="https://avatar.onrpc.com/v1/min-jun.svg?gender=neutral&age=baby&race=angel&size=80" width="80" alt="min-jun · neutral · baby · angel" title="min-jun · neutral · baby · angel">
-<img src="https://avatar.onrpc.com/v1/ji-woo.svg?gender=male&age=youth&race=brown&size=80" width="80" alt="ji-woo · male · youth · brown" title="ji-woo · male · youth · brown">
-<img src="https://avatar.onrpc.com/v1/fatima.svg?gender=female&age=baby&race=robot&size=80" width="80" alt="fatima · female · baby · robot" title="fatima · female · baby · robot">
-<img src="https://avatar.onrpc.com/v1/omar.svg?gender=neutral&age=youth&race=white&art=mood&size=80" width="80" alt="omar · neutral · youth · white · mood" title="omar · neutral · youth · white · mood">
-<img src="https://avatar.onrpc.com/v1/chidi.svg?gender=male&age=old&race=cat&size=80" width="80" alt="chidi · male · old · cat" title="chidi · male · old · cat">
-<img src="https://avatar.onrpc.com/v1/ngozi.svg?gender=female&age=teen&race=brown&size=80" width="80" alt="ngozi · female · teen · brown" title="ngozi · female · teen · brown">
-<img src="https://avatar.onrpc.com/v1/lucas.svg?gender=neutral&age=old&race=alien&size=80" width="80" alt="lucas · neutral · old · alien" title="lucas · neutral · old · alien">
-<img src="https://avatar.onrpc.com/v1/ines.svg?gender=male&age=teen&race=asian&size=80" width="80" alt="ines · male · teen · asian" title="ines · male · teen · asian">
-<img src="https://avatar.onrpc.com/v1/olaf.svg?gender=female&age=middle&race=fox&size=80" width="80" alt="olaf · female · middle · fox" title="olaf · female · middle · fox">
-<img src="https://avatar.onrpc.com/v1/freya.svg?gender=neutral&age=baby&race=black&art=watercolor&size=80" width="80" alt="freya · neutral · baby · black · watercolor" title="freya · neutral · baby · black · watercolor">
+<img src="https://avatar.onrpc.com/v1/eve.svg?gender=female&age=old&race=dragon&size=80" width="80" alt="eve · female · old · dragon" title="eve · female · old · dragon">
+<img src="https://avatar.onrpc.com/v1/frank.svg?gender=neutral&age=teen&race=seasian&art=pixel&size=80" width="80" alt="frank · neutral · teen · seasian · pixel" title="frank · neutral · teen · seasian · pixel">
+<img src="https://avatar.onrpc.com/v1/grace.svg?gender=male&age=middle&race=pig&size=80" width="80" alt="grace · male · middle · pig" title="grace · male · middle · pig">
+<img src="https://avatar.onrpc.com/v1/heidi.svg?gender=female&age=baby&race=latino&size=80" width="80" alt="heidi · female · baby · latino" title="heidi · female · baby · latino">
+<img src="https://avatar.onrpc.com/v1/ivan.svg?gender=neutral&age=middle&race=zebra&size=80" width="80" alt="ivan · neutral · middle · zebra" title="ivan · neutral · middle · zebra">
+<img src="https://avatar.onrpc.com/v1/judy.svg?gender=male&age=baby&race=auto&size=80" width="80" alt="judy · male · baby · auto" title="judy · male · baby · auto">
+<img src="https://avatar.onrpc.com/v1/mallory.svg?gender=female&age=youth&race=insectoid&size=80" width="80" alt="mallory · female · youth · insectoid" title="mallory · female · youth · insectoid">
+<img src="https://avatar.onrpc.com/v1/niaj.svg?gender=neutral&age=old&race=white&art=ink&size=80" width="80" alt="niaj · neutral · old · white · ink" title="niaj · neutral · old · white · ink">
+<img src="https://avatar.onrpc.com/v1/olivia.svg?gender=male&age=youth&race=goblin&size=80" width="80" alt="olivia · male · youth · goblin" title="olivia · male · youth · goblin">
+<img src="https://avatar.onrpc.com/v1/peggy.svg?gender=female&age=old&race=brown&size=80" width="80" alt="peggy · female · old · brown" title="peggy · female · old · brown">
+<img src="https://avatar.onrpc.com/v1/rupert.svg?gender=neutral&age=teen&race=rabbit&size=80" width="80" alt="rupert · neutral · teen · rabbit" title="rupert · neutral · teen · rabbit">
+<img src="https://avatar.onrpc.com/v1/sybil.svg?gender=male&age=middle&race=seasian&size=80" width="80" alt="sybil · male · middle · seasian" title="sybil · male · middle · seasian">
+<img src="https://avatar.onrpc.com/v1/trent.svg?gender=female&age=teen&race=ox&size=80" width="80" alt="trent · female · teen · ox" title="trent · female · teen · ox">
+<img src="https://avatar.onrpc.com/v1/victor.svg?gender=neutral&age=middle&race=indigenous&art=comic&size=80" width="80" alt="victor · neutral · middle · indigenous · comic" title="victor · neutral · middle · indigenous · comic">
+<img src="https://avatar.onrpc.com/v1/walter.svg?gender=male&age=baby&race=hamster&size=80" width="80" alt="walter · male · baby · hamster" title="walter · male · baby · hamster">
+<img src="https://avatar.onrpc.com/v1/xiao.ming.svg?gender=female&age=youth&race=auto&size=80" width="80" alt="xiao.ming · female · youth · auto" title="xiao.ming · female · youth · auto">
+<img src="https://avatar.onrpc.com/v1/%E6%9D%8E%E4%BC%9F.svg?gender=neutral&age=baby&race=unicorn&size=80" width="80" alt="李伟 · neutral · baby · unicorn" title="李伟 · neutral · baby · unicorn">
+<img src="https://avatar.onrpc.com/v1/%E7%8E%8B%E8%8A%B3.svg?gender=male&age=youth&race=white&size=80" width="80" alt="王芳 · male · youth · white" title="王芳 · male · youth · white">
+<img src="https://avatar.onrpc.com/v1/%E5%BC%B5%E5%81%89.svg?gender=female&age=old&race=vampire&size=80" width="80" alt="張偉 · female · old · vampire" title="張偉 · female · old · vampire">
+<img src="https://avatar.onrpc.com/v1/yuki.svg?gender=neutral&age=teen&race=brown&art=sketch&size=80" width="80" alt="yuki · neutral · teen · brown · sketch" title="yuki · neutral · teen · brown · sketch">
+<img src="https://avatar.onrpc.com/v1/amara.svg?gender=male&age=old&race=hologram&size=80" width="80" alt="amara · male · old · hologram" title="amara · male · old · hologram">
+<img src="https://avatar.onrpc.com/v1/kwame.svg?gender=female&age=teen&race=mideast&size=80" width="80" alt="kwame · female · teen · mideast" title="kwame · female · teen · mideast">
+<img src="https://avatar.onrpc.com/v1/priya.svg?gender=neutral&age=middle&race=ai&size=80" width="80" alt="priya · neutral · middle · ai" title="priya · neutral · middle · ai">
+<img src="https://avatar.onrpc.com/v1/arjun.svg?gender=male&age=baby&race=indigenous&size=80" width="80" alt="arjun · male · baby · indigenous" title="arjun · male · baby · indigenous">
+<img src="https://avatar.onrpc.com/v1/sofia.svg?gender=female&age=middle&race=wolf&size=80" width="80" alt="sofia · female · middle · wolf" title="sofia · female · middle · wolf">
+<img src="https://avatar.onrpc.com/v1/mateo.svg?gender=neutral&age=baby&race=auto&art=neon&size=80" width="80" alt="mateo · neutral · baby · auto · neon" title="mateo · neutral · baby · auto · neon">
+<img src="https://avatar.onrpc.com/v1/noah.svg?gender=male&age=youth&race=capybara&size=80" width="80" alt="noah · male · youth · capybara" title="noah · male · youth · capybara">
+<img src="https://avatar.onrpc.com/v1/zoe.svg?gender=female&age=old&race=white&size=80" width="80" alt="zoe · female · old · white" title="zoe · female · old · white">
+<img src="https://avatar.onrpc.com/v1/liam.svg?gender=neutral&age=youth&race=pumpkin&size=80" width="80" alt="liam · neutral · youth · pumpkin" title="liam · neutral · youth · pumpkin">
+<img src="https://avatar.onrpc.com/v1/emma.svg?gender=male&age=old&race=southasian&size=80" width="80" alt="emma · male · old · southasian" title="emma · male · old · southasian">
+<img src="https://avatar.onrpc.com/v1/chen.jie.svg?gender=female&age=teen&race=mermaid&size=80" width="80" alt="chen.jie · female · teen · mermaid" title="chen.jie · female · teen · mermaid">
+<img src="https://avatar.onrpc.com/v1/lin.mei.svg?gender=neutral&age=middle&race=mideast&art=pop&size=80" width="80" alt="lin.mei · neutral · middle · mideast · pop" title="lin.mei · neutral · middle · mideast · pop">
+<img src="https://avatar.onrpc.com/v1/hiro.svg?gender=male&age=teen&race=owl&size=80" width="80" alt="hiro · male · teen · owl" title="hiro · male · teen · owl">
+<img src="https://avatar.onrpc.com/v1/sakura.svg?gender=female&age=middle&race=indigenous&size=80" width="80" alt="sakura · female · middle · indigenous" title="sakura · female · middle · indigenous">
+<img src="https://avatar.onrpc.com/v1/min-jun.svg?gender=neutral&age=baby&race=snake&size=80" width="80" alt="min-jun · neutral · baby · snake" title="min-jun · neutral · baby · snake">
+<img src="https://avatar.onrpc.com/v1/ji-woo.svg?gender=male&age=youth&race=auto&size=80" width="80" alt="ji-woo · male · youth · auto" title="ji-woo · male · youth · auto">
+<img src="https://avatar.onrpc.com/v1/fatima.svg?gender=female&age=baby&race=duck&size=80" width="80" alt="fatima · female · baby · duck" title="fatima · female · baby · duck">
+<img src="https://avatar.onrpc.com/v1/omar.svg?gender=neutral&age=youth&race=black&art=mood&size=80" width="80" alt="omar · neutral · youth · black · mood" title="omar · neutral · youth · black · mood">
+<img src="https://avatar.onrpc.com/v1/chidi.svg?gender=male&age=old&race=tanuki&size=80" width="80" alt="chidi · male · old · tanuki" title="chidi · male · old · tanuki">
+<img src="https://avatar.onrpc.com/v1/ngozi.svg?gender=female&age=teen&race=southasian&size=80" width="80" alt="ngozi · female · teen · southasian" title="ngozi · female · teen · southasian">
+<img src="https://avatar.onrpc.com/v1/lucas.svg?gender=neutral&age=old&race=oni&size=80" width="80" alt="lucas · neutral · old · oni" title="lucas · neutral · old · oni">
+<img src="https://avatar.onrpc.com/v1/ines.svg?gender=male&age=teen&race=mideast&size=80" width="80" alt="ines · male · teen · mideast" title="ines · male · teen · mideast">
+<img src="https://avatar.onrpc.com/v1/olaf.svg?gender=female&age=middle&race=dog&size=80" width="80" alt="olaf · female · middle · dog" title="olaf · female · middle · dog">
+<img src="https://avatar.onrpc.com/v1/freya.svg?gender=neutral&age=baby&race=indigenous&art=watercolor&size=80" width="80" alt="freya · neutral · baby · indigenous · watercolor" title="freya · neutral · baby · indigenous · watercolor">
 </p>
 
 ## Usage
@@ -195,7 +253,7 @@ The service is a small Cloudflare Worker ([`worker/index.js`](worker/index.js)).
 ### 2. Browser via CDN
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@suifei/hash-avatar@1/src/hash-avatar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@suifei/hash-avatar@1/src/hash-avatar.min.js"></script>
 <div id="me"></div>
 <script>
   document.getElementById('me').innerHTML =
@@ -203,7 +261,7 @@ The service is a small Cloudflare Worker ([`worker/index.js`](worker/index.js)).
 </script>
 ```
 
-unpkg works too: `https://unpkg.com/@suifei/hash-avatar@1/src/hash-avatar.js`. The script defines `window.HashAvatar`.
+unpkg works too: `https://unpkg.com/@suifei/hash-avatar@1/src/hash-avatar.min.js`. The script defines `window.HashAvatar`. The minified build is about 94 KB (32 KB gzipped); the unminified `src/hash-avatar.js` is in the package too.
 
 ### 3. npm
 
@@ -233,7 +291,7 @@ Returns a complete SVG document as a string.
 |---|---|---|
 | `gender` | `male` · `female` · `neutral` | `neutral` |
 | `age` | `baby` · `teen` · `youth` · `middle` · `old` | `youth` |
-| `race` | humans `asian` · `white` · `black` · `brown` · `auto`; fantasy `elf` · `orc` · `vampire` · `zombie` · `oni` · `demon` · `angel` · `cyborg`; creatures `cat` · `dog` · `fox` · `kitsune` · `panda` · `rabbit` · `bear` · `owl` · `penguin` · `frog` · `monkey` · `dragon` · `robot` · `ai` · `alien` · `ghost` · `skeleton` · `slime`; `any` (picked from the hash) | `auto` |
+| `race` | 88 values including `any`. Humans `asian` · `white` · `black` · `brown` · `southasian` · `seasian` · `mideast` · `latino` · `indigenous` · `pacific` · `auto`; fantasy & myth `elf` · `orc` · `goblin` · `troll` · `vampire` · `zombie` · `mummy` · `oni` · `tengu` · `demon` · `angel` · `fairy` · `mermaid` · `jinn` · `dragon` · `kitsune` · `qilin` · `phoenix` · `unicorn` · `nian` · `tanuki` · `yeti` · `werewolf` · `golem` · `ghost` · `skeleton` · `slime`; animals `cat` · `dog` · `fox` · `wolf` · `tiger` · `lion` · `leopard` · `panda` · `redpanda` · `bear` · `koala` · `raccoon` · `rabbit` · `mouse` · `hamster` · `hedgehog` · `capybara` · `monkey` · `ox` · `horse` · `zebra` · `giraffe` · `deer` · `goat` · `sheep` · `pig` · `elephant` · `snake` · `frog` · `octopus` · `owl` · `penguin` · `rooster` · `chick` · `duck` · `parrot` · `bee`; sci-fi & oddities `cyborg` · `android` · `hologram` · `robot` · `ai` · `alien` · `insectoid` · `mushroom` · `pumpkin` · `snowman` · `cactus` · `star`; `any` (picked from the hash). The grouped lists are exported as `GROUPS` | `auto` |
 | `art` | `flat` · `pixel` · `ink` · `comic` · `sketch` · `neon` · `pop` · `mood` · `watercolor` · `glitch` | `flat` |
 | `size` | width/height in px (the viewBox is always 256) | `256` |
 | `salt` | any string, mixed into the hash | `''` |
@@ -259,9 +317,9 @@ The built-in synchronous SHA-256.
 
 The built-in QR encoder (byte mode, error correction level H, versions 1–40). Returns rows of 0/1 modules without the quiet zone. Throws `RangeError` above 1273 bytes.
 
-### `GENDERS`, `AGES`, `RACES`, `ARTS`, `version`
+### `GENDERS`, `AGES`, `RACES`, `ARTS`, `GROUPS`, `version`
 
-The accepted option values and the contract version (`'v1'`).
+The accepted option values, the races grouped as `{ human, fantasy, animal, scifi }`, and the contract version (`'v1'`).
 
 ## Why avatars are unique
 
@@ -277,7 +335,7 @@ The animation is unique per identity as well. A PRNG seeded from the hash picks 
 
 - **Small sizes.** Below about 96 px the ring ticks cannot be told apart by eye. Uniqueness then becomes probabilistic and rests on the combination of features.
 - **Privacy.** The ring is the hash in plain sight. For emails, anyone can read those 128 bits and run a dictionary lookup. When you display avatars publicly, render them on your server with a secret `salt`. The public image service cannot do this, because a salt in a URL is not secret, so pass it a username or opaque ID rather than an email.
-- **What race changes.** For the human values, race only changes the range of skin, hair and eye colours and the weighting of hair textures. **Facial geometry is never changed.** This is deliberate, to avoid drawing stereotypes. Fantasy races and creatures do have their own head shapes.
+- **What race changes.** For the human values, race only sets the skin-tone range on the Monk Skin Tone scale (ranges overlap), the range of hair and eye colours, and the weighting of hair textures. **Facial geometry is never changed.** This is deliberate, to avoid drawing stereotypes. Fantasy races and creatures do have their own head shapes.
 - **Hover only works inline.** Browsers do not deliver mouse events to an SVG loaded through `<img>`, so hover effects need inline SVG. The animation itself plays either way.
 - **Filters cost CPU.** Art styles other than `flat` are SVG filters. A page with dozens of animated, filtered avatars repaints those filters every frame; pass `animate: false` for large grids.
 
