@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>哈希头像生成器</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* layout: control column + hero avatar on top, then two dense grids that prove determinism and spread */
+  --bg: #F4F5F7;
+  --panel: #FFFFFF;
+  --ink: #1C2026;
+  --muted: #5E6672;
+  --line: #DDE1E7;
+  --accent: #2F6FDB;
+  --accent-ink: #FFFFFF;
+  --font-body: system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12151A; --panel: #1A1E25; --ink: #E7EAEE; --muted: #9AA3AF; --line: #2C323C; --accent: #6B9BFF; --accent-ink: #0E1420;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12151A; --panel: #1A1E25; --ink: #E7EAEE; --muted: #9AA3AF; --line: #2C323C; --accent: #6B9BFF; --accent-ink: #0E1420;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.6 var(--font-body); }
+main { max-width: 1040px; margin: 0 auto; padding: 28px 20px 48px; display: grid; gap: 28px; }
+h1 { font-size: 22px; font-weight: 600; margin: 0; text-wrap: balance; }
+h2 { font-size: 16px; font-weight: 600; margin: 0 0 4px; }
+p { margin: 0; }
+.sub { color: var(--muted); max-width: 68ch; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) 272px; gap: 24px; align-items: start; }
+.controls { display: grid; gap: 16px; }
+label.f { display: grid; gap: 6px; font-size: 13px; color: var(--muted); }
+input[type=text] { font: 15px var(--font-body); color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; width: 100%; }
+input[type=text]:focus-visible, button:focus-visible, .seg input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.seg label { position: relative; }
+.seg input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.seg span { display: block; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; font-size: 14px; color: var(--ink); background: var(--bg); }
+.seg input:checked + span { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.meta { display: grid; gap: 4px; font-size: 13px; color: var(--muted); }
+.mono { font-family: var(--font-mono); font-size: 12.5px; color: var(--ink); word-break: break-all; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+button { font: 14px var(--font-body); padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); cursor: pointer; }
+button.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.status { font-size: 13px; color: var(--muted); min-height: 1.2em; }
+.big svg { width: 272px; height: 272px; display: block; }
+.grid { display: grid; gap: 14px; margin-top: 14px; }
+.grid.combo { grid-template-columns: 64px repeat(5, minmax(0, 1fr)); align-items: center; }
+.grid.combo .h { font-size: 13px; color: var(--muted); text-align: center; }
+.grid.combo .rh { font-size: 13px; color: var(--muted); }
+.grid.combo svg, .grid.rand svg { width: 100%; height: auto; display: block; }
+.grid.rand { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); }
+.cell { display: grid; gap: 4px; }
+.cell small { font-size: 11.5px; color: var(--muted); text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.note { font-size: 13px; color: var(--muted); max-width: 72ch; }
+@media (max-width: 680px) {
+  .hero { grid-template-columns: 1fr; }
+  .big { justify-self: center; }
+  .grid.combo { grid-template-columns: 40px repeat(5, minmax(0, 1fr)); gap: 6px; }
+}
+</style>
+</head>
+<body>
+<main>
+  <header style="display:grid;gap:6px">
+    <h1>哈希头像生成器</h1>
+    <p class="sub">输入名称或 email，经 SHA-256 得到 256 位哈希，按哈希确定性绘制头像。同一输入永远得到同一头像；性别、年龄、人种只改变渲染，不改变身份特征。</p>
+  </header>
+
+  <section class="panel hero">
+    <div class="controls">
+      <label class="f" for="who">名称或 email
+        <input type="text" id="who" value="flynn@example.com" autocomplete="off" spellcheck="false">
+      </label>
+      <div class="f" role="radiogroup" aria-label="性别">性别
+        <div class="seg" id="gender"></div>
+      </div>
+      <div class="f" role="radiogroup" aria-label="年龄">年龄
+        <div class="seg" id="age"></div>
+      </div>
+      <div class="f" role="radiogroup" aria-label="人种">人种
+        <div class="seg" id="race"></div>
+      </div>
+      <div class="meta">
+        <div>规范化输入：<span class="mono" id="norm"></span></div>
+        <div>SHA-256：<span class="mono" id="hex"></span></div>
+        <div>外圈指纹编码前 128 位：<span class="mono" id="fp"></span></div>
+      </div>
+      <div class="row">
+        <button class="primary" id="copy" type="button">复制 SVG</button>
+        <span class="status" id="status" aria-live="polite"></span>
+      </div>
+    </div>
+    <div class="big" id="big"></div>
+  </section>
+
+  <section class="panel">
+    <h2>同一身份 × 15 种性别/年龄</h2>
+    <p class="note">使用上方选中的人种。背景、衣服颜色、眉形、眼型和外圈指纹在 15 张图中保持一致，这样同一个人换年龄或性别后仍可辨认。</p>
+    <div class="grid combo" id="combo"></div>
+  </section>
+
+  <section class="panel">
+    <h2>同一身份 × 人种</h2>
+    <p class="note">人种决定肤色、发色、瞳色的取值范围，并调整发型质地的权重；五官几何对所有人种相同。</p>
+    <div class="grid combo" id="races"></div>
+  </section>
+
+  <section class="panel">
+    <div class="row" style="justify-content:space-between">
+      <h2>随机身份抽样</h2>
+      <button id="reroll" type="button">换一批</button>
+    </div>
+    <div class="grid rand" id="rand"></div>
+  </section>
+
+  <section class="panel note" style="display:grid;gap:8px">
+    <h2 style="color:var(--ink)">唯一性怎么保证</h2>
+    <p>五官、发型、配饰等特征的组合是有限的，单靠它们不可能做到 UUID 级唯一。所以头像外圈有 128 个刻度槽，逐位画出哈希的前 128 位（12 点钟方向起顺时针，长刻度为 1，暗点为 0）。哈希前 128 位不同，外圈就一定不同；两个不同输入撞到同一外圈的概率等于 SHA-256 截断到 128 位后的碰撞概率，比 UUIDv4（122 位随机）还低。</p>
+    <p>小尺寸下（低于约 96px）外圈刻度肉眼分辨不清，此时靠特征组合区分，大概率不同但不保证。</p>
+  </section>
+</main>
+<script src="../src/hash-avatar.js"></script>
+<script>
+(function () {
+  const HA = window.HashAvatar;
+  const G = [['male', '男'], ['female', '女'], ['neutral', '中性']];
+  const A = [['baby', '婴儿'], ['teen', '少年'], ['youth', '青年'], ['middle', '中年'], ['old', '老年']];
+  const $ = id => document.getElementById(id);
+  const RC = [['asian', '黄种人'], ['white', '白人'], ['black', '黑人'], ['brown', '棕色人种'], ['auto', '不指定']];
+  const state = { gender: 'male', age: 'youth', race: 'asian' };
+
+  function seg(el, name, opts, key) {
+    el.innerHTML = opts.map(([v, t]) => `<label><input type="radio" id="${name}-${v}" name="${name}" value="${v}"${state[key] === v ? ' checked' : ''}><span>${t}</span></label>`).join('');
+    el.addEventListener('change', e => { state[key] = e.target.value; render(); });
+  }
+  seg($('gender'), 'g', G, 'gender');
+  seg($('age'), 'a', A, 'age');
+  seg($('race'), 'r', RC, 'race');
+
+  let current = '';
+  function render() {
+    const who = $('who').value;
+    const h = HA.hash(who);
+    current = HA.svg(who, { gender: state.gender, age: state.age, race: state.race, size: 272 });
+    $('big').innerHTML = current;
+    $('norm').textContent = h.input === '' ? '（空）' : h.input;
+    $('hex').textContent = h.hex;
+    $('fp').textContent = h.hex.slice(0, 32);
+    let html = '<div></div>' + A.map(([, t]) => `<div class="h">${t}</div>`).join('');
+    for (const [gv, gt] of G) {
+      html += `<div class="rh">${gt}</div>`;
+      for (const [av] of A) html += `<div>${HA.svg(who, { gender: gv, age: av, race: state.race, size: 160 })}</div>`;
+    }
+    $('combo').innerHTML = html;
+    $('races').innerHTML = '<div></div>' + RC.map(([, t]) => `<div class="h">${t}</div>`).join('') +
+      '<div class="rh"></div>' + RC.map(([rv]) => `<div>${HA.svg(who, { gender: state.gender, age: state.age, race: rv, size: 160 })}</div>`).join('');
+    $('status').textContent = '';
+  }
+
+  const FIRST = ['li.wei', 'zhang.min', 'chen.jie', 'wang.fang', 'liu.yang', 'tan.ah.kow', 'lim.mei', 'ng.boon', 'alice', 'bob', 'carol', 'dave', 'eve', 'mallory', 'trent', 'peggy'];
+  function reroll() {
+    let html = '';
+    for (let i = 0; i < 24; i++) {
+      const id = FIRST[Math.random() * FIRST.length | 0] + (Math.random() * 1000 | 0) + '@example.com';
+      const g = G[Math.random() * 3 | 0][0], a = A[Math.random() * 5 | 0][0], r = RC[Math.random() * 4 | 0][0];
+      html += `<div class="cell">${HA.svg(id, { gender: g, age: a, race: r, size: 120 })}<small title="${id}">${id}</small></div>`;
+    }
+    $('rand').innerHTML = html;
+  }
+
+  $('who').addEventListener('input', render);
+  $('reroll').addEventListener('click', reroll);
+  $('copy').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(current); $('status').textContent = '已复制到剪贴板'; }
+    catch (e) { $('status').textContent = '浏览器拒绝了剪贴板写入，请换个浏览器再试'; }
+  });
+  render();
+  reroll();
+})();
+</script>
+</body>
+</html>

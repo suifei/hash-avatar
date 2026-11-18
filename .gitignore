@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.wrangler/
+.dev.vars
+*.log
+# outputs of tools/sheet.js
+/hair.svg
+/parts.svg
+/*.png
+CLAUDE.md
