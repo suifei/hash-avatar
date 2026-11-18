@@ -3,7 +3,7 @@ name: Pages
 on:
   push:
     branches: [main]
-    paths: [src/**, demo/**, scripts/build-demo.js, .github/workflows/pages.yml]
+    paths: [src/**, demo/**, scripts/build-demo.js, scripts/world.js, .github/workflows/pages.yml]
   workflow_dispatch:
 
 permissions:

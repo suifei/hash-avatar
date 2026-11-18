@@ -71,6 +71,12 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
 .groups .seg span { padding: 4px 10px; font-size: 13px; }
 .check { display: inline-flex; gap: 6px; align-items: center; font-size: 14px; cursor: pointer; }
 .big svg { max-width: 100%; }
+.code { margin: 12px 0 0; padding: 14px 16px; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; overflow-x: auto; font: 12.5px/1.6 var(--font-mono); color: var(--ink); white-space: pre; }
+.world { margin: 14px auto 0; max-width: 760px; aspect-ratio: 1; }
+.world > svg { width: 100%; height: auto; display: block; }
+.world svg[data-i] { cursor: pointer; }
+.world svg[data-i]:hover { filter: brightness(1.18) drop-shadow(0 0 4px #fff); }
+.winfo { text-align: center; font-size: 13px; color: var(--muted); min-height: 1.6em; margin-top: 8px; }
 @media (max-width: 680px) {
   .hero { grid-template-columns: 1fr; }
   .big { justify-self: center; }
@@ -127,6 +133,16 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
   </section>
 
   <section class="panel">
+    <h2 data-i18n="codeH"></h2>
+    <p class="note" data-i18n="codeP"></p>
+    <div class="row" style="justify-content:space-between;margin-top:10px">
+      <div class="seg" id="codeTab" role="radiogroup" aria-label="Code"></div>
+      <div class="row"><span class="status" id="codeStatus" aria-live="polite"></span><button id="copyCode" type="button" data-i18n="copyCode"></button></div>
+    </div>
+    <pre class="code"><code id="code"></code></pre>
+  </section>
+
+  <section class="panel">
     <h2 data-i18n="comboH"></h2>
     <p class="note" data-i18n="comboP"></p>
     <div class="grid combo" id="combo"></div>
@@ -152,6 +168,13 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
     <div class="grid rand" id="rand"></div>
   </section>
 
+  <section class="panel">
+    <h2 data-i18n="worldH"></h2>
+    <p class="note" data-i18n="worldP"></p>
+    <div class="world" id="world"></div>
+    <div class="winfo" id="winfo"></div>
+  </section>
+
   <section class="panel note" style="display:grid;gap:8px">
     <h2 style="color:var(--ink)" data-i18n="uniqH"></h2>
     <p data-i18n="uniqP1"></p>
@@ -160,6 +183,7 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
   </section>
 </main>
 <script src="../src/hash-avatar.js"></script>
+<script src="../scripts/world.js"></script>
 <script>
 (function () {
   const HA = window.HashAvatar;
@@ -189,6 +213,9 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
       uniqP1: '五官、发型、配饰等特征的组合是有限的，单靠它们做不到 UUID 级的唯一。所以头像外圈有 128 个刻度槽，逐位画出哈希的前 128 位：从 12 点钟方向起顺时针，长刻度表示 1，暗点表示 0。哈希前 128 位不同，外圈就一定不同。两个不同输入得到相同外圈的概率，等于 SHA-256 截断到 128 位后的碰撞概率，比 UUIDv4（122 位随机）还低。',
       uniqP2: '小尺寸下（低于约 96px）外圈刻度肉眼分辨不清，此时靠特征组合来区分，大概率不同，但不保证。',
       uniqP3: '动效同样来自哈希：头部动作、幅度、节奏、眨眼时机、光波在外圈上扫过的速度、方向和波峰数、背景光斑和星光的位置，每个身份都不一样。鼠标悬停是卡牌效果：头像朝鼠标反方向 3D 倾斜，高光跟着鼠标走，外圈光波加速（仅当 SVG 直接嵌入页面时；用 <img> 引用时浏览器不响应鼠标）。系统开启「减少动态效果」时自动静止。',
+      codeH: '在项目里使用', codeP: '下面的代码会跟随上方的输入和选项实时变化。React 和 Vue 组件随 npm 包发布，内联渲染 SVG，动效和悬停卡牌效果都可用。', copyCode: '复制代码',
+      worldH: '环游世界', worldP: '583 个头像铺满一张以北极为中心的方位等距投影地图（联合国徽章用的那种投影）。每个地区从各自的组合里取：东亚有麒麟和熊猫，非洲有狮子和长颈鹿，欧洲有精灵和独角兽，南极沿岸是企鹅。点击任意头像，可以把它载入上方的生成器。',
+      worldHint: '鼠标移到头像上查看，点击载入生成器', worldAt: (n, r, la, lo) => `${n} · ${r} · 纬度 ${la} · 经度 ${lo}`,
       G: { male: '男', female: '女', neutral: '中性' },
       A: { baby: '婴儿', teen: '少年', youth: '青年', middle: '中年', old: '老年' },
       GROUPS: ['人类', '奇幻与神话', '动物', '科幻与奇物'],
@@ -227,6 +254,9 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
       uniqP1: 'Features like faces, hairstyles and accessories only have a finite number of combinations, so they cannot be UUID-unique on their own. The outer ring therefore has 128 tick slots that draw the first 128 bits of the hash, clockwise from 12 o\'clock: a long tick is 1, a faint dot is 0. If the first 128 bits differ, the rings differ. Two different inputs share a ring only when SHA-256 truncated to 128 bits collides, which is less likely than a UUIDv4 collision (122 random bits).',
       uniqP2: 'At small sizes (below about 96 px) the ticks cannot be told apart by eye. Avatars are then told apart by their features, which is very likely but not guaranteed.',
       uniqP3: 'The animation comes from the hash as well: head motion, amplitude and tempo, blink timing, the speed, direction and number of crests of the light wave over the ring, and where the background light and sparkles sit all differ per identity. Hovering gives a card effect: the avatar tilts in 3D away from the pointer, a glare follows it and the wave speeds up (only when the SVG is inline in the page; browsers ignore the mouse for <img>). Motion stops when the system asks for reduced motion.',
+      codeH: 'Use it in your project', codeP: 'The code below follows the input and options above. The React and Vue components ship in the npm package and render the SVG inline, so the animation and the hover card effect work.', copyCode: 'Copy code',
+      worldH: 'Around the world', worldP: '583 avatars on a north-pole azimuthal equidistant map (the projection of the UN emblem). Each region draws from its own mix: qilin and pandas in East Asia, lions and giraffes in Africa, elves and unicorns in Europe, penguins along Antarctica. Click any avatar to load it into the generator above.',
+      worldHint: 'Hover an avatar to inspect it, click to load it', worldAt: (n, r, la, lo) => `${n} · ${r} · lat ${la} · lon ${lo}`,
       G: { male: 'Male', female: 'Female', neutral: 'Neutral' },
       A: { baby: 'Baby', teen: 'Teen', youth: 'Young adult', middle: 'Middle-aged', old: 'Senior' },
       GROUPS: ['Human', 'Fantasy & myth', 'Animals', 'Sci-fi & oddities'],
@@ -285,6 +315,7 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
     buildSegs();
     render();
     reroll();
+    if (worldCells) $('winfo').textContent = T.worldHint;
   }
 
   const animate = () => $('anim').checked;
@@ -318,6 +349,7 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
     $('races').innerHTML = RV.filter(r => r !== 'any').map(r => `<div class="cell">${HA.svg(who, { gender: state.gender, age: state.age, race: r, art, animate: anim, size: 120 })}<small>${T.R[r]}</small></div>`).join('');
     $('arts').innerHTML = ARTS.map(s => `<div class="cell">${HA.svg(who, { gender: state.gender, age: state.age, race: state.race, art: s, animate: anim, size: 120 })}<small>${T.ART[s]}</small></div>`).join('');
     $('status').textContent = '';
+    if (typeof renderCode === 'function') renderCode();
   }
 
   const FIRST = ['li.wei', 'zhang.min', 'chen.jie', 'wang.fang', 'liu.yang', 'tan.ah.kow', 'lim.mei', 'ng.boon', 'alice', 'bob', 'carol', 'dave', 'eve', 'mallory', 'trent', 'peggy'];
@@ -335,6 +367,65 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
     try { await navigator.clipboard.writeText(text); $('status').textContent = T.copied; }
     catch (e) { $('status').textContent = T.copyFail; }
   }
+  // ---- code samples (follow the current input and options) ----
+  const TABS = [['react', 'React'], ['vue', 'Vue'], ['html', 'HTML'], ['url', 'URL']];
+  let tab = 'react';
+  $('codeTab').innerHTML = TABS.map(([v, t]) => `<label><input type="radio" name="ct" value="${v}"${v === tab ? ' checked' : ''}><span>${t}</span></label>`).join('');
+  $('codeTab').addEventListener('change', e => { tab = e.target.value; renderCode(); });
+  function codeOpts() {
+    const o = { gender: state.gender, age: state.age, race: state.race };
+    if (state.art !== 'flat') o.art = state.art;
+    if (!animate()) o.animate = false;
+    if ($('qr').value) o.qr = $('qr').value;
+    return o;
+  }
+  const attr = v => String(v).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+  function codeText() {
+    const who = $('who').value, o = codeOpts();
+    const strs = Object.entries(o).filter(([, v]) => typeof v === 'string');
+    if (tab === 'react') return "import { HashAvatar } from '@suifei/hash-avatar/react';\n\n" +
+      `<HashAvatar name=${/["{}]/.test(who) ? '{' + JSON.stringify(who) + '}' : '"' + who + '"'}` + strs.map(([k, v]) => ` ${k}=${/["{}]/.test(v) ? '{' + JSON.stringify(v) + '}' : '"' + v + '"'}`).join('') +
+      (o.animate === false ? ' animate={false}' : '') + ' size={96} />';
+    if (tab === 'vue') return "<script setup>\nimport { HashAvatar } from '@suifei/hash-avatar/vue';\n</" + "script>\n\n<template>\n  " +
+      `<HashAvatar name="${attr(who)}"` + strs.map(([k, v]) => ` ${k}="${attr(v)}"`).join('') + (o.animate === false ? ' :animate="false"' : '') + ' :size="96" />\n</template>';
+    if (tab === 'html') return '<script src="https://cdn.jsdelivr.net/npm/@suifei/hash-avatar@1/src/hash-avatar.min.js"></' + 'script>\n<span id="avatar"></span>\n<script>\n' +
+      `  document.getElementById('avatar').innerHTML = HashAvatar.svg(${JSON.stringify(who)}, ${JSON.stringify(Object.assign({}, o, { size: 96 }))});\n</` + 'script>';
+    const u = imageUrl(who);
+    return `<img src="${attr(u)}" width="96" alt="${attr(who)}">\n\n![${who.replace(/[\[\]]/g, '')}](${u})`;
+  }
+  function renderCode() { $('code').textContent = codeText(); $('codeStatus').textContent = ''; }
+  $('copyCode').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(codeText()); $('codeStatus').textContent = T.copied; }
+    catch (e) { $('codeStatus').textContent = T.copyFail; }
+  });
+
+  // ---- world map: rendered when scrolled into view; hover to inspect, click to load ----
+  const W = window.HashAvatarWorld;
+  let worldCells = null;
+  function drawWorld() {
+    if (worldCells) return;
+    worldCells = W.cells(HA);
+    $('world').innerHTML = W.svg(HA, worldCells);
+    $('winfo').textContent = T.worldHint;
+  }
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); drawWorld(); } }, { rootMargin: '400px' });
+    io.observe($('world'));
+  } else drawWorld();
+  const cellAt = e => { const el = e.target.closest && e.target.closest('svg[data-i]'); return el && worldCells ? worldCells[+el.getAttribute('data-i')] : null; };
+  $('world').addEventListener('mouseover', e => {
+    const c = cellAt(e);
+    $('winfo').textContent = c ? T.worldAt(c.name, T.R[c.opts.race], c.lat.toFixed(0) + '°', c.lon.toFixed(0) + '°') : T.worldHint;
+  });
+  $('world').addEventListener('click', e => {
+    const c = cellAt(e);
+    if (!c) return;
+    $('who').value = c.name;
+    Object.assign(state, c.opts);
+    buildSegs(); render();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
   $('who').addEventListener('input', render);
   $('qr').addEventListener('input', render);
   $('anim').addEventListener('change', () => { render(); reroll(); });
