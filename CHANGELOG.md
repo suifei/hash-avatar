@@ -2,6 +2,14 @@
 
 The npm major version tracks the avatar contract version. Any change that alters existing avatars bumps the contract to the next `vN` (see README, "Versioning contract").
 
+## 1.3.1 — 2026-11-19
+
+Documentation and demo only. Rendering and the API are unchanged (contract v1).
+
+- Demo: a live world map (hover to inspect, click to load an avatar into the generator) and a code panel with React, Vue, HTML and image URL samples that follow the current options.
+- Demo and README: GitHub link, Star button and a "Star, share, contribute" section. hash-avatar is free and run as a public good.
+- The world map layout moves to `scripts/world.js`, shared by the demo and `npm run build:map`.
+
 ## 1.3.0 — 2026-11-19
 
 Rendering is unchanged (contract v1, golden snapshots untouched).
