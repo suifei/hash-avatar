@@ -1,6 +1,6 @@
 {
   "name": "@suifei/hash-avatar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Deterministic SVG avatars from a name or email via SHA-256. Zero dependencies, synchronous, browser and Node.",
   "main": "src/hash-avatar.js",
   "unpkg": "src/hash-avatar.js",

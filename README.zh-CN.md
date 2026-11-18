@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="https://avatar.onrpc.com/v1/flynn.svg?size=180" width="180" alt="flynn" title="flynn">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=asian&size=180" width="180" alt="flynn · male · youth · asian" title="flynn · male · youth · asian">
 
-<sub>☝️ <code>flynn</code>，由 <code>avatar.onrpc.com/v1/flynn.svg</code> 实时生成</sub>
+<sub>☝️ <code>flynn</code>，由 <code>avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=asian</code> 实时生成</sub>
 
 # hash-avatar
 
@@ -21,20 +21,20 @@
 
 ## 同一身份，全部维度
 
-性别、年龄、人种是**渲染参数，不参与哈希**，所以同一个人换了设置依然认得出来：外圈相同，配色相同，特征也相同。下面是 `flynn` 在 3 种性别 × 5 个年龄段下的全部 15 种组合：
+性别、年龄、人种是**渲染参数，不参与哈希**，所以同一个人换了设置依然认得出来：外圈相同，配色相同，特征也相同。下面是 `flynn`（人种 `asian`）在 3 种性别 × 5 个年龄段下的全部 15 种组合：
 
 <table align="center">
 <tr><th></th><th>婴儿</th><th>少年</th><th>青年</th><th>中年</th><th>老年</th></tr>
-<tr><th>男</th><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=baby&size=96" width="96" alt="flynn · male · baby" title="flynn · male · baby"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=teen&size=96" width="96" alt="flynn · male · teen" title="flynn · male · teen"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&size=96" width="96" alt="flynn · male · youth" title="flynn · male · youth"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=middle&size=96" width="96" alt="flynn · male · middle" title="flynn · male · middle"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=old&size=96" width="96" alt="flynn · male · old" title="flynn · male · old"></td></tr>
-<tr><th>女</th><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=female&age=baby&size=96" width="96" alt="flynn · female · baby" title="flynn · female · baby"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=female&age=teen&size=96" width="96" alt="flynn · female · teen" title="flynn · female · teen"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=female&age=youth&size=96" width="96" alt="flynn · female · youth" title="flynn · female · youth"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=female&age=middle&size=96" width="96" alt="flynn · female · middle" title="flynn · female · middle"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=female&age=old&size=96" width="96" alt="flynn · female · old" title="flynn · female · old"></td></tr>
-<tr><th>中性</th><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=baby&size=96" width="96" alt="flynn · neutral · baby" title="flynn · neutral · baby"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=teen&size=96" width="96" alt="flynn · neutral · teen" title="flynn · neutral · teen"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=youth&size=96" width="96" alt="flynn · neutral · youth" title="flynn · neutral · youth"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=middle&size=96" width="96" alt="flynn · neutral · middle" title="flynn · neutral · middle"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=old&size=96" width="96" alt="flynn · neutral · old" title="flynn · neutral · old"></td></tr>
+<tr><th>男</th><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=baby&race=asian&size=96" width="96" alt="flynn · male · baby · asian" title="flynn · male · baby · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=teen&race=asian&size=96" width="96" alt="flynn · male · teen · asian" title="flynn · male · teen · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=asian&size=96" width="96" alt="flynn · male · youth · asian" title="flynn · male · youth · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=middle&race=asian&size=96" width="96" alt="flynn · male · middle · asian" title="flynn · male · middle · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=old&race=asian&size=96" width="96" alt="flynn · male · old · asian" title="flynn · male · old · asian"></td></tr>
+<tr><th>女</th><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=female&age=baby&race=asian&size=96" width="96" alt="flynn · female · baby · asian" title="flynn · female · baby · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=female&age=teen&race=asian&size=96" width="96" alt="flynn · female · teen · asian" title="flynn · female · teen · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=female&age=youth&race=asian&size=96" width="96" alt="flynn · female · youth · asian" title="flynn · female · youth · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=female&age=middle&race=asian&size=96" width="96" alt="flynn · female · middle · asian" title="flynn · female · middle · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=female&age=old&race=asian&size=96" width="96" alt="flynn · female · old · asian" title="flynn · female · old · asian"></td></tr>
+<tr><th>中性</th><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=baby&race=asian&size=96" width="96" alt="flynn · neutral · baby · asian" title="flynn · neutral · baby · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=teen&race=asian&size=96" width="96" alt="flynn · neutral · teen · asian" title="flynn · neutral · teen · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=youth&race=asian&size=96" width="96" alt="flynn · neutral · youth · asian" title="flynn · neutral · youth · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=middle&race=asian&size=96" width="96" alt="flynn · neutral · middle · asian" title="flynn · neutral · middle · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=old&race=asian&size=96" width="96" alt="flynn · neutral · old · asian" title="flynn · neutral · old · asian"></td></tr>
 </table>
 
-再看 `race` 的各个取值（`auto` 会从全部调色板中取值）。人种只影响肤色、发色、瞳色的取值范围和发型质地的权重，不改变五官几何。
+再看青年男性 `flynn` 在 `race` 各个取值下的样子（`auto` 会从全部调色板中取值）。人种只影响肤色、发色、瞳色的取值范围和发型质地的权重，不改变五官几何。
 
 <table align="center">
 <tr><th><code>asian</code></th><th><code>white</code></th><th><code>black</code></th><th><code>brown</code></th><th><code>auto</code></th></tr>
-<tr><td><img src="https://avatar.onrpc.com/v1/flynn.svg?race=asian&size=96" width="96" alt="flynn · asian" title="flynn · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?race=white&size=96" width="96" alt="flynn · white" title="flynn · white"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?race=black&size=96" width="96" alt="flynn · black" title="flynn · black"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?race=brown&size=96" width="96" alt="flynn · brown" title="flynn · brown"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?race=auto&size=96" width="96" alt="flynn · auto" title="flynn · auto"></td></tr>
+<tr><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=asian&size=96" width="96" alt="flynn · male · youth · asian" title="flynn · male · youth · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=white&size=96" width="96" alt="flynn · male · youth · white" title="flynn · male · youth · white"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=black&size=96" width="96" alt="flynn · male · youth · black" title="flynn · male · youth · black"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=brown&size=96" width="96" alt="flynn · male · youth · brown" title="flynn · male · youth · brown"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=auto&size=96" width="96" alt="flynn · male · youth · auto" title="flynn · male · youth · auto"></td></tr>
 </table>
 
 ## 外圈指纹
@@ -42,11 +42,11 @@
 外圈逐位画出哈希的前 **128 位**，从 12 点钟方向起顺时针。输入不同，外圈就不同，碰撞概率低于 UUIDv4。小于约 96px 时刻度会糊在一起，所以小尺寸下可以用 `fp=0` 关掉外圈。
 
 <table align="center"><tr>
-<td align="center" valign="bottom"><img src="https://avatar.onrpc.com/v1/flynn.svg?size=192" width="192" alt="flynn" title="flynn"><br><sub>开启外圈，192px</sub></td>
-<td align="center" valign="bottom"><img src="https://avatar.onrpc.com/v1/flynn.svg?fp=0&size=192" width="192" alt="flynn" title="flynn"><br><sub>关闭外圈（<code>fp=0</code>）</sub></td>
-<td align="center" valign="bottom"><img src="https://avatar.onrpc.com/v1/flynn.svg?size=96" width="96" alt="flynn" title="flynn"><br><sub>96px</sub></td>
-<td align="center" valign="bottom"><img src="https://avatar.onrpc.com/v1/flynn.svg?size=48" width="48" alt="flynn" title="flynn"><br><sub>48px</sub></td>
-<td align="center" valign="bottom"><img src="https://avatar.onrpc.com/v1/flynn.svg?fp=0&size=32" width="32" alt="flynn" title="flynn"><br><sub>32px</sub></td>
+<td align="center" valign="bottom"><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=asian&size=192" width="192" alt="flynn" title="flynn"><br><sub>开启外圈，192px</sub></td>
+<td align="center" valign="bottom"><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=asian&fp=0&size=192" width="192" alt="flynn" title="flynn"><br><sub>关闭外圈（<code>fp=0</code>）</sub></td>
+<td align="center" valign="bottom"><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=asian&size=96" width="96" alt="flynn" title="flynn"><br><sub>96px</sub></td>
+<td align="center" valign="bottom"><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=asian&size=48" width="48" alt="flynn" title="flynn"><br><sub>48px</sub></td>
+<td align="center" valign="bottom"><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=asian&fp=0&size=32" width="32" alt="flynn" title="flynn"><br><sub>32px</sub></td>
 </tr></table>
 
 ## 画廊

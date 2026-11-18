@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="https://avatar.onrpc.com/v1/flynn.svg?size=180" width="180" alt="flynn" title="flynn">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=asian&size=180" width="180" alt="flynn · male · youth · asian" title="flynn · male · youth · asian">
 
-<sub>☝️ <code>flynn</code>, generated live from <code>avatar.onrpc.com/v1/flynn.svg</code></sub>
+<sub>☝️ <code>flynn</code>, generated live from <code>avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=asian</code></sub>
 
 # hash-avatar
 
@@ -21,20 +21,20 @@ English | [简体中文](README.zh-CN.md)
 
 ## One identity, every dimension
 
-Gender, age and race are **rendering parameters, not hash input**, so the same person stays recognisable: same ring, same colours, same traits. Here is `flynn` in all 15 gender × age combinations:
+Gender, age and race are **rendering parameters, not hash input**, so the same person stays recognisable: same ring, same colours, same traits. Here is `flynn` (race `asian`) in all 15 gender × age combinations:
 
 <table align="center">
 <tr><th></th><th>baby</th><th>teen</th><th>youth</th><th>middle</th><th>old</th></tr>
-<tr><th>male</th><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=baby&size=96" width="96" alt="flynn · male · baby" title="flynn · male · baby"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=teen&size=96" width="96" alt="flynn · male · teen" title="flynn · male · teen"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&size=96" width="96" alt="flynn · male · youth" title="flynn · male · youth"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=middle&size=96" width="96" alt="flynn · male · middle" title="flynn · male · middle"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=old&size=96" width="96" alt="flynn · male · old" title="flynn · male · old"></td></tr>
-<tr><th>female</th><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=female&age=baby&size=96" width="96" alt="flynn · female · baby" title="flynn · female · baby"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=female&age=teen&size=96" width="96" alt="flynn · female · teen" title="flynn · female · teen"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=female&age=youth&size=96" width="96" alt="flynn · female · youth" title="flynn · female · youth"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=female&age=middle&size=96" width="96" alt="flynn · female · middle" title="flynn · female · middle"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=female&age=old&size=96" width="96" alt="flynn · female · old" title="flynn · female · old"></td></tr>
-<tr><th>neutral</th><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=baby&size=96" width="96" alt="flynn · neutral · baby" title="flynn · neutral · baby"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=teen&size=96" width="96" alt="flynn · neutral · teen" title="flynn · neutral · teen"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=youth&size=96" width="96" alt="flynn · neutral · youth" title="flynn · neutral · youth"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=middle&size=96" width="96" alt="flynn · neutral · middle" title="flynn · neutral · middle"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=old&size=96" width="96" alt="flynn · neutral · old" title="flynn · neutral · old"></td></tr>
+<tr><th>male</th><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=baby&race=asian&size=96" width="96" alt="flynn · male · baby · asian" title="flynn · male · baby · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=teen&race=asian&size=96" width="96" alt="flynn · male · teen · asian" title="flynn · male · teen · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=asian&size=96" width="96" alt="flynn · male · youth · asian" title="flynn · male · youth · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=middle&race=asian&size=96" width="96" alt="flynn · male · middle · asian" title="flynn · male · middle · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=old&race=asian&size=96" width="96" alt="flynn · male · old · asian" title="flynn · male · old · asian"></td></tr>
+<tr><th>female</th><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=female&age=baby&race=asian&size=96" width="96" alt="flynn · female · baby · asian" title="flynn · female · baby · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=female&age=teen&race=asian&size=96" width="96" alt="flynn · female · teen · asian" title="flynn · female · teen · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=female&age=youth&race=asian&size=96" width="96" alt="flynn · female · youth · asian" title="flynn · female · youth · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=female&age=middle&race=asian&size=96" width="96" alt="flynn · female · middle · asian" title="flynn · female · middle · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=female&age=old&race=asian&size=96" width="96" alt="flynn · female · old · asian" title="flynn · female · old · asian"></td></tr>
+<tr><th>neutral</th><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=baby&race=asian&size=96" width="96" alt="flynn · neutral · baby · asian" title="flynn · neutral · baby · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=teen&race=asian&size=96" width="96" alt="flynn · neutral · teen · asian" title="flynn · neutral · teen · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=youth&race=asian&size=96" width="96" alt="flynn · neutral · youth · asian" title="flynn · neutral · youth · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=middle&race=asian&size=96" width="96" alt="flynn · neutral · middle · asian" title="flynn · neutral · middle · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=old&race=asian&size=96" width="96" alt="flynn · neutral · old · asian" title="flynn · neutral · old · asian"></td></tr>
 </table>
 
-And across the `race` setting (`auto` draws from all palettes). Race only shifts colour ranges and hair-texture weights. It never changes facial geometry.
+And `flynn` as a young man across the `race` setting (`auto` draws from all palettes). Race only shifts colour ranges and hair-texture weights. It never changes facial geometry.
 
 <table align="center">
 <tr><th><code>asian</code></th><th><code>white</code></th><th><code>black</code></th><th><code>brown</code></th><th><code>auto</code></th></tr>
-<tr><td><img src="https://avatar.onrpc.com/v1/flynn.svg?race=asian&size=96" width="96" alt="flynn · asian" title="flynn · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?race=white&size=96" width="96" alt="flynn · white" title="flynn · white"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?race=black&size=96" width="96" alt="flynn · black" title="flynn · black"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?race=brown&size=96" width="96" alt="flynn · brown" title="flynn · brown"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?race=auto&size=96" width="96" alt="flynn · auto" title="flynn · auto"></td></tr>
+<tr><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=asian&size=96" width="96" alt="flynn · male · youth · asian" title="flynn · male · youth · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=white&size=96" width="96" alt="flynn · male · youth · white" title="flynn · male · youth · white"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=black&size=96" width="96" alt="flynn · male · youth · black" title="flynn · male · youth · black"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=brown&size=96" width="96" alt="flynn · male · youth · brown" title="flynn · male · youth · brown"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=auto&size=96" width="96" alt="flynn · male · youth · auto" title="flynn · male · youth · auto"></td></tr>
 </table>
 
 ## The fingerprint ring
@@ -42,11 +42,11 @@ And across the `race` setting (`auto` draws from all palettes). Race only shifts
 The outer ring draws the first **128 bits** of the hash, one tick per bit, clockwise from 12 o'clock. Different input means a different ring, with collision odds below a UUIDv4. Below about 96 px the ticks blur together, so `fp=0` turns the ring off for small sizes.
 
 <table align="center"><tr>
-<td align="center" valign="bottom"><img src="https://avatar.onrpc.com/v1/flynn.svg?size=192" width="192" alt="flynn" title="flynn"><br><sub>ring on, 192 px</sub></td>
-<td align="center" valign="bottom"><img src="https://avatar.onrpc.com/v1/flynn.svg?fp=0&size=192" width="192" alt="flynn" title="flynn"><br><sub>ring off (<code>fp=0</code>)</sub></td>
-<td align="center" valign="bottom"><img src="https://avatar.onrpc.com/v1/flynn.svg?size=96" width="96" alt="flynn" title="flynn"><br><sub>96 px</sub></td>
-<td align="center" valign="bottom"><img src="https://avatar.onrpc.com/v1/flynn.svg?size=48" width="48" alt="flynn" title="flynn"><br><sub>48 px</sub></td>
-<td align="center" valign="bottom"><img src="https://avatar.onrpc.com/v1/flynn.svg?fp=0&size=32" width="32" alt="flynn" title="flynn"><br><sub>32 px</sub></td>
+<td align="center" valign="bottom"><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=asian&size=192" width="192" alt="flynn" title="flynn"><br><sub>ring on, 192 px</sub></td>
+<td align="center" valign="bottom"><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=asian&fp=0&size=192" width="192" alt="flynn" title="flynn"><br><sub>ring off (<code>fp=0</code>)</sub></td>
+<td align="center" valign="bottom"><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=asian&size=96" width="96" alt="flynn" title="flynn"><br><sub>96 px</sub></td>
+<td align="center" valign="bottom"><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=asian&size=48" width="48" alt="flynn" title="flynn"><br><sub>48 px</sub></td>
+<td align="center" valign="bottom"><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=asian&fp=0&size=32" width="32" alt="flynn" title="flynn"><br><sub>32 px</sub></td>
 </tr></table>
 
 ## Gallery

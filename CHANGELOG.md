@@ -2,6 +2,13 @@
 
 The npm major version tracks the avatar contract version. Any change that alters existing avatars bumps the contract to the next `vN` (see README, "Versioning contract").
 
+## 1.0.1 — 2026-11-18
+
+Documentation only. Rendering is unchanged (contract v1).
+
+- Image service moves to `avatar.onrpc.com`, which is reachable from mainland China. `hash-avatar.suifei.workers.dev` stays as a mirror.
+- The README showcases live avatars: one identity across every dimension, the fingerprint ring, and a 48-avatar gallery.
+
 ## 1.0.0 — 2026-11-18
 
 First release. **Contract v1 is now frozen.**
