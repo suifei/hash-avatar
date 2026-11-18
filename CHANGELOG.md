@@ -2,6 +2,16 @@
 
 The npm major version tracks the avatar contract version. Any change that alters existing avatars bumps the contract to the next `vN` (see README, "Versioning contract").
 
+## 1.1.0 — 2026-11-18
+
+**Contract v1 is redrawn.** This is a one-time exception, made while the project had almost no users. The hash input and the fingerprint ring are unchanged, so every avatar keeps its identity, but its pixels change.
+
+- Animation is on by default (`animate: false` / `anim=0` turns it off). Every motion parameter comes from a hash-seeded PRNG: head motion, amplitude and tempo, blink timing, the light wave over the ring's bits (speed, direction, number of crests), background orbit and sparkles. Hovering an inline SVG gives a card effect: the avatar tilts in 3D away from the pointer (nine hover zones, pure CSS), a glare follows the pointer, and the ring wave speeds up. Pixel art is drawn with 1-px cells (no filter) below 96 px and inside QR codes, where a coarser grid would be unreadable. `prefers-reduced-motion` stops everything.
+- `race` now covers 31 values: the 5 human values, fantasy races (`elf`, `orc`, `vampire`, `zombie`, `oni`, `demon`, `angel`, `cyborg`), creatures and machines (`cat`, `dog`, `fox`, `kitsune`, `panda`, `rabbit`, `bear`, `owl`, `penguin`, `frog`, `monkey`, `dragon`, `robot`, `ai`, `alien`, `ghost`, `skeleton`, `slime`), plus `any`, which lets the hash pick one.
+- New `art` option with 10 styles built as SVG filters: `flat` (default), `pixel`, `ink`, `comic`, `sketch`, `neon`, `pop`, `mood`, `watercolor`, `glitch`.
+- New `qr` option: a built-in QR encoder (byte mode, level H, versions 1–40) puts the avatar in the middle of a QR code. `qrMatrix()` is exported.
+- Image service: new `art`, `anim` and `qr` query parameters. `/v1/` responses are now cached for a week instead of a year.
+
 ## 1.0.1 — 2026-11-18
 
 Documentation only. Rendering is unchanged (contract v1).

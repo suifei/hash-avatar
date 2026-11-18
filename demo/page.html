@@ -66,6 +66,11 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
 .note { font-size: 13px; color: var(--muted); max-width: 72ch; }
 .top { display: flex; gap: 16px; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; }
 .top .seg span { padding: 4px 10px; font-size: 13px; }
+.groups { display: grid; gap: 8px; }
+.groups .gl { font-size: 12px; color: var(--muted); }
+.groups .seg span { padding: 4px 10px; font-size: 13px; }
+.check { display: inline-flex; gap: 6px; align-items: center; font-size: 14px; cursor: pointer; }
+.big svg { max-width: 100%; }
 @media (max-width: 680px) {
   .hero { grid-template-columns: 1fr; }
   .big { justify-self: center; }
@@ -95,15 +100,26 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
         <div class="seg" id="age"></div>
       </div>
       <div class="f" role="radiogroup" data-i18n-aria="race"><span data-i18n="race"></span>
-        <div class="seg" id="race"></div>
+        <div class="groups" id="race"></div>
       </div>
+      <div class="f" role="radiogroup" data-i18n-aria="art"><span data-i18n="art"></span>
+        <div class="seg" id="art"></div>
+      </div>
+      <div class="row">
+        <label class="check"><input type="checkbox" id="anim" checked> <span data-i18n="anim"></span></label>
+      </div>
+      <label class="f" for="qr"><span data-i18n="qr"></span>
+        <input type="text" id="qr" value="" autocomplete="off" spellcheck="false" data-i18n-ph="qrPh">
+      </label>
       <div class="meta">
+        <div><span data-i18n="url"></span><span class="mono" id="url"></span></div>
         <div><span data-i18n="norm"></span><span class="mono" id="norm"></span></div>
         <div><span data-i18n="sha"></span><span class="mono" id="hex"></span></div>
         <div><span data-i18n="fpLabel"></span><span class="mono" id="fp"></span></div>
       </div>
       <div class="row">
         <button class="primary" id="copy" type="button" data-i18n="copy"></button>
+        <button id="copyUrl" type="button" data-i18n="copyUrl"></button>
         <span class="status" id="status" aria-live="polite"></span>
       </div>
     </div>
@@ -119,7 +135,13 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
   <section class="panel">
     <h2 data-i18n="racesH"></h2>
     <p class="note" data-i18n="racesP"></p>
-    <div class="grid combo" id="races"></div>
+    <div class="grid rand" id="races"></div>
+  </section>
+
+  <section class="panel">
+    <h2 data-i18n="artsH"></h2>
+    <p class="note" data-i18n="artsP"></p>
+    <div class="grid rand" id="arts"></div>
   </section>
 
   <section class="panel">
@@ -134,6 +156,7 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
     <h2 style="color:var(--ink)" data-i18n="uniqH"></h2>
     <p data-i18n="uniqP1"></p>
     <p data-i18n="uniqP2"></p>
+    <p data-i18n="uniqP3"></p>
   </section>
 </main>
 <script src="../src/hash-avatar.js"></script>
@@ -141,54 +164,79 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
 (function () {
   const HA = window.HashAvatar;
   const $ = id => document.getElementById(id);
+  const HOST = 'https://avatar.onrpc.com';
 
   const I18N = {
     zh: {
       htmlLang: 'zh-CN',
       docTitle: '哈希头像生成器',
       title: '哈希头像生成器',
-      intro: '输入名称或 email，经 SHA-256 得到 256 位哈希，按哈希确定性地绘制头像。同一输入永远得到同一头像。性别、年龄、人种只改变渲染，不改变身份特征。',
+      intro: '输入名称或 email，经 SHA-256 得到 256 位哈希，按哈希确定性地绘制头像。同一输入永远得到同一头像。性别、年龄、种族、画风只改变渲染，不改变身份特征；每个头像的动效参数也由哈希决定。',
       who: '名称或 email',
-      gender: '性别', age: '年龄', race: '人种',
-      norm: '规范化输入：', sha: 'SHA-256：', fpLabel: '外圈指纹编码的前 128 位：',
+      gender: '性别', age: '年龄', race: '种族', art: '画风',
+      anim: '动效', qr: '二维码内容（可选，留空则不生成）', qrPh: '例如 https://github.com/你的名字',
+      url: '图片链接：', norm: '规范化输入：', sha: 'SHA-256：', fpLabel: '外圈指纹编码的前 128 位：',
       empty: '（空）',
-      copy: '复制 SVG', copied: '已复制到剪贴板', copyFail: '浏览器拒绝了剪贴板写入，请换个浏览器再试',
+      copy: '复制 SVG', copyUrl: '复制图片链接', copied: '已复制到剪贴板', copyFail: '浏览器拒绝了剪贴板写入，请换个浏览器再试',
       comboH: '同一身份 × 15 种性别/年龄',
-      comboP: '使用上方选中的人种。背景、衣服颜色、眉形、眼型和外圈指纹在 15 张图中保持一致，所以同一个人换了年龄或性别后仍可辨认。',
-      racesH: '同一身份 × 人种',
-      racesP: '人种决定肤色、发色、瞳色的取值范围，并调整发型质地的权重。五官几何对所有人种都相同。',
-      randH: '随机身份抽样', reroll: '换一批',
+      comboP: '使用上方选中的种族和画风。背景、衣服颜色、眼型和外圈指纹在 15 张图中保持一致，所以同一个人换了年龄或性别后仍可辨认。',
+      racesH: '同一身份 × 全部种族',
+      racesP: '人类的人种只决定肤色、发色、瞳色的取值范围，五官几何对所有人种都相同。奇幻种族和生物有各自的头部造型，但背景、衣服和眼型仍来自同一个哈希。',
+      artsH: '同一身份 × 画风',
+      artsP: '画风全部用 SVG 滤镜实现，套在同一张矢量图上。水墨的印章、水彩和素描的纸纹都由哈希生成。',
+      randH: '随机身份抽样（种族 = 随机）', reroll: '换一批',
       uniqH: '唯一性怎么保证',
       uniqP1: '五官、发型、配饰等特征的组合是有限的，单靠它们做不到 UUID 级的唯一。所以头像外圈有 128 个刻度槽，逐位画出哈希的前 128 位：从 12 点钟方向起顺时针，长刻度表示 1，暗点表示 0。哈希前 128 位不同，外圈就一定不同。两个不同输入得到相同外圈的概率，等于 SHA-256 截断到 128 位后的碰撞概率，比 UUIDv4（122 位随机）还低。',
       uniqP2: '小尺寸下（低于约 96px）外圈刻度肉眼分辨不清，此时靠特征组合来区分，大概率不同，但不保证。',
+      uniqP3: '动效同样来自哈希：头部动作、幅度、节奏、眨眼时机、光波在外圈上扫过的速度、方向和波峰数、背景光斑和星光的位置，每个身份都不一样。鼠标悬停是卡牌效果：头像朝鼠标反方向 3D 倾斜，高光跟着鼠标走，外圈光波加速（仅当 SVG 直接嵌入页面时；用 <img> 引用时浏览器不响应鼠标）。系统开启「减少动态效果」时自动静止。',
       G: { male: '男', female: '女', neutral: '中性' },
       A: { baby: '婴儿', teen: '少年', youth: '青年', middle: '中年', old: '老年' },
-      R: { asian: '黄种人', white: '白人', black: '黑人', brown: '棕色人种', auto: '不指定' },
+      GROUPS: ['人类', '奇幻', '生物与机械'],
+      R: {
+        asian: '黄种人', white: '白人', black: '黑人', brown: '棕色人种', auto: '人类（不指定）',
+        elf: '精灵', orc: '兽人', vampire: '吸血鬼', zombie: '僵尸', oni: '鬼', demon: '恶魔', angel: '天使', cyborg: '赛博格',
+        cat: '猫', dog: '狗', fox: '狐狸', kitsune: '九尾狐', panda: '熊猫', rabbit: '兔子', bear: '熊', owl: '猫头鹰', penguin: '企鹅', frog: '青蛙',
+        monkey: '猴', dragon: '龙', robot: '机器人', ai: 'AI', alien: '外星人', ghost: '幽灵', skeleton: '骷髅', slime: '史莱姆', any: '随机',
+      },
+      ART: { flat: '扁平', pixel: '像素', ink: '水墨', comic: '漫画', sketch: '素描', neon: '霓虹', pop: '波普', mood: '心情', watercolor: '水彩', glitch: '故障' },
     },
     en: {
       htmlLang: 'en',
       docTitle: 'Hash Avatar Generator',
       title: 'Hash avatar generator',
-      intro: 'Type a name or email. SHA-256 turns it into a 256-bit hash, and the avatar is drawn deterministically from that hash. The same input always gives the same avatar. Gender, age and race only change the rendering, never the identity.',
+      intro: 'Type a name or email. SHA-256 turns it into a 256-bit hash, and the avatar is drawn deterministically from that hash. The same input always gives the same avatar. Gender, age, race and art style only change the rendering, never the identity, and each avatar\'s animation is driven by its hash too.',
       who: 'Name or email',
-      gender: 'Gender', age: 'Age', race: 'Race',
-      norm: 'Normalized input: ', sha: 'SHA-256: ', fpLabel: 'First 128 bits, encoded in the ring: ',
+      gender: 'Gender', age: 'Age', race: 'Race', art: 'Art style',
+      anim: 'Animation', qr: 'QR code content (optional, leave empty for none)', qrPh: 'e.g. https://github.com/you',
+      url: 'Image URL: ', norm: 'Normalized input: ', sha: 'SHA-256: ', fpLabel: 'First 128 bits, encoded in the ring: ',
       empty: '(empty)',
-      copy: 'Copy SVG', copied: 'Copied to clipboard', copyFail: 'The browser blocked clipboard access. Try another browser.',
+      copy: 'Copy SVG', copyUrl: 'Copy image URL', copied: 'Copied to clipboard', copyFail: 'The browser blocked clipboard access. Try another browser.',
       comboH: 'One identity × 15 genders and ages',
-      comboP: 'Uses the race selected above. The background, clothing colour, brows, eyes and fingerprint ring stay the same across all 15 avatars, so the same person is still recognisable at any age or gender.',
-      racesH: 'One identity × race',
-      racesP: 'Race sets the range of skin, hair and eye colours and adjusts the weights of hair textures. Facial geometry is the same for every race.',
-      randH: 'Random identities', reroll: 'Shuffle',
+      comboP: 'Uses the race and art style selected above. The background, clothing colour, eyes and fingerprint ring stay the same across all 15 avatars, so the same person is still recognisable at any age or gender.',
+      racesH: 'One identity × every race',
+      racesP: 'For humans, race only sets the range of skin, hair and eye colours; facial geometry is the same for everyone. Fantasy races and creatures get their own head shapes, but the background, clothes and eyes still come from the same hash.',
+      artsH: 'One identity × art style',
+      artsP: 'Every art style is an SVG filter applied to the same vector drawing. The ink seal and the paper grain in watercolor and sketch are generated from the hash.',
+      randH: 'Random identities (race = any)', reroll: 'Shuffle',
       uniqH: 'How uniqueness is guaranteed',
       uniqP1: 'Features like faces, hairstyles and accessories only have a finite number of combinations, so they cannot be UUID-unique on their own. The outer ring therefore has 128 tick slots that draw the first 128 bits of the hash, clockwise from 12 o\'clock: a long tick is 1, a faint dot is 0. If the first 128 bits differ, the rings differ. Two different inputs share a ring only when SHA-256 truncated to 128 bits collides, which is less likely than a UUIDv4 collision (122 random bits).',
       uniqP2: 'At small sizes (below about 96 px) the ticks cannot be told apart by eye. Avatars are then told apart by their features, which is very likely but not guaranteed.',
+      uniqP3: 'The animation comes from the hash as well: head motion, amplitude and tempo, blink timing, the speed, direction and number of crests of the light wave over the ring, and where the background light and sparkles sit all differ per identity. Hovering gives a card effect: the avatar tilts in 3D away from the pointer, a glare follows it and the wave speeds up (only when the SVG is inline in the page; browsers ignore the mouse for <img>). Motion stops when the system asks for reduced motion.',
       G: { male: 'Male', female: 'Female', neutral: 'Neutral' },
       A: { baby: 'Baby', teen: 'Teen', youth: 'Young adult', middle: 'Middle-aged', old: 'Senior' },
-      R: { asian: 'East Asian', white: 'White', black: 'Black', brown: 'Brown', auto: 'Any' },
+      GROUPS: ['Human', 'Fantasy', 'Creatures & machines'],
+      R: {
+        asian: 'East Asian', white: 'White', black: 'Black', brown: 'Brown', auto: 'Human (any)',
+        elf: 'Elf', orc: 'Orc', vampire: 'Vampire', zombie: 'Zombie', oni: 'Oni', demon: 'Demon', angel: 'Angel', cyborg: 'Cyborg',
+        cat: 'Cat', dog: 'Dog', fox: 'Fox', kitsune: 'Nine-tailed fox', panda: 'Panda', rabbit: 'Rabbit', bear: 'Bear', owl: 'Owl', penguin: 'Penguin', frog: 'Frog',
+        monkey: 'Monkey', dragon: 'Dragon', robot: 'Robot', ai: 'AI', alien: 'Alien', ghost: 'Ghost', skeleton: 'Skeleton', slime: 'Slime', any: 'Any',
+      },
+      ART: { flat: 'Flat', pixel: 'Pixel', ink: 'Ink wash', comic: 'Comic', sketch: 'Sketch', neon: 'Neon', pop: 'Pop art', mood: 'Mood', watercolor: 'Watercolor', glitch: 'Glitch' },
     },
   };
   const LANGS = [['zh', '中文'], ['en', 'English']];
+  const RV = HA.RACES, GV = HA.GENDERS, AV = HA.AGES, ARTS = HA.ARTS;
+  const GROUPS = [RV.slice(0, 5), RV.slice(5, 13), RV.slice(13)]; // humans | humanoids | creatures (+ any)
 
   // language: ?lang= > saved choice > browser language
   function pickLang() {
@@ -199,18 +247,15 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
   }
   let lang = pickLang(), T = I18N[lang];
 
-  const state = { gender: 'male', age: 'youth', race: 'asian' };
-  const GV = HA.GENDERS, AV = HA.AGES, RV = HA.RACES;
-
-  function seg(el, name, values, key, label) {
-    el.innerHTML = values.map(v => `<label><input type="radio" id="${name}-${v}" name="${name}" value="${v}"${state[key] === v ? ' checked' : ''}><span>${label(v)}</span></label>`).join('');
-  }
+  const state = { gender: 'male', age: 'youth', race: 'asian', art: 'flat' };
+  const radios = (name, values, key, label) => values.map(v => `<label><input type="radio" name="${name}" value="${v}"${state[key] === v ? ' checked' : ''}><span>${label(v)}</span></label>`).join('');
   function buildSegs() {
-    seg($('gender'), 'g', GV, 'gender', v => T.G[v]);
-    seg($('age'), 'a', AV, 'age', v => T.A[v]);
-    seg($('race'), 'r', RV, 'race', v => T.R[v]);
+    $('gender').innerHTML = radios('g', GV, 'gender', v => T.G[v]);
+    $('age').innerHTML = radios('a', AV, 'age', v => T.A[v]);
+    $('race').innerHTML = GROUPS.map((list, i) => `<div><div class="gl">${T.GROUPS[i]}</div><div class="seg">${radios('r', list, 'race', v => T.R[v])}</div></div>`).join('');
+    $('art').innerHTML = radios('s', ARTS, 'art', v => T.ART[v]);
   }
-  for (const [id, key] of [['gender', 'gender'], ['age', 'age'], ['race', 'race']]) {
+  for (const [id, key] of [['gender', 'gender'], ['age', 'age'], ['race', 'race'], ['art', 'art']]) {
     $(id).addEventListener('change', e => { state[key] = e.target.value; render(); });
   }
 
@@ -226,27 +271,42 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
     document.title = T.docTitle;
     document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = T[el.dataset.i18n]; });
     document.querySelectorAll('[data-i18n-aria]').forEach(el => { el.setAttribute('aria-label', T[el.dataset.i18nAria]); });
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.setAttribute('placeholder', T[el.dataset.i18nPh]); });
     buildSegs();
     render();
+    reroll();
+  }
+
+  const animate = () => $('anim').checked;
+  function imageUrl(who) {
+    const q = new URLSearchParams({ gender: state.gender, age: state.age, race: state.race });
+    if (state.art !== 'flat') q.set('art', state.art);
+    if (!animate()) q.set('anim', '0');
+    const qr = $('qr').value;
+    if (qr) q.set('qr', qr);
+    return `${HOST}/v1/${encodeURIComponent(who)}.svg?${q}`;
   }
 
   let current = '';
   function render() {
-    const who = $('who').value;
+    const who = $('who').value, anim = animate(), art = state.art;
     const h = HA.hash(who);
-    current = HA.svg(who, { gender: state.gender, age: state.age, race: state.race, size: 272 });
+    let qr = $('qr').value;
+    try { current = HA.svg(who, { gender: state.gender, age: state.age, race: state.race, art, animate: anim, qr, size: 272 }); }
+    catch (e) { qr = ''; current = HA.svg(who, { gender: state.gender, age: state.age, race: state.race, art, animate: anim, size: 272 }); }
     $('big').innerHTML = current;
+    $('url').textContent = imageUrl(who);
     $('norm').textContent = h.input === '' ? T.empty : h.input;
     $('hex').textContent = h.hex;
     $('fp').textContent = h.hex.slice(0, 32);
     let html = '<div></div>' + AV.map(a => `<div class="h">${T.A[a]}</div>`).join('');
     for (const g of GV) {
       html += `<div class="rh">${T.G[g]}</div>`;
-      for (const a of AV) html += `<div>${HA.svg(who, { gender: g, age: a, race: state.race, size: 160 })}</div>`;
+      for (const a of AV) html += `<div>${HA.svg(who, { gender: g, age: a, race: state.race, art, animate: anim, size: 160 })}</div>`;
     }
     $('combo').innerHTML = html;
-    $('races').innerHTML = '<div></div>' + RV.map(r => `<div class="h">${T.R[r]}</div>`).join('') +
-      '<div class="rh"></div>' + RV.map(r => `<div>${HA.svg(who, { gender: state.gender, age: state.age, race: r, size: 160 })}</div>`).join('');
+    $('races').innerHTML = RV.filter(r => r !== 'any').map(r => `<div class="cell">${HA.svg(who, { gender: state.gender, age: state.age, race: r, art, animate: anim, size: 120 })}<small>${T.R[r]}</small></div>`).join('');
+    $('arts').innerHTML = ARTS.map(s => `<div class="cell">${HA.svg(who, { gender: state.gender, age: state.age, race: state.race, art: s, animate: anim, size: 120 })}<small>${T.ART[s]}</small></div>`).join('');
     $('status').textContent = '';
   }
 
@@ -255,20 +315,23 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
     let html = '';
     for (let i = 0; i < 24; i++) {
       const id = FIRST[Math.random() * FIRST.length | 0] + (Math.random() * 1000 | 0) + '@example.com';
-      const g = GV[Math.random() * 3 | 0], a = AV[Math.random() * 5 | 0], r = RV[Math.random() * 4 | 0];
-      html += `<div class="cell">${HA.svg(id, { gender: g, age: a, race: r, size: 120 })}<small title="${id}">${id}</small></div>`;
+      const g = GV[Math.random() * 3 | 0], a = AV[Math.random() * 5 | 0];
+      html += `<div class="cell">${HA.svg(id, { gender: g, age: a, race: 'any', animate: animate(), size: 120 })}<small title="${id}">${id}</small></div>`;
     }
     $('rand').innerHTML = html;
   }
 
-  $('who').addEventListener('input', render);
-  $('reroll').addEventListener('click', reroll);
-  $('copy').addEventListener('click', async () => {
-    try { await navigator.clipboard.writeText(current); $('status').textContent = T.copied; }
+  async function copy(text) {
+    try { await navigator.clipboard.writeText(text); $('status').textContent = T.copied; }
     catch (e) { $('status').textContent = T.copyFail; }
-  });
+  }
+  $('who').addEventListener('input', render);
+  $('qr').addEventListener('input', render);
+  $('anim').addEventListener('change', () => { render(); reroll(); });
+  $('reroll').addEventListener('click', reroll);
+  $('copy').addEventListener('click', () => copy(current));
+  $('copyUrl').addEventListener('click', () => copy(imageUrl($('who').value)));
   setLang(lang);
-  reroll();
 })();
 </script>
 </body>

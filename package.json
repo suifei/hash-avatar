@@ -1,7 +1,7 @@
 {
   "name": "@suifei/hash-avatar",
-  "version": "1.0.1",
-  "description": "Deterministic SVG avatars from a name or email via SHA-256. Zero dependencies, synchronous, browser and Node.",
+  "version": "1.1.0",
+  "description": "Deterministic, animated SVG avatars from a name or email via SHA-256: 31 races and creatures, 10 art styles, optional QR code. Zero dependencies, synchronous, browser and Node.",
   "main": "src/hash-avatar.js",
   "unpkg": "src/hash-avatar.js",
   "jsdelivr": "src/hash-avatar.js",
@@ -21,6 +21,8 @@
   "keywords": [
     "avatar",
     "identicon",
+    "qrcode",
+    "animated",
     "svg",
     "sha256",
     "deterministic",
