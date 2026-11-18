@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>哈希头像生成器</title>
+<title>Hash Avatar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -64,6 +64,8 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
 .cell { display: grid; gap: 4px; }
 .cell small { font-size: 11.5px; color: var(--muted); text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .note { font-size: 13px; color: var(--muted); max-width: 72ch; }
+.top { display: flex; gap: 16px; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; }
+.top .seg span { padding: 4px 10px; font-size: 13px; }
 @media (max-width: 680px) {
   .hero { grid-template-columns: 1fr; }
   .big { justify-self: center; }
@@ -73,32 +75,35 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
 </head>
 <body>
 <main>
-  <header style="display:grid;gap:6px">
-    <h1>哈希头像生成器</h1>
-    <p class="sub">输入名称或 email，经 SHA-256 得到 256 位哈希，按哈希确定性绘制头像。同一输入永远得到同一头像；性别、年龄、人种只改变渲染，不改变身份特征。</p>
+  <header class="top">
+    <div style="display:grid;gap:6px">
+      <h1 data-i18n="title"></h1>
+      <p class="sub" data-i18n="intro"></p>
+    </div>
+    <div class="seg" id="lang" role="radiogroup" aria-label="Language / 语言"></div>
   </header>
 
   <section class="panel hero">
     <div class="controls">
-      <label class="f" for="who">名称或 email
+      <label class="f" for="who"><span data-i18n="who"></span>
         <input type="text" id="who" value="flynn@example.com" autocomplete="off" spellcheck="false">
       </label>
-      <div class="f" role="radiogroup" aria-label="性别">性别
+      <div class="f" role="radiogroup" data-i18n-aria="gender"><span data-i18n="gender"></span>
         <div class="seg" id="gender"></div>
       </div>
-      <div class="f" role="radiogroup" aria-label="年龄">年龄
+      <div class="f" role="radiogroup" data-i18n-aria="age"><span data-i18n="age"></span>
         <div class="seg" id="age"></div>
       </div>
-      <div class="f" role="radiogroup" aria-label="人种">人种
+      <div class="f" role="radiogroup" data-i18n-aria="race"><span data-i18n="race"></span>
         <div class="seg" id="race"></div>
       </div>
       <div class="meta">
-        <div>规范化输入：<span class="mono" id="norm"></span></div>
-        <div>SHA-256：<span class="mono" id="hex"></span></div>
-        <div>外圈指纹编码前 128 位：<span class="mono" id="fp"></span></div>
+        <div><span data-i18n="norm"></span><span class="mono" id="norm"></span></div>
+        <div><span data-i18n="sha"></span><span class="mono" id="hex"></span></div>
+        <div><span data-i18n="fpLabel"></span><span class="mono" id="fp"></span></div>
       </div>
       <div class="row">
-        <button class="primary" id="copy" type="button">复制 SVG</button>
+        <button class="primary" id="copy" type="button" data-i18n="copy"></button>
         <span class="status" id="status" aria-live="polite"></span>
       </div>
     </div>
@@ -106,48 +111,124 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
   </section>
 
   <section class="panel">
-    <h2>同一身份 × 15 种性别/年龄</h2>
-    <p class="note">使用上方选中的人种。背景、衣服颜色、眉形、眼型和外圈指纹在 15 张图中保持一致，这样同一个人换年龄或性别后仍可辨认。</p>
+    <h2 data-i18n="comboH"></h2>
+    <p class="note" data-i18n="comboP"></p>
     <div class="grid combo" id="combo"></div>
   </section>
 
   <section class="panel">
-    <h2>同一身份 × 人种</h2>
-    <p class="note">人种决定肤色、发色、瞳色的取值范围，并调整发型质地的权重；五官几何对所有人种相同。</p>
+    <h2 data-i18n="racesH"></h2>
+    <p class="note" data-i18n="racesP"></p>
     <div class="grid combo" id="races"></div>
   </section>
 
   <section class="panel">
     <div class="row" style="justify-content:space-between">
-      <h2>随机身份抽样</h2>
-      <button id="reroll" type="button">换一批</button>
+      <h2 data-i18n="randH"></h2>
+      <button id="reroll" type="button" data-i18n="reroll"></button>
     </div>
     <div class="grid rand" id="rand"></div>
   </section>
 
   <section class="panel note" style="display:grid;gap:8px">
-    <h2 style="color:var(--ink)">唯一性怎么保证</h2>
-    <p>五官、发型、配饰等特征的组合是有限的，单靠它们不可能做到 UUID 级唯一。所以头像外圈有 128 个刻度槽，逐位画出哈希的前 128 位（12 点钟方向起顺时针，长刻度为 1，暗点为 0）。哈希前 128 位不同，外圈就一定不同；两个不同输入撞到同一外圈的概率等于 SHA-256 截断到 128 位后的碰撞概率，比 UUIDv4（122 位随机）还低。</p>
-    <p>小尺寸下（低于约 96px）外圈刻度肉眼分辨不清，此时靠特征组合区分，大概率不同但不保证。</p>
+    <h2 style="color:var(--ink)" data-i18n="uniqH"></h2>
+    <p data-i18n="uniqP1"></p>
+    <p data-i18n="uniqP2"></p>
   </section>
 </main>
 <script src="../src/hash-avatar.js"></script>
 <script>
 (function () {
   const HA = window.HashAvatar;
-  const G = [['male', '男'], ['female', '女'], ['neutral', '中性']];
-  const A = [['baby', '婴儿'], ['teen', '少年'], ['youth', '青年'], ['middle', '中年'], ['old', '老年']];
   const $ = id => document.getElementById(id);
-  const RC = [['asian', '黄种人'], ['white', '白人'], ['black', '黑人'], ['brown', '棕色人种'], ['auto', '不指定']];
-  const state = { gender: 'male', age: 'youth', race: 'asian' };
 
-  function seg(el, name, opts, key) {
-    el.innerHTML = opts.map(([v, t]) => `<label><input type="radio" id="${name}-${v}" name="${name}" value="${v}"${state[key] === v ? ' checked' : ''}><span>${t}</span></label>`).join('');
-    el.addEventListener('change', e => { state[key] = e.target.value; render(); });
+  const I18N = {
+    zh: {
+      htmlLang: 'zh-CN',
+      docTitle: '哈希头像生成器',
+      title: '哈希头像生成器',
+      intro: '输入名称或 email，经 SHA-256 得到 256 位哈希，按哈希确定性地绘制头像。同一输入永远得到同一头像。性别、年龄、人种只改变渲染，不改变身份特征。',
+      who: '名称或 email',
+      gender: '性别', age: '年龄', race: '人种',
+      norm: '规范化输入：', sha: 'SHA-256：', fpLabel: '外圈指纹编码的前 128 位：',
+      empty: '（空）',
+      copy: '复制 SVG', copied: '已复制到剪贴板', copyFail: '浏览器拒绝了剪贴板写入，请换个浏览器再试',
+      comboH: '同一身份 × 15 种性别/年龄',
+      comboP: '使用上方选中的人种。背景、衣服颜色、眉形、眼型和外圈指纹在 15 张图中保持一致，所以同一个人换了年龄或性别后仍可辨认。',
+      racesH: '同一身份 × 人种',
+      racesP: '人种决定肤色、发色、瞳色的取值范围，并调整发型质地的权重。五官几何对所有人种都相同。',
+      randH: '随机身份抽样', reroll: '换一批',
+      uniqH: '唯一性怎么保证',
+      uniqP1: '五官、发型、配饰等特征的组合是有限的，单靠它们做不到 UUID 级的唯一。所以头像外圈有 128 个刻度槽，逐位画出哈希的前 128 位：从 12 点钟方向起顺时针，长刻度表示 1，暗点表示 0。哈希前 128 位不同，外圈就一定不同。两个不同输入得到相同外圈的概率，等于 SHA-256 截断到 128 位后的碰撞概率，比 UUIDv4（122 位随机）还低。',
+      uniqP2: '小尺寸下（低于约 96px）外圈刻度肉眼分辨不清，此时靠特征组合来区分，大概率不同，但不保证。',
+      G: { male: '男', female: '女', neutral: '中性' },
+      A: { baby: '婴儿', teen: '少年', youth: '青年', middle: '中年', old: '老年' },
+      R: { asian: '黄种人', white: '白人', black: '黑人', brown: '棕色人种', auto: '不指定' },
+    },
+    en: {
+      htmlLang: 'en',
+      docTitle: 'Hash Avatar Generator',
+      title: 'Hash avatar generator',
+      intro: 'Type a name or email. SHA-256 turns it into a 256-bit hash, and the avatar is drawn deterministically from that hash. The same input always gives the same avatar. Gender, age and race only change the rendering, never the identity.',
+      who: 'Name or email',
+      gender: 'Gender', age: 'Age', race: 'Race',
+      norm: 'Normalized input: ', sha: 'SHA-256: ', fpLabel: 'First 128 bits, encoded in the ring: ',
+      empty: '(empty)',
+      copy: 'Copy SVG', copied: 'Copied to clipboard', copyFail: 'The browser blocked clipboard access. Try another browser.',
+      comboH: 'One identity × 15 genders and ages',
+      comboP: 'Uses the race selected above. The background, clothing colour, brows, eyes and fingerprint ring stay the same across all 15 avatars, so the same person is still recognisable at any age or gender.',
+      racesH: 'One identity × race',
+      racesP: 'Race sets the range of skin, hair and eye colours and adjusts the weights of hair textures. Facial geometry is the same for every race.',
+      randH: 'Random identities', reroll: 'Shuffle',
+      uniqH: 'How uniqueness is guaranteed',
+      uniqP1: 'Features like faces, hairstyles and accessories only have a finite number of combinations, so they cannot be UUID-unique on their own. The outer ring therefore has 128 tick slots that draw the first 128 bits of the hash, clockwise from 12 o\'clock: a long tick is 1, a faint dot is 0. If the first 128 bits differ, the rings differ. Two different inputs share a ring only when SHA-256 truncated to 128 bits collides, which is less likely than a UUIDv4 collision (122 random bits).',
+      uniqP2: 'At small sizes (below about 96 px) the ticks cannot be told apart by eye. Avatars are then told apart by their features, which is very likely but not guaranteed.',
+      G: { male: 'Male', female: 'Female', neutral: 'Neutral' },
+      A: { baby: 'Baby', teen: 'Teen', youth: 'Young adult', middle: 'Middle-aged', old: 'Senior' },
+      R: { asian: 'East Asian', white: 'White', black: 'Black', brown: 'Brown', auto: 'Any' },
+    },
+  };
+  const LANGS = [['zh', '中文'], ['en', 'English']];
+
+  // language: ?lang= > saved choice > browser language
+  function pickLang() {
+    const q = new URLSearchParams(location.search).get('lang');
+    if (q && I18N[q]) return q;
+    try { const s = localStorage.getItem('hash-avatar-lang'); if (s && I18N[s]) return s; } catch (e) { /* storage unavailable */ }
+    return /^zh\b/i.test(navigator.language || '') ? 'zh' : 'en';
   }
-  seg($('gender'), 'g', G, 'gender');
-  seg($('age'), 'a', A, 'age');
-  seg($('race'), 'r', RC, 'race');
+  let lang = pickLang(), T = I18N[lang];
+
+  const state = { gender: 'male', age: 'youth', race: 'asian' };
+  const GV = HA.GENDERS, AV = HA.AGES, RV = HA.RACES;
+
+  function seg(el, name, values, key, label) {
+    el.innerHTML = values.map(v => `<label><input type="radio" id="${name}-${v}" name="${name}" value="${v}"${state[key] === v ? ' checked' : ''}><span>${label(v)}</span></label>`).join('');
+  }
+  function buildSegs() {
+    seg($('gender'), 'g', GV, 'gender', v => T.G[v]);
+    seg($('age'), 'a', AV, 'age', v => T.A[v]);
+    seg($('race'), 'r', RV, 'race', v => T.R[v]);
+  }
+  for (const [id, key] of [['gender', 'gender'], ['age', 'age'], ['race', 'race']]) {
+    $(id).addEventListener('change', e => { state[key] = e.target.value; render(); });
+  }
+
+  $('lang').innerHTML = LANGS.map(([v, t]) => `<label><input type="radio" name="lang" value="${v}"${v === lang ? ' checked' : ''}><span>${t}</span></label>`).join('');
+  $('lang').addEventListener('change', e => {
+    setLang(e.target.value);
+    try { localStorage.setItem('hash-avatar-lang', lang); } catch (err) { /* storage unavailable */ }
+  });
+
+  function setLang(l) {
+    lang = l; T = I18N[l];
+    document.documentElement.lang = T.htmlLang;
+    document.title = T.docTitle;
+    document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = T[el.dataset.i18n]; });
+    document.querySelectorAll('[data-i18n-aria]').forEach(el => { el.setAttribute('aria-label', T[el.dataset.i18nAria]); });
+    buildSegs();
+    render();
+  }
 
   let current = '';
   function render() {
@@ -155,17 +236,17 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
     const h = HA.hash(who);
     current = HA.svg(who, { gender: state.gender, age: state.age, race: state.race, size: 272 });
     $('big').innerHTML = current;
-    $('norm').textContent = h.input === '' ? '（空）' : h.input;
+    $('norm').textContent = h.input === '' ? T.empty : h.input;
     $('hex').textContent = h.hex;
     $('fp').textContent = h.hex.slice(0, 32);
-    let html = '<div></div>' + A.map(([, t]) => `<div class="h">${t}</div>`).join('');
-    for (const [gv, gt] of G) {
-      html += `<div class="rh">${gt}</div>`;
-      for (const [av] of A) html += `<div>${HA.svg(who, { gender: gv, age: av, race: state.race, size: 160 })}</div>`;
+    let html = '<div></div>' + AV.map(a => `<div class="h">${T.A[a]}</div>`).join('');
+    for (const g of GV) {
+      html += `<div class="rh">${T.G[g]}</div>`;
+      for (const a of AV) html += `<div>${HA.svg(who, { gender: g, age: a, race: state.race, size: 160 })}</div>`;
     }
     $('combo').innerHTML = html;
-    $('races').innerHTML = '<div></div>' + RC.map(([, t]) => `<div class="h">${t}</div>`).join('') +
-      '<div class="rh"></div>' + RC.map(([rv]) => `<div>${HA.svg(who, { gender: state.gender, age: state.age, race: rv, size: 160 })}</div>`).join('');
+    $('races').innerHTML = '<div></div>' + RV.map(r => `<div class="h">${T.R[r]}</div>`).join('') +
+      '<div class="rh"></div>' + RV.map(r => `<div>${HA.svg(who, { gender: state.gender, age: state.age, race: r, size: 160 })}</div>`).join('');
     $('status').textContent = '';
   }
 
@@ -174,7 +255,7 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
     let html = '';
     for (let i = 0; i < 24; i++) {
       const id = FIRST[Math.random() * FIRST.length | 0] + (Math.random() * 1000 | 0) + '@example.com';
-      const g = G[Math.random() * 3 | 0][0], a = A[Math.random() * 5 | 0][0], r = RC[Math.random() * 4 | 0][0];
+      const g = GV[Math.random() * 3 | 0], a = AV[Math.random() * 5 | 0], r = RV[Math.random() * 4 | 0];
       html += `<div class="cell">${HA.svg(id, { gender: g, age: a, race: r, size: 120 })}<small title="${id}">${id}</small></div>`;
     }
     $('rand').innerHTML = html;
@@ -183,10 +264,10 @@ button.primary { background: var(--accent); border-color: var(--accent); color: 
   $('who').addEventListener('input', render);
   $('reroll').addEventListener('click', reroll);
   $('copy').addEventListener('click', async () => {
-    try { await navigator.clipboard.writeText(current); $('status').textContent = '已复制到剪贴板'; }
-    catch (e) { $('status').textContent = '浏览器拒绝了剪贴板写入，请换个浏览器再试'; }
+    try { await navigator.clipboard.writeText(current); $('status').textContent = T.copied; }
+    catch (e) { $('status').textContent = T.copyFail; }
   });
-  render();
+  setLang(lang);
   reroll();
 })();
 </script>

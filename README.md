@@ -13,7 +13,7 @@ Deterministic SVG avatars from a name or email, via SHA-256.<br>Zero dependencie
 [![size](https://img.shields.io/badge/deps-0-brightgreen)](package.json)
 [![license](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
 
-<a href="https://suifei.github.io/hash-avatar/">Live demo</a> · <a href="#1-image-url-no-code">Embed as an image</a> · <a href="#3-npm">npm</a> · <a href="#versioning-contract">Contract</a>
+<a href="https://suifei.github.io/hash-avatar/?lang=en">Live demo</a> · <a href="#1-image-url-no-code">Embed as an image</a> · <a href="#3-npm">npm</a> · <a href="#versioning-contract">Contract</a>
 
 English | [简体中文](README.zh-CN.md)
 

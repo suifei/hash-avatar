@@ -13,7 +13,7 @@
 [![size](https://img.shields.io/badge/deps-0-brightgreen)](package.json)
 [![license](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
 
-<a href="https://suifei.github.io/hash-avatar/">在线演示</a> · <a href="#1-图片-url无需代码">作为图片嵌入</a> · <a href="#3-npm">npm</a> · <a href="#版本契约">版本契约</a>
+<a href="https://suifei.github.io/hash-avatar/?lang=zh">在线演示</a> · <a href="#1-图片-url无需代码">作为图片嵌入</a> · <a href="#3-npm">npm</a> · <a href="#版本契约">版本契约</a>
 
 [English](README.md) | 简体中文
 
