@@ -130,7 +130,7 @@
 
 ## 画风
 
-每种画风都是套在同一张图上的 SVG 滤镜，只需几行代码，不用重写渲染器。用 `art=<画风>` 指定。
+每种画风都是套在同一张图上的 SVG 滤镜，只需几行代码，不用重写渲染器。用 `art=<画风>` 指定。`comic` 加墨线和网点阴影；`pop` 把画面映射到六套四色丝网印刷配色之一（由哈希挑选）；`sketch` 是暖色纸上的铅笔排线；`neon` 把轮廓变成发光灯管。线条类画风只作用于肖像，外圈指纹保持清晰。
 
 <table align="center">
 <tr><th><code>flat</code></th><th><code>pixel</code></th><th><code>ink</code></th><th><code>comic</code></th><th><code>sketch</code></th></tr>
@@ -348,7 +348,7 @@ const src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
 
 改动以下任何一项都会改变已有头像：**槽位分配**、**任何列表的内容或顺序**（`pick` 用的是取模，往列表里追加一项也算）、**调色板**、**几何参数**。这类改动必须发布 **v2**，换用新的哈希标签，并写进 CHANGELOG。golden 快照测试（`test/golden.json`）负责守住这一条。
 
-有过一次例外：1.1.0 在项目几乎没有用户时重绘了契约 v1（默认开启动效、新增种族和画风）。哈希输入和外圈没有变，所以每个头像背后的身份不变。
+在项目几乎没有用户时有过两次例外：1.1.0 重绘了契约 v1（默认开启动效、新增种族和画风），1.2.0 又重绘了一次（88 个种族、连续肤色、重做画风）。哈希输入和外圈没有变，所以每个头像背后的身份不变。
 
 npm 主版本号与契约版本对应：`1.x` 永远是契约 v1。
 
@@ -356,6 +356,7 @@ npm 主版本号与契约版本对应：`1.x` 永远是契约 v1。
 
 ```sh
 npm test             # node:test，几秒内跑完
+npm run build:min    # 压缩为 src/hash-avatar.min.js，并校验输出的 SVG 逐字节一致（npm publish 前自动执行）
 npm run build:demo   # 把库内联进单文件 dist/index.html
 npm run sheet        # 渲染全部发型、帽子、胡须、衣物、眼镜（需要 rsvg-convert）
 npm run worker:dev   # 在本地运行图片服务

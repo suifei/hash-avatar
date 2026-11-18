@@ -130,7 +130,7 @@ Beyond humans, `race` covers fantasy and myth from many cultures, animals, and s
 
 ## Art styles
 
-Every style is an SVG filter over the same drawing, so it costs a few lines of code instead of a new renderer. Use `art=<style>`.
+Every style is an SVG filter over the same drawing, so it costs a few lines of code instead of a new renderer. Use `art=<style>`. `comic` adds ink lines and halftone shadows, `pop` maps the portrait onto one of six four-ink screen-print palettes picked by the hash, `sketch` is graphite hatching on warm paper, and `neon` turns edges into glowing tubes. The line styles filter only the portrait, so the fingerprint ring stays crisp.
 
 <table align="center">
 <tr><th><code>flat</code></th><th><code>pixel</code></th><th><code>ink</code></th><th><code>comic</code></th><th><code>sketch</code></th></tr>
@@ -349,7 +349,7 @@ Once an avatar has been shown to someone, the mapping from input to picture is a
 
 Any change to **slot assignment, the contents or order of any list** (picking uses modulo, so even appending an item breaks existing avatars), **palettes or geometry** changes existing avatars. Such a change requires a **v2** release with a new hash tag and a CHANGELOG entry. Golden snapshot tests (`test/golden.json`) enforce this rule.
 
-One exception has been made: release 1.1.0 redrew contract v1 (animation on by default, new races, art styles), while the project had almost no users. The hash input and the ring are unchanged, so the identity behind every avatar is the same.
+Two exceptions have been made while the project had almost no users: release 1.1.0 redrew contract v1 (animation on by default, new races, art styles), and 1.2.0 redrew it again (88 races, continuous skin tones, reworked art styles). The hash input and the ring are unchanged, so the identity behind every avatar is the same.
 
 The npm major version follows the contract version: `1.x` is always contract v1.
 
@@ -357,6 +357,7 @@ The npm major version follows the contract version: `1.x` is always contract v1.
 
 ```sh
 npm test             # node:test, runs in a few seconds
+npm run build:min    # minify into src/hash-avatar.min.js and check it renders byte-identical SVGs (runs before npm publish)
 npm run build:demo   # inlines the library into a single-file dist/index.html
 npm run sheet        # renders every hair / hat / beard / clothing / glasses variant (needs rsvg-convert)
 npm run worker:dev   # run the image service locally
