@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?size=180" width="180" alt="suifei" title="suifei">
+<img src="https://avatar.onrpc.com/v1/flynn.svg?size=180" width="180" alt="flynn" title="flynn">
 
-<sub>☝️ <code>suifei</code>, generated live from <code>hash-avatar.suifei.workers.dev/v1/suifei.svg</code></sub>
+<sub>☝️ <code>flynn</code>, generated live from <code>avatar.onrpc.com/v1/flynn.svg</code></sub>
 
 # hash-avatar
 
@@ -21,20 +21,20 @@ English | [简体中文](README.zh-CN.md)
 
 ## One identity, every dimension
 
-Gender, age and race are **rendering parameters, not hash input**, so the same person stays recognisable: same ring, same colours, same traits. Here is `suifei` in all 15 gender × age combinations:
+Gender, age and race are **rendering parameters, not hash input**, so the same person stays recognisable: same ring, same colours, same traits. Here is `flynn` in all 15 gender × age combinations:
 
 <table align="center">
 <tr><th></th><th>baby</th><th>teen</th><th>youth</th><th>middle</th><th>old</th></tr>
-<tr><th>male</th><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=male&age=baby&size=96" width="96" alt="suifei · male · baby" title="suifei · male · baby"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=male&age=teen&size=96" width="96" alt="suifei · male · teen" title="suifei · male · teen"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=male&age=youth&size=96" width="96" alt="suifei · male · youth" title="suifei · male · youth"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=male&age=middle&size=96" width="96" alt="suifei · male · middle" title="suifei · male · middle"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=male&age=old&size=96" width="96" alt="suifei · male · old" title="suifei · male · old"></td></tr>
-<tr><th>female</th><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=female&age=baby&size=96" width="96" alt="suifei · female · baby" title="suifei · female · baby"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=female&age=teen&size=96" width="96" alt="suifei · female · teen" title="suifei · female · teen"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=female&age=youth&size=96" width="96" alt="suifei · female · youth" title="suifei · female · youth"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=female&age=middle&size=96" width="96" alt="suifei · female · middle" title="suifei · female · middle"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=female&age=old&size=96" width="96" alt="suifei · female · old" title="suifei · female · old"></td></tr>
-<tr><th>neutral</th><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=neutral&age=baby&size=96" width="96" alt="suifei · neutral · baby" title="suifei · neutral · baby"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=neutral&age=teen&size=96" width="96" alt="suifei · neutral · teen" title="suifei · neutral · teen"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=neutral&age=youth&size=96" width="96" alt="suifei · neutral · youth" title="suifei · neutral · youth"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=neutral&age=middle&size=96" width="96" alt="suifei · neutral · middle" title="suifei · neutral · middle"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?gender=neutral&age=old&size=96" width="96" alt="suifei · neutral · old" title="suifei · neutral · old"></td></tr>
+<tr><th>male</th><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=baby&size=96" width="96" alt="flynn · male · baby" title="flynn · male · baby"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=teen&size=96" width="96" alt="flynn · male · teen" title="flynn · male · teen"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&size=96" width="96" alt="flynn · male · youth" title="flynn · male · youth"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=middle&size=96" width="96" alt="flynn · male · middle" title="flynn · male · middle"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=old&size=96" width="96" alt="flynn · male · old" title="flynn · male · old"></td></tr>
+<tr><th>female</th><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=female&age=baby&size=96" width="96" alt="flynn · female · baby" title="flynn · female · baby"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=female&age=teen&size=96" width="96" alt="flynn · female · teen" title="flynn · female · teen"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=female&age=youth&size=96" width="96" alt="flynn · female · youth" title="flynn · female · youth"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=female&age=middle&size=96" width="96" alt="flynn · female · middle" title="flynn · female · middle"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=female&age=old&size=96" width="96" alt="flynn · female · old" title="flynn · female · old"></td></tr>
+<tr><th>neutral</th><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=baby&size=96" width="96" alt="flynn · neutral · baby" title="flynn · neutral · baby"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=teen&size=96" width="96" alt="flynn · neutral · teen" title="flynn · neutral · teen"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=youth&size=96" width="96" alt="flynn · neutral · youth" title="flynn · neutral · youth"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=middle&size=96" width="96" alt="flynn · neutral · middle" title="flynn · neutral · middle"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?gender=neutral&age=old&size=96" width="96" alt="flynn · neutral · old" title="flynn · neutral · old"></td></tr>
 </table>
 
 And across the `race` setting (`auto` draws from all palettes). Race only shifts colour ranges and hair-texture weights. It never changes facial geometry.
 
 <table align="center">
 <tr><th><code>asian</code></th><th><code>white</code></th><th><code>black</code></th><th><code>brown</code></th><th><code>auto</code></th></tr>
-<tr><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?race=asian&size=96" width="96" alt="suifei · asian" title="suifei · asian"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?race=white&size=96" width="96" alt="suifei · white" title="suifei · white"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?race=black&size=96" width="96" alt="suifei · black" title="suifei · black"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?race=brown&size=96" width="96" alt="suifei · brown" title="suifei · brown"></td><td><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?race=auto&size=96" width="96" alt="suifei · auto" title="suifei · auto"></td></tr>
+<tr><td><img src="https://avatar.onrpc.com/v1/flynn.svg?race=asian&size=96" width="96" alt="flynn · asian" title="flynn · asian"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?race=white&size=96" width="96" alt="flynn · white" title="flynn · white"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?race=black&size=96" width="96" alt="flynn · black" title="flynn · black"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?race=brown&size=96" width="96" alt="flynn · brown" title="flynn · brown"></td><td><img src="https://avatar.onrpc.com/v1/flynn.svg?race=auto&size=96" width="96" alt="flynn · auto" title="flynn · auto"></td></tr>
 </table>
 
 ## The fingerprint ring
@@ -42,11 +42,11 @@ And across the `race` setting (`auto` draws from all palettes). Race only shifts
 The outer ring draws the first **128 bits** of the hash, one tick per bit, clockwise from 12 o'clock. Different input means a different ring, with collision odds below a UUIDv4. Below about 96 px the ticks blur together, so `fp=0` turns the ring off for small sizes.
 
 <table align="center"><tr>
-<td align="center" valign="bottom"><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?size=192" width="192" alt="suifei" title="suifei"><br><sub>ring on, 192 px</sub></td>
-<td align="center" valign="bottom"><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?fp=0&size=192" width="192" alt="suifei" title="suifei"><br><sub>ring off (<code>fp=0</code>)</sub></td>
-<td align="center" valign="bottom"><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?size=96" width="96" alt="suifei" title="suifei"><br><sub>96 px</sub></td>
-<td align="center" valign="bottom"><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?size=48" width="48" alt="suifei" title="suifei"><br><sub>48 px</sub></td>
-<td align="center" valign="bottom"><img src="https://hash-avatar.suifei.workers.dev/v1/suifei.svg?fp=0&size=32" width="32" alt="suifei" title="suifei"><br><sub>32 px</sub></td>
+<td align="center" valign="bottom"><img src="https://avatar.onrpc.com/v1/flynn.svg?size=192" width="192" alt="flynn" title="flynn"><br><sub>ring on, 192 px</sub></td>
+<td align="center" valign="bottom"><img src="https://avatar.onrpc.com/v1/flynn.svg?fp=0&size=192" width="192" alt="flynn" title="flynn"><br><sub>ring off (<code>fp=0</code>)</sub></td>
+<td align="center" valign="bottom"><img src="https://avatar.onrpc.com/v1/flynn.svg?size=96" width="96" alt="flynn" title="flynn"><br><sub>96 px</sub></td>
+<td align="center" valign="bottom"><img src="https://avatar.onrpc.com/v1/flynn.svg?size=48" width="48" alt="flynn" title="flynn"><br><sub>48 px</sub></td>
+<td align="center" valign="bottom"><img src="https://avatar.onrpc.com/v1/flynn.svg?fp=0&size=32" width="32" alt="flynn" title="flynn"><br><sub>32 px</sub></td>
 </tr></table>
 
 ## Gallery
@@ -54,54 +54,54 @@ The outer ring draws the first **128 bits** of the hash, one tick per bit, clock
 48 different names, rotating through every gender, age and race. Each image is a plain `<img>` pointing at the live service.
 
 <p align="center">
-<img src="https://hash-avatar.suifei.workers.dev/v1/alice.svg?gender=male&age=baby&race=asian&size=80" width="80" alt="alice · male · baby · asian" title="alice · male · baby · asian">
-<img src="https://hash-avatar.suifei.workers.dev/v1/bob.svg?gender=female&age=youth&race=white&size=80" width="80" alt="bob · female · youth · white" title="bob · female · youth · white">
-<img src="https://hash-avatar.suifei.workers.dev/v1/carol.svg?gender=neutral&age=old&race=black&size=80" width="80" alt="carol · neutral · old · black" title="carol · neutral · old · black">
-<img src="https://hash-avatar.suifei.workers.dev/v1/dave.svg?gender=male&age=teen&race=brown&size=80" width="80" alt="dave · male · teen · brown" title="dave · male · teen · brown">
-<img src="https://hash-avatar.suifei.workers.dev/v1/eve.svg?gender=female&age=old&race=auto&size=80" width="80" alt="eve · female · old · auto" title="eve · female · old · auto">
-<img src="https://hash-avatar.suifei.workers.dev/v1/frank.svg?gender=neutral&age=teen&race=asian&size=80" width="80" alt="frank · neutral · teen · asian" title="frank · neutral · teen · asian">
-<img src="https://hash-avatar.suifei.workers.dev/v1/grace.svg?gender=male&age=middle&race=white&size=80" width="80" alt="grace · male · middle · white" title="grace · male · middle · white">
-<img src="https://hash-avatar.suifei.workers.dev/v1/heidi.svg?gender=female&age=baby&race=black&size=80" width="80" alt="heidi · female · baby · black" title="heidi · female · baby · black">
-<img src="https://hash-avatar.suifei.workers.dev/v1/ivan.svg?gender=neutral&age=middle&race=auto&size=80" width="80" alt="ivan · neutral · middle · auto" title="ivan · neutral · middle · auto">
-<img src="https://hash-avatar.suifei.workers.dev/v1/judy.svg?gender=male&age=baby&race=asian&size=80" width="80" alt="judy · male · baby · asian" title="judy · male · baby · asian">
-<img src="https://hash-avatar.suifei.workers.dev/v1/mallory.svg?gender=female&age=youth&race=white&size=80" width="80" alt="mallory · female · youth · white" title="mallory · female · youth · white">
-<img src="https://hash-avatar.suifei.workers.dev/v1/niaj.svg?gender=neutral&age=old&race=black&size=80" width="80" alt="niaj · neutral · old · black" title="niaj · neutral · old · black">
-<img src="https://hash-avatar.suifei.workers.dev/v1/olivia.svg?gender=male&age=youth&race=brown&size=80" width="80" alt="olivia · male · youth · brown" title="olivia · male · youth · brown">
-<img src="https://hash-avatar.suifei.workers.dev/v1/peggy.svg?gender=female&age=old&race=auto&size=80" width="80" alt="peggy · female · old · auto" title="peggy · female · old · auto">
-<img src="https://hash-avatar.suifei.workers.dev/v1/rupert.svg?gender=neutral&age=teen&race=asian&size=80" width="80" alt="rupert · neutral · teen · asian" title="rupert · neutral · teen · asian">
-<img src="https://hash-avatar.suifei.workers.dev/v1/sybil.svg?gender=male&age=middle&race=white&size=80" width="80" alt="sybil · male · middle · white" title="sybil · male · middle · white">
-<img src="https://hash-avatar.suifei.workers.dev/v1/trent.svg?gender=female&age=teen&race=brown&size=80" width="80" alt="trent · female · teen · brown" title="trent · female · teen · brown">
-<img src="https://hash-avatar.suifei.workers.dev/v1/victor.svg?gender=neutral&age=middle&race=auto&size=80" width="80" alt="victor · neutral · middle · auto" title="victor · neutral · middle · auto">
-<img src="https://hash-avatar.suifei.workers.dev/v1/walter.svg?gender=male&age=baby&race=asian&size=80" width="80" alt="walter · male · baby · asian" title="walter · male · baby · asian">
-<img src="https://hash-avatar.suifei.workers.dev/v1/xiao.ming.svg?gender=female&age=youth&race=white&size=80" width="80" alt="xiao.ming · female · youth · white" title="xiao.ming · female · youth · white">
-<img src="https://hash-avatar.suifei.workers.dev/v1/%E6%9D%8E%E4%BC%9F.svg?gender=neutral&age=baby&race=black&size=80" width="80" alt="李伟 · neutral · baby · black" title="李伟 · neutral · baby · black">
-<img src="https://hash-avatar.suifei.workers.dev/v1/%E7%8E%8B%E8%8A%B3.svg?gender=male&age=youth&race=brown&size=80" width="80" alt="王芳 · male · youth · brown" title="王芳 · male · youth · brown">
-<img src="https://hash-avatar.suifei.workers.dev/v1/%E5%BC%B5%E5%81%89.svg?gender=female&age=old&race=auto&size=80" width="80" alt="張偉 · female · old · auto" title="張偉 · female · old · auto">
-<img src="https://hash-avatar.suifei.workers.dev/v1/yuki.svg?gender=neutral&age=teen&race=asian&size=80" width="80" alt="yuki · neutral · teen · asian" title="yuki · neutral · teen · asian">
-<img src="https://hash-avatar.suifei.workers.dev/v1/amara.svg?gender=male&age=old&race=black&size=80" width="80" alt="amara · male · old · black" title="amara · male · old · black">
-<img src="https://hash-avatar.suifei.workers.dev/v1/kwame.svg?gender=female&age=teen&race=brown&size=80" width="80" alt="kwame · female · teen · brown" title="kwame · female · teen · brown">
-<img src="https://hash-avatar.suifei.workers.dev/v1/priya.svg?gender=neutral&age=middle&race=auto&size=80" width="80" alt="priya · neutral · middle · auto" title="priya · neutral · middle · auto">
-<img src="https://hash-avatar.suifei.workers.dev/v1/arjun.svg?gender=male&age=baby&race=asian&size=80" width="80" alt="arjun · male · baby · asian" title="arjun · male · baby · asian">
-<img src="https://hash-avatar.suifei.workers.dev/v1/sofia.svg?gender=female&age=middle&race=white&size=80" width="80" alt="sofia · female · middle · white" title="sofia · female · middle · white">
-<img src="https://hash-avatar.suifei.workers.dev/v1/mateo.svg?gender=neutral&age=baby&race=black&size=80" width="80" alt="mateo · neutral · baby · black" title="mateo · neutral · baby · black">
-<img src="https://hash-avatar.suifei.workers.dev/v1/noah.svg?gender=male&age=youth&race=brown&size=80" width="80" alt="noah · male · youth · brown" title="noah · male · youth · brown">
-<img src="https://hash-avatar.suifei.workers.dev/v1/zoe.svg?gender=female&age=old&race=auto&size=80" width="80" alt="zoe · female · old · auto" title="zoe · female · old · auto">
-<img src="https://hash-avatar.suifei.workers.dev/v1/liam.svg?gender=neutral&age=youth&race=white&size=80" width="80" alt="liam · neutral · youth · white" title="liam · neutral · youth · white">
-<img src="https://hash-avatar.suifei.workers.dev/v1/emma.svg?gender=male&age=old&race=black&size=80" width="80" alt="emma · male · old · black" title="emma · male · old · black">
-<img src="https://hash-avatar.suifei.workers.dev/v1/chen.jie.svg?gender=female&age=teen&race=brown&size=80" width="80" alt="chen.jie · female · teen · brown" title="chen.jie · female · teen · brown">
-<img src="https://hash-avatar.suifei.workers.dev/v1/lin.mei.svg?gender=neutral&age=middle&race=auto&size=80" width="80" alt="lin.mei · neutral · middle · auto" title="lin.mei · neutral · middle · auto">
-<img src="https://hash-avatar.suifei.workers.dev/v1/hiro.svg?gender=male&age=teen&race=asian&size=80" width="80" alt="hiro · male · teen · asian" title="hiro · male · teen · asian">
-<img src="https://hash-avatar.suifei.workers.dev/v1/sakura.svg?gender=female&age=middle&race=white&size=80" width="80" alt="sakura · female · middle · white" title="sakura · female · middle · white">
-<img src="https://hash-avatar.suifei.workers.dev/v1/min-jun.svg?gender=neutral&age=baby&race=black&size=80" width="80" alt="min-jun · neutral · baby · black" title="min-jun · neutral · baby · black">
-<img src="https://hash-avatar.suifei.workers.dev/v1/ji-woo.svg?gender=male&age=youth&race=brown&size=80" width="80" alt="ji-woo · male · youth · brown" title="ji-woo · male · youth · brown">
-<img src="https://hash-avatar.suifei.workers.dev/v1/fatima.svg?gender=female&age=baby&race=asian&size=80" width="80" alt="fatima · female · baby · asian" title="fatima · female · baby · asian">
-<img src="https://hash-avatar.suifei.workers.dev/v1/omar.svg?gender=neutral&age=youth&race=white&size=80" width="80" alt="omar · neutral · youth · white" title="omar · neutral · youth · white">
-<img src="https://hash-avatar.suifei.workers.dev/v1/chidi.svg?gender=male&age=old&race=black&size=80" width="80" alt="chidi · male · old · black" title="chidi · male · old · black">
-<img src="https://hash-avatar.suifei.workers.dev/v1/ngozi.svg?gender=female&age=teen&race=brown&size=80" width="80" alt="ngozi · female · teen · brown" title="ngozi · female · teen · brown">
-<img src="https://hash-avatar.suifei.workers.dev/v1/lucas.svg?gender=neutral&age=old&race=auto&size=80" width="80" alt="lucas · neutral · old · auto" title="lucas · neutral · old · auto">
-<img src="https://hash-avatar.suifei.workers.dev/v1/ines.svg?gender=male&age=teen&race=asian&size=80" width="80" alt="ines · male · teen · asian" title="ines · male · teen · asian">
-<img src="https://hash-avatar.suifei.workers.dev/v1/olaf.svg?gender=female&age=middle&race=white&size=80" width="80" alt="olaf · female · middle · white" title="olaf · female · middle · white">
-<img src="https://hash-avatar.suifei.workers.dev/v1/freya.svg?gender=neutral&age=baby&race=black&size=80" width="80" alt="freya · neutral · baby · black" title="freya · neutral · baby · black">
+<img src="https://avatar.onrpc.com/v1/alice.svg?gender=male&age=baby&race=asian&size=80" width="80" alt="alice · male · baby · asian" title="alice · male · baby · asian">
+<img src="https://avatar.onrpc.com/v1/bob.svg?gender=female&age=youth&race=white&size=80" width="80" alt="bob · female · youth · white" title="bob · female · youth · white">
+<img src="https://avatar.onrpc.com/v1/carol.svg?gender=neutral&age=old&race=black&size=80" width="80" alt="carol · neutral · old · black" title="carol · neutral · old · black">
+<img src="https://avatar.onrpc.com/v1/dave.svg?gender=male&age=teen&race=brown&size=80" width="80" alt="dave · male · teen · brown" title="dave · male · teen · brown">
+<img src="https://avatar.onrpc.com/v1/eve.svg?gender=female&age=old&race=auto&size=80" width="80" alt="eve · female · old · auto" title="eve · female · old · auto">
+<img src="https://avatar.onrpc.com/v1/frank.svg?gender=neutral&age=teen&race=asian&size=80" width="80" alt="frank · neutral · teen · asian" title="frank · neutral · teen · asian">
+<img src="https://avatar.onrpc.com/v1/grace.svg?gender=male&age=middle&race=white&size=80" width="80" alt="grace · male · middle · white" title="grace · male · middle · white">
+<img src="https://avatar.onrpc.com/v1/heidi.svg?gender=female&age=baby&race=black&size=80" width="80" alt="heidi · female · baby · black" title="heidi · female · baby · black">
+<img src="https://avatar.onrpc.com/v1/ivan.svg?gender=neutral&age=middle&race=auto&size=80" width="80" alt="ivan · neutral · middle · auto" title="ivan · neutral · middle · auto">
+<img src="https://avatar.onrpc.com/v1/judy.svg?gender=male&age=baby&race=asian&size=80" width="80" alt="judy · male · baby · asian" title="judy · male · baby · asian">
+<img src="https://avatar.onrpc.com/v1/mallory.svg?gender=female&age=youth&race=white&size=80" width="80" alt="mallory · female · youth · white" title="mallory · female · youth · white">
+<img src="https://avatar.onrpc.com/v1/niaj.svg?gender=neutral&age=old&race=black&size=80" width="80" alt="niaj · neutral · old · black" title="niaj · neutral · old · black">
+<img src="https://avatar.onrpc.com/v1/olivia.svg?gender=male&age=youth&race=brown&size=80" width="80" alt="olivia · male · youth · brown" title="olivia · male · youth · brown">
+<img src="https://avatar.onrpc.com/v1/peggy.svg?gender=female&age=old&race=auto&size=80" width="80" alt="peggy · female · old · auto" title="peggy · female · old · auto">
+<img src="https://avatar.onrpc.com/v1/rupert.svg?gender=neutral&age=teen&race=asian&size=80" width="80" alt="rupert · neutral · teen · asian" title="rupert · neutral · teen · asian">
+<img src="https://avatar.onrpc.com/v1/sybil.svg?gender=male&age=middle&race=white&size=80" width="80" alt="sybil · male · middle · white" title="sybil · male · middle · white">
+<img src="https://avatar.onrpc.com/v1/trent.svg?gender=female&age=teen&race=brown&size=80" width="80" alt="trent · female · teen · brown" title="trent · female · teen · brown">
+<img src="https://avatar.onrpc.com/v1/victor.svg?gender=neutral&age=middle&race=auto&size=80" width="80" alt="victor · neutral · middle · auto" title="victor · neutral · middle · auto">
+<img src="https://avatar.onrpc.com/v1/walter.svg?gender=male&age=baby&race=asian&size=80" width="80" alt="walter · male · baby · asian" title="walter · male · baby · asian">
+<img src="https://avatar.onrpc.com/v1/xiao.ming.svg?gender=female&age=youth&race=white&size=80" width="80" alt="xiao.ming · female · youth · white" title="xiao.ming · female · youth · white">
+<img src="https://avatar.onrpc.com/v1/%E6%9D%8E%E4%BC%9F.svg?gender=neutral&age=baby&race=black&size=80" width="80" alt="李伟 · neutral · baby · black" title="李伟 · neutral · baby · black">
+<img src="https://avatar.onrpc.com/v1/%E7%8E%8B%E8%8A%B3.svg?gender=male&age=youth&race=brown&size=80" width="80" alt="王芳 · male · youth · brown" title="王芳 · male · youth · brown">
+<img src="https://avatar.onrpc.com/v1/%E5%BC%B5%E5%81%89.svg?gender=female&age=old&race=auto&size=80" width="80" alt="張偉 · female · old · auto" title="張偉 · female · old · auto">
+<img src="https://avatar.onrpc.com/v1/yuki.svg?gender=neutral&age=teen&race=asian&size=80" width="80" alt="yuki · neutral · teen · asian" title="yuki · neutral · teen · asian">
+<img src="https://avatar.onrpc.com/v1/amara.svg?gender=male&age=old&race=black&size=80" width="80" alt="amara · male · old · black" title="amara · male · old · black">
+<img src="https://avatar.onrpc.com/v1/kwame.svg?gender=female&age=teen&race=brown&size=80" width="80" alt="kwame · female · teen · brown" title="kwame · female · teen · brown">
+<img src="https://avatar.onrpc.com/v1/priya.svg?gender=neutral&age=middle&race=auto&size=80" width="80" alt="priya · neutral · middle · auto" title="priya · neutral · middle · auto">
+<img src="https://avatar.onrpc.com/v1/arjun.svg?gender=male&age=baby&race=asian&size=80" width="80" alt="arjun · male · baby · asian" title="arjun · male · baby · asian">
+<img src="https://avatar.onrpc.com/v1/sofia.svg?gender=female&age=middle&race=white&size=80" width="80" alt="sofia · female · middle · white" title="sofia · female · middle · white">
+<img src="https://avatar.onrpc.com/v1/mateo.svg?gender=neutral&age=baby&race=black&size=80" width="80" alt="mateo · neutral · baby · black" title="mateo · neutral · baby · black">
+<img src="https://avatar.onrpc.com/v1/noah.svg?gender=male&age=youth&race=brown&size=80" width="80" alt="noah · male · youth · brown" title="noah · male · youth · brown">
+<img src="https://avatar.onrpc.com/v1/zoe.svg?gender=female&age=old&race=auto&size=80" width="80" alt="zoe · female · old · auto" title="zoe · female · old · auto">
+<img src="https://avatar.onrpc.com/v1/liam.svg?gender=neutral&age=youth&race=white&size=80" width="80" alt="liam · neutral · youth · white" title="liam · neutral · youth · white">
+<img src="https://avatar.onrpc.com/v1/emma.svg?gender=male&age=old&race=black&size=80" width="80" alt="emma · male · old · black" title="emma · male · old · black">
+<img src="https://avatar.onrpc.com/v1/chen.jie.svg?gender=female&age=teen&race=brown&size=80" width="80" alt="chen.jie · female · teen · brown" title="chen.jie · female · teen · brown">
+<img src="https://avatar.onrpc.com/v1/lin.mei.svg?gender=neutral&age=middle&race=auto&size=80" width="80" alt="lin.mei · neutral · middle · auto" title="lin.mei · neutral · middle · auto">
+<img src="https://avatar.onrpc.com/v1/hiro.svg?gender=male&age=teen&race=asian&size=80" width="80" alt="hiro · male · teen · asian" title="hiro · male · teen · asian">
+<img src="https://avatar.onrpc.com/v1/sakura.svg?gender=female&age=middle&race=white&size=80" width="80" alt="sakura · female · middle · white" title="sakura · female · middle · white">
+<img src="https://avatar.onrpc.com/v1/min-jun.svg?gender=neutral&age=baby&race=black&size=80" width="80" alt="min-jun · neutral · baby · black" title="min-jun · neutral · baby · black">
+<img src="https://avatar.onrpc.com/v1/ji-woo.svg?gender=male&age=youth&race=brown&size=80" width="80" alt="ji-woo · male · youth · brown" title="ji-woo · male · youth · brown">
+<img src="https://avatar.onrpc.com/v1/fatima.svg?gender=female&age=baby&race=asian&size=80" width="80" alt="fatima · female · baby · asian" title="fatima · female · baby · asian">
+<img src="https://avatar.onrpc.com/v1/omar.svg?gender=neutral&age=youth&race=white&size=80" width="80" alt="omar · neutral · youth · white" title="omar · neutral · youth · white">
+<img src="https://avatar.onrpc.com/v1/chidi.svg?gender=male&age=old&race=black&size=80" width="80" alt="chidi · male · old · black" title="chidi · male · old · black">
+<img src="https://avatar.onrpc.com/v1/ngozi.svg?gender=female&age=teen&race=brown&size=80" width="80" alt="ngozi · female · teen · brown" title="ngozi · female · teen · brown">
+<img src="https://avatar.onrpc.com/v1/lucas.svg?gender=neutral&age=old&race=auto&size=80" width="80" alt="lucas · neutral · old · auto" title="lucas · neutral · old · auto">
+<img src="https://avatar.onrpc.com/v1/ines.svg?gender=male&age=teen&race=asian&size=80" width="80" alt="ines · male · teen · asian" title="ines · male · teen · asian">
+<img src="https://avatar.onrpc.com/v1/olaf.svg?gender=female&age=middle&race=white&size=80" width="80" alt="olaf · female · middle · white" title="olaf · female · middle · white">
+<img src="https://avatar.onrpc.com/v1/freya.svg?gender=neutral&age=baby&race=black&size=80" width="80" alt="freya · neutral · baby · black" title="freya · neutral · baby · black">
 </p>
 
 ## Usage
@@ -119,11 +119,11 @@ There are three ways to use it:
 Works anywhere an image URL works, the same way shields.io badges do:
 
 ```html
-<img src="https://hash-avatar.suifei.workers.dev/v1/octocat.svg?gender=male&size=128" width="128" alt="octocat">
+<img src="https://avatar.onrpc.com/v1/octocat.svg?gender=male&size=128" width="128" alt="octocat">
 ```
 
 ```markdown
-![avatar](https://hash-avatar.suifei.workers.dev/v1/octocat.svg?size=128)
+![avatar](https://avatar.onrpc.com/v1/octocat.svg?size=128)
 ```
 
 | URL | Behaviour |
@@ -136,7 +136,7 @@ Query parameters: `gender`, `age`, `race`, `size` (16–1024) and `fp=0` (hide t
 
 > Avoid putting real email addresses in public image URLs: they end up in server logs and `Referer` headers. See [Privacy](#known-limitations).
 
-> **Mainland China:** `*.workers.dev` is not reachable there without a proxy. GitHub READMEs are unaffected, because GitHub serves README images through its own `camo` proxy. For your own sites, bind the Worker to a custom domain (`routes` in `wrangler.toml`) or render in the browser with the [CDN script](#2-browser-via-cdn), which you can also self-host.
+> **Hosts and mainland China:** the service runs on two hosts with identical output. `avatar.onrpc.com` is the primary host and is reachable from mainland China. `hash-avatar.suifei.workers.dev` is a mirror, but `*.workers.dev` is blocked in mainland China without a proxy. GitHub READMEs work with either host, because GitHub serves README images through its own `camo` proxy.
 
 The service is a small Cloudflare Worker ([`worker/index.js`](worker/index.js)). To self-host it, run `npx wrangler deploy`.
 
