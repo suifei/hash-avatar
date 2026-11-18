@@ -10,6 +10,9 @@ Deterministic SVG avatars from a name or email, via SHA-256.<br>88 races, 10 art
 [![CI](https://github.com/suifei/hash-avatar/actions/workflows/ci.yml/badge.svg)](https://github.com/suifei/hash-avatar/actions/workflows/ci.yml)
 [![size](https://img.shields.io/badge/deps-0-brightgreen)](package.json)
 [![license](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/suifei/hash-avatar?style=social)](https://github.com/suifei/hash-avatar/stargazers)
+
+<sub>Free and open source, run as a public good. If it helps you, a ⭐ <a href="https://github.com/suifei/hash-avatar">star</a> is the best thanks.</sub>
 
 <a href="https://suifei.github.io/hash-avatar/?lang=en">Live demo</a> · <a href="#1-image-url-no-code">Embed as an image</a> · <a href="#3-npm">npm</a> · <a href="#versioning-contract">Contract</a>
 
@@ -395,6 +398,14 @@ npm run build:demo   # inlines the library into a single-file dist/index.html
 npm run sheet        # renders every hair / hat / beard / clothing / glasses variant (needs rsvg-convert)
 npm run worker:dev   # run the image service locally
 ```
+
+## Star, share, contribute
+
+hash-avatar is free and open source, run as a public good. The library is Apache-2.0 and the image service at `avatar.onrpc.com` is free to use.
+
+- **Star it.** If it is useful to you, a [⭐ star on GitHub](https://github.com/suifei/hash-avatar) helps other people find it.
+- **Share it.** Tell friends, link the [live demo](https://suifei.github.io/hash-avatar/), use the avatars in your own projects.
+- **Contribute.** Issues and pull requests are very welcome: bug reports, new races and creatures, new art styles, framework wrappers, translations. See [Development](#development) to get started, and keep the [versioning contract](#versioning-contract) in mind for anything that changes how existing avatars look.
 
 ## License
 

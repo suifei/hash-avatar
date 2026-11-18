@@ -10,6 +10,9 @@
 [![CI](https://github.com/suifei/hash-avatar/actions/workflows/ci.yml/badge.svg)](https://github.com/suifei/hash-avatar/actions/workflows/ci.yml)
 [![size](https://img.shields.io/badge/deps-0-brightgreen)](package.json)
 [![license](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/suifei/hash-avatar?style=social)](https://github.com/suifei/hash-avatar/stargazers)
+
+<sub>免费的公益开源项目。如果对你有帮助，点个 ⭐ <a href="https://github.com/suifei/hash-avatar">Star</a> 就是最好的支持。</sub>
 
 <a href="https://suifei.github.io/hash-avatar/?lang=zh">在线演示</a> · <a href="#1-图片-url无需代码">作为图片嵌入</a> · <a href="#3-npm">npm</a> · <a href="#版本契约">版本契约</a>
 
@@ -394,6 +397,14 @@ npm run build:demo   # 把库内联进单文件 dist/index.html
 npm run sheet        # 渲染全部发型、帽子、胡须、衣物、眼镜（需要 rsvg-convert）
 npm run worker:dev   # 在本地运行图片服务
 ```
+
+## 欢迎 Star、分享与贡献
+
+hash-avatar 是免费的公益开源项目。库本身采用 Apache-2.0，`avatar.onrpc.com` 图片服务也免费开放使用。
+
+- **点个 Star**：如果它对你有用，欢迎在 [GitHub 上点 ⭐ Star](https://github.com/suifei/hash-avatar)，让更多人看到它。
+- **分享出去**：推荐给朋友，转发[在线演示](https://suifei.github.io/hash-avatar/)，在你自己的项目里用起来。
+- **参与贡献**：非常欢迎提 issue 和 PR，比如报告 bug、补充新的种族和生物、新的画风、其他框架的组件、翻译。上手方法见[开发](#开发)；任何会改变已有头像外观的改动，请先看[版本契约](#版本契约)。
 
 ## 许可证
 
