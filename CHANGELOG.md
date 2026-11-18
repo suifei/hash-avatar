@@ -2,6 +2,16 @@
 
 The npm major version tracks the avatar contract version. Any change that alters existing avatars bumps the contract to the next `vN` (see README, "Versioning contract").
 
+## 1.3.0 — 2026-11-19
+
+Rendering is unchanged (contract v1, golden snapshots untouched).
+
+- React and Vue components: `@suifei/hash-avatar/react` and `@suifei/hash-avatar/vue` (ESM and CommonJS, SSR-safe). React and Vue are optional peer dependencies, so the core stays dependency-free. Vue components also work as a plugin (`app.use(HashAvatar)`).
+- TypeScript types for the library and both components.
+- `exports` map in `package.json`. `import HashAvatar from '@suifei/hash-avatar'` works in ES modules.
+- The minified build now carries its license banner.
+- Repository artwork: a README banner, a logo, a social preview card and a world map of 583 avatars (`npm run build:logo`, `npm run build:map`).
+
 ## 1.2.0 — 2026-11-18
 
 **Contract v1 is redrawn again**, at the user's request, while the project still has almost no users. The hash input and the fingerprint ring are unchanged, so every avatar keeps its identity, but its pixels change.

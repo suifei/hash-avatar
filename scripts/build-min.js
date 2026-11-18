@@ -6,8 +6,9 @@ const root = path.join(__dirname, '..');
 const src = path.join(root, 'src/hash-avatar.js'), out = path.join(root, 'src/hash-avatar.min.js');
 const version = require('../package.json').version;
 
-execSync(`npx -y terser@5.36.0 "${src}" --compress passes=2 --mangle --comments false --ecma 2017 ` +
-  `--preamble "/*! @suifei/hash-avatar ${version} | Apache-2.0 | github.com/suifei/hash-avatar */" -o "${out}"`, { stdio: 'inherit' });
+execSync(`npx -y terser@5.36.0 "${src}" --compress passes=2 --mangle --comments false --ecma 2017 ` + `-o "${out}"`, { stdio: 'inherit' });
+fs.writeFileSync(out, `/*! @suifei/hash-avatar ${version} | Apache-2.0 | github.com/suifei/hash-avatar */
+` + fs.readFileSync(out, 'utf8'));
 
 const A = require(src), B = require(out), h = s => crypto.createHash('sha256').update(s).digest('hex');
 let n = 0;

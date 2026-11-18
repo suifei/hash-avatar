@@ -1,12 +1,10 @@
 <div align="center">
 
-<img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=asian&size=180" width="180" alt="flynn · male · youth · asian" title="flynn · male · youth · asian">
-
-<sub>☝️ <code>flynn</code>，由 <code>avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=asian</code> 实时生成</sub>
+<img src="assets/banner.png" width="100%" alt="hash-avatar 生成的 48 个头像">
 
 # hash-avatar
 
-把名称或 email 经 SHA-256 映射成确定性的 SVG 头像。<br>88 个种族 · 10 种画风 · 由哈希驱动的动效 · 可选二维码<br>零依赖 · 同步执行 · 浏览器和 Node 通用
+把名称或 email 经 SHA-256 映射成确定性的 SVG 头像。<br>88 个种族 · 10 种画风 · 由哈希驱动的动效 · 可选二维码<br>零依赖 · 同步执行 · 浏览器、Node、React、Vue 通用
 
 [![npm](https://img.shields.io/npm/v/@suifei/hash-avatar?color=2f6feb&label=npm)](https://www.npmjs.com/package/@suifei/hash-avatar)
 [![CI](https://github.com/suifei/hash-avatar/actions/workflows/ci.yml/badge.svg)](https://github.com/suifei/hash-avatar/actions/workflows/ci.yml)
@@ -128,6 +126,12 @@
 <img src="https://avatar.onrpc.com/v1/flynn.svg?gender=male&age=youth&race=star&size=64" width="64" alt="flynn · race=star" title="flynn · race=star">
 </p>
 
+## 环游世界
+
+583 个头像铺满一张以北极为中心的方位等距投影地图（联合国徽章用的那种投影）。每个陆地格子是一个身份，每个地区从各自的组合里取：东亚有麒麟和熊猫，非洲有狮子和长颈鹿，欧洲有精灵和独角兽，南极沿岸是企鹅。由 [`scripts/build-map.js`](scripts/build-map.js) 生成。
+
+<p align="center"><img src="assets/world.png" width="720" alt="环游世界"></p>
+
 ## 画风
 
 每种画风都是套在同一张图上的 SVG 滤镜，只需几行代码，不用重写渲染器。用 `art=<画风>` 指定。`comic` 加墨线和网点阴影；`pop` 把画面映射到六套四色丝网印刷配色之一（由哈希挑选）；`sketch` 是暖色纸上的铅笔排线；`neon` 把轮廓变成发光灯管。线条类画风只作用于肖像，外圈指纹保持清晰。
@@ -214,13 +218,14 @@
 
 ## 用法
 
-有三种用法：
+有四种用法：
 
 | | 适用场景 | 需要 |
 |---|---|---|
 | [图片 URL](#1-图片-url无需代码) | README、Markdown、任意 `<img>` | 什么都不用 |
 | [CDN 脚本](#2-浏览器cdn) | 在网页里渲染 | 一个 `<script>` 标签 |
 | [npm 包](#3-npm) | Node、打包工具、服务端渲染 | `npm i @suifei/hash-avatar` |
+| [React / Vue 组件](#4-react-与-vue) | React 或 Vue 应用 | `npm i @suifei/hash-avatar` |
 
 ### 1. 图片 URL（无需代码）
 
@@ -277,6 +282,32 @@ const svg = HashAvatar.svg('alice@example.com', { gender: 'female', age: 'youth'
 // 作为 data URL 使用：
 const src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
 ```
+
+在 ES 模块里写 `import HashAvatar from '@suifei/hash-avatar'` 同样可用。
+
+### 4. React 与 Vue
+
+组件随主包一起发布（React、Vue 是可选的 peer 依赖，核心库依然零依赖）。组件把 SVG 内联渲染，所以动效和鼠标悬停的卡牌效果都能用。所有[选项](#选项)都是 prop；`className`、`onClick` 等其他 prop 会传给外层的 `<span>`。自带 TypeScript 类型。
+
+```jsx
+import { HashAvatar } from '@suifei/hash-avatar/react';
+
+<HashAvatar name="flynn" gender="male" race="asian" size={96} />
+<HashAvatar name="luna@example.com" race="cat" art="comic" size={64} className="rounded" />
+```
+
+```vue
+<script setup>
+import { HashAvatar } from '@suifei/hash-avatar/vue';
+</script>
+
+<template>
+  <HashAvatar name="flynn" race="qilin" :size="96" />
+  <HashAvatar :name="user.email" race="any" :animate="false" />
+</template>
+```
+
+Vue 中用 `app.use(HashAvatar)` 可全局注册 `<HashAvatar>`。两个组件都支持服务端渲染（Next.js、Nuxt）。
 
 ## API
 
@@ -356,6 +387,8 @@ npm 主版本号与契约版本对应：`1.x` 永远是契约 v1。
 
 ```sh
 npm test             # node:test，几秒内跑完
+npm run build:logo   # assets/logo.svg，以及 dist/banner.svg、social-preview.svg（渲染成 assets/*.png）
+npm run build:map    # dist/world.svg 世界地图（渲染成 assets/world.png）
 npm run build:min    # 压缩为 src/hash-avatar.min.js，并校验输出的 SVG 逐字节一致（npm publish 前自动执行）
 npm run build:demo   # 把库内联进单文件 dist/index.html
 npm run sheet        # 渲染全部发型、帽子、胡须、衣物、眼镜（需要 rsvg-convert）

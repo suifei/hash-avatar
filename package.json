@@ -1,12 +1,15 @@
 {
   "name": "@suifei/hash-avatar",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Deterministic, animated SVG avatars from a name or email via SHA-256: 88 races, animals and mythical beings, 10 art styles, optional QR code. Zero dependencies, synchronous, browser and Node.",
   "main": "src/hash-avatar.js",
+  "types": "src/hash-avatar.d.ts",
   "unpkg": "src/hash-avatar.min.js",
   "jsdelivr": "src/hash-avatar.min.js",
   "files": [
     "src",
+    "react",
+    "vue",
     "README.md",
     "README.zh-CN.md",
     "LICENSE"
@@ -15,6 +18,8 @@
     "test": "node --test",
     "build:min": "node scripts/build-min.js",
     "build:demo": "node scripts/build-demo.js",
+    "build:logo": "node scripts/build-logo.js",
+    "build:map": "node scripts/build-map.js",
     "sheet": "node tools/sheet.js",
     "worker:dev": "npx wrangler dev",
     "worker:deploy": "npx wrangler deploy",
@@ -28,7 +33,10 @@
     "svg",
     "sha256",
     "deterministic",
-    "generator"
+    "generator",
+    "react",
+    "vue",
+    "component"
   ],
   "author": "suifei",
   "license": "Apache-2.0",
@@ -46,5 +54,35 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
+  },
+  "exports": {
+    ".": {
+      "types": "./src/hash-avatar.d.ts",
+      "default": "./src/hash-avatar.js"
+    },
+    "./react": {
+      "types": "./react/index.d.ts",
+      "import": "./react/index.mjs",
+      "require": "./react/index.js"
+    },
+    "./vue": {
+      "types": "./vue/index.d.ts",
+      "import": "./vue/index.mjs",
+      "require": "./vue/index.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "peerDependencies": {
+    "react": ">=16.8",
+    "vue": ">=3.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    }
   }
 }
